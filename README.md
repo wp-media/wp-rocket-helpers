@@ -25,16 +25,13 @@ For developers and other code-savvy folk, many of WP Rocket’s functions, filte
 
 ## How to use
 
-Each sub-folder in this repository contains at least 2 files:
+Each sub-folder in this repository contains at least 1 PHP file. This is for you code-savvy people to be able to take a look at what the plugin does. The ZIP file is for downloading.
 
-- a PHP file
-- a ZIP file
-
-The PHP file is for you code-savvy people to be able to take a look at what the plugin does. The ZIP file is for downloading.
+Next to any sub-folder there is a ZIP file of the same name. That’s the one you want to install in WordPress.
 
 ### Installation
 
-- Download the ZIP file from a sub-folder.
+- Download one of the ZIP files from this repository.
 - Don’t unpack it! If your browser unpacks it automatically (can happen e.g. with Safari), you will have to re-ZIP it before proceeding.
 - Install the ZIP file through your WordPress admin interface: Go to _Plugins→Add&#160;new→Upload_, upload the ZIP file and activate the plugin.
 

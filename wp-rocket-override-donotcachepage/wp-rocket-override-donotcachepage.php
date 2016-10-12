@@ -40,6 +40,9 @@ add_action(
  */
 function wp_rocket_override_donotcachepage__housekeeping() {
 
+	if ( ! function_exists( 'flush_rocket_htaccess' ) )
+		return false;
+
 	// Update WP Rocket .htaccess rules.
 	flush_rocket_htaccess();
 

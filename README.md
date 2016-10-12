@@ -17,17 +17,17 @@ For developers and other code-savvy folk, many of WP Rocket’s functions, filte
 **All helper plugins from this repository require [WP Rocket](https://wp-rocket.me/) to be up and running on your WordPress site.** If you don’t use WP Rocket on your WordPress site, don’t use any of these helper plugins.
 
 ### Test before using
-> ❗️&#160;**Please use these plugins responsibly!**&#160;❗️
+> ❗️&#160;**Use these plugins responsibly!**&#160;❗️
 >
-> We don’t maintain all of these helper plugins actively at all times; some may target older versions of WP Rocket, or of other plugins. Some may even be outdated.
+> We don’t maintain all of these helper plugins actively at all times; some may target older versions of WP Rocket, or of other plugins. Some may even become outdated over time.
 >
 > **Any plugins from this repository should be activated and tested in a testing environment first before you install them on your productive website.**
 
 ## How to use
 
-Each sub-folder in this repository contains at least 1 PHP file. This is for you code-savvy people to be able to take a look at what the plugin does. The ZIP file is for downloading.
-
-Next to any sub-folder there is a ZIP file of the same name. That’s the one you want to install in WordPress.
+- Each sub-folder in this repository contains at least 1 PHP file and 1 ZIP file.
+- PHP files are for code-savvy people to take a look at what the plugin does.
+- The ZIP file is the one you can download and install in WordPress.
 
 ### Installation
 

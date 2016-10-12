@@ -89,6 +89,9 @@ add_action(
  */
 function wp_rocket_edd_cookie__housekeeping() {
 
+	if ( ! function_exists( 'flush_rocket_htaccess' ) )
+		return false;
+
 	// Update WP Rocket .htaccess rules.
 	flush_rocket_htaccess();
 

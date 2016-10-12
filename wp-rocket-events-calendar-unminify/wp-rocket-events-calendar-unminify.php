@@ -1,8 +1,8 @@
 <?php
 defined( 'ABSPATH' ) or die( 'No direct access here, kiddo.' );
 /**
- * Plugin Name: WP Rocket | Events Calendar Minification Fix
- * Description: Compatibility for <a href="https://wordpress.org/plugins/the-events-calendar/">Events Calendar</a>. Programmatically deactivates minification for events posts, events archives, events taxonomy pages, and posts/pages containing events shortcodes.
+ * Plugin Name: WP Rocket | Events Calendar Unminify
+ * Description: Programmatically deactivates minification for events posts, events archives, events taxonomy pages, and posts/pages containing events shortcodes.
  * Author:      WP Rocket Support Team
  * Author URI:  http://wp-rocket.me/
  * Plugin URI:  https://github.com/wp-media/wp-rocket-helpers/wp-rocket-events-calendar-unminify/
@@ -12,9 +12,10 @@ defined( 'ABSPATH' ) or die( 'No direct access here, kiddo.' );
 
 /**
  * Forces DONOTMINIFYCSS for events posts, archives, and taxnomy pages.
+ *
  * @return void
  */
-add_action( 'template_redirect', function() {
+function wp_rocket_unminify_events_calendar() {
 
 	// Make sure WP Rocket and Events plugin are both active.
 	if ( ! class_exists( 'Tribe__Events__Main' )
@@ -33,14 +34,16 @@ add_action( 'template_redirect', function() {
 	) {
 		rocket_define_donotminify_constants( 'true' );
 	}
-} );
+}
+add_action( 'template_redirect', 'wp_rocket_unminify_events_calendar' );
 
 /**
  * Forces DONOTMINIFYCSS for posts containing [tribe_mini_calendar] shortcode.
+ * 
  * @param  string $content Post content
  * @return string          Post content
  */
-add_action( 'the_content', function( $content ) {
+function wp_rocket_unminify_events_calendar__shortcode( $content ) {
 
 	// Make sure WP Rocket and Events plugin are both active.
 	if ( ! class_exists( 'Tribe__Events__Main' )
@@ -57,4 +60,5 @@ add_action( 'the_content', function( $content ) {
 	}
 
 	return $content;
-} );
+}
+add_action( 'the_content', 'wp_rocket_unminify_events_calendar__shortcode' );

@@ -12,7 +12,7 @@ defined( 'ABSPATH' ) or die( 'No direct access here, kiddo.' );
 
 /**
  * Exclude external scripts from WP Rocket’s file optimization.
- * 
+ *
  * @param  array  $external_js_urls Array of external domains
  * @return array                    Extended array of external domains
  */
@@ -26,6 +26,14 @@ function wp_rocket_exclude_external_js_from_optimization( $external_js_urls ) {
 	$external_js_urls[] = 'ajax.googleapis.com';
 	$external_js_urls[] = 'ssl.google-analytics.com';
 	$external_js_urls[] = 'use.typekit.net';
+
+	/**
+	 * This excludes s0.wp.com and s1.wp.com up to s9.wp.com (which might not
+	 * even exist yet, but you never know).
+	 */
+	foreach ( range( 0, 9 ) as $n ) {
+		$external_js[] = "s$n.wp.com";
+	}
 
 	return $external_js_urls;
 }

@@ -1,4 +1,5 @@
 <?php
+defined( 'ABSPATH' ) or die( 'No direct access to this file.' );
 /**
  * Plugin Name: WP Rocket | Unlazyload WooCommerce Product Images
  * Description: Disables LazyLoad on WooCommerce main shop page, product category pages, product tag pages, and single product pages.
@@ -8,8 +9,6 @@
  * License:     GNU General Public License v3 or later
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
  */
-
-defined( 'ABSPATH' ) or die( 'Cheatin&#8217; uh?' );
 
 /**
  * Programmatically disables LazyLoad for specific WooCommerce pages.
@@ -63,6 +62,10 @@ function wp_rocket_unlazyload_products__render_admin_notice() {
 	if ( 'admin_notices' === current_filter() && ( isset( $current_screen ) && 'settings_page_wprocket' !== $current_screen->base ) ) {
 		return;
 	}
+
+	// Only if LazyLoad is enabled.
+	if ( ! get_rocket_option( 'lazyload' ) )
+		return false;
 
 	// Render message.
 	printf(

@@ -29,6 +29,8 @@ For developers and other code-savvy folk, many of WP Rocket’s functions, filte
 - PHP files are for code-savvy people to take a look at what the plugin does.
 - The ZIP file is the one you can download and install in WordPress.
 
+_Not familiar with GitHub? Here’s a [animated GIF](/how-to-download-zip.gif) on how to download one of the ZIP files from this repository._
+
 ### Installation
 
 - Download one of the ZIP files from this repository.

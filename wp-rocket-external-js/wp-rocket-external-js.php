@@ -19,13 +19,14 @@ defined( 'ABSPATH' ) or die( 'No direct access here, kiddo.' );
 function wp_rocket_exclude_external_js_from_optimization( $external_js_urls ) {
 
 	/**
-	 * These are sample, define your own!
+	 * These are sample hosts, define your own!
 	 * @link http://docs.wp-rocket.me/article/39-excluding-external-js-from-minification
 	 */
 	$external_js_urls[] = 'cdnjs.cloudflare.com';
-	$external_js_urls[] = 'ajax.googleapis.com';
-	$external_js_urls[] = 'ssl.google-analytics.com';
-	$external_js_urls[] = 'use.typekit.net';
+	$external_js_urls[] = 'connect.facebook.net';
+	$external_js_urls[] = 'apis.google.com';
+	$external_js_urls[] = 'maps.googleapis.com';
+	$external_js_urls[] = 'www.google-analytics.com';
 
 	/**
 	 * This excludes s0.wp.com and s1.wp.com up to s9.wp.com (which might not

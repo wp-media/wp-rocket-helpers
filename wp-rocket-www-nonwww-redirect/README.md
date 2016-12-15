@@ -1,0 +1,17 @@
+# WP Rocket | Redirect www to non-www
+
+Adds rules to the .htaccess file in order to always redirect www. requests to non-www URLs.
+
+📝&#160;&#160;**Manual code edit required before use!**
+
+You will have to manually edit 2 lines of code: enter your domain instead of `www.example\.com` (keep the backslash!) and `http://example.com`.
+
+Documentation:
+* [Fixing non-www Redirection](http://docs.wp-rocket.me/article/40-fixing-non-www-redirection)
+
+To be used with:
+* any setup
+
+Last tested with:
+* WP Rocket 2.8.x
+* WordPress 4.7.x

@@ -16,26 +16,33 @@ defined( 'ABSPATH' ) or die( 'No direct access here, kiddo.' );
  * @param  array  $external_js_urls Array of external domains
  * @return array                    Extended array of external domains
  */
-function wp_rocket_exclude_external_js_from_optimization( $external_js_urls ) {
+function wp_rocket_exclude_external_js_from_optimization( $external_js_hosts ) {
 
 	/**
 	 * These are sample hosts, define your own!
 	 * @link http://docs.wp-rocket.me/article/39-excluding-external-js-from-minification
 	 */
-	$external_js_urls[] = 'cdnjs.cloudflare.com';
-	$external_js_urls[] = 'connect.facebook.net';
-	$external_js_urls[] = 'apis.google.com';
-	$external_js_urls[] = 'maps.googleapis.com';
-	$external_js_urls[] = 'www.google-analytics.com';
+	$external_js_hosts[] = 'apis.google.com';
+	$external_js_hosts[] = 'assets.pinterest.com';
+	$external_js_hosts[] = 'cdnjs.cloudflare.com';
+	$external_js_hosts[] = 'code.jquery.com';
+	$external_js_hosts[] = 'connect.facebook.net';
+	$external_js_hosts[] = 'js.metrix.getconversion.net';
+	$external_js_hosts[] = 'maps.googleapis.com';
+	$external_js_hosts[] = 'platform.twitter.com';
+	$external_js_hosts[] = 'scripts.mediavine.com';
+	$external_js_hosts[] = 'www.google-analytics.com';
+	$external_js_hosts[] = 'www.youtube.com';
 
 	/**
-	 * This excludes s0.wp.com and s1.wp.com up to s9.wp.com (which might not
-	 * even exist yet, but you never know).
+	 * This excludes s0.wp.com and s1.wp.com up to s9.wp.com and
+	 * v1.wordpress.com (VideoPress) up to v9.wordpress.com.
 	 */
 	foreach ( range( 0, 9 ) as $n ) {
-		$external_js[] = "s$n.wp.com";
+		$external_js_hosts[] = "s$n.wp.com";
+		$external_js_hosts[] = "v$n.wordpress.com";
 	}
 
-	return $external_js_urls;
+	return $external_js_hosts;
 }
 add_filter( 'rocket_minify_excluded_external_js', 'wp_rocket_exclude_external_js_from_optimization' );

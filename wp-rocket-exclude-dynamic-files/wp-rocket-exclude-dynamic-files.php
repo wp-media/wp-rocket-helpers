@@ -16,7 +16,7 @@ defined( 'ABSPATH' ) or die( 'No direct access here.' );
  * @param  array  $excluded_files   Array of script URLs to be excluded
  * @return array             Extended array script URLs to be excluded
  */
-function wprocket_exclude_dynamic_files( $excluded_files = array() ) {
+function wp_rocket_exclude_dynamic_files( $excluded_files = array() ) {
 
 	/**
 	 * This is a sample file URL, define your own!
@@ -25,4 +25,4 @@ function wprocket_exclude_dynamic_files( $excluded_files = array() ) {
 
 	return $excluded_files;
 }
-add_filter( 'rocket_exclude_static_dynamic_resources', 'wprocket_exclude_dynamic_files' );
+add_filter( 'rocket_exclude_static_dynamic_resources', 'wp_rocket_exclude_dynamic_files' );

@@ -1,5 +1,5 @@
 <?php
-defined( 'ABSPATH' ) or die( 'No direct access here, kiddo.' );
+defined( 'ABSPATH' ) or die( 'No direct access here.' );
 /**
  * Plugin Name: WP Rocket | External Script Handler
  * Description: Prevents external JavaScript calls from being moved to the top of the document during WP Rocket’s minification process.
@@ -19,24 +19,27 @@ defined( 'ABSPATH' ) or die( 'No direct access here, kiddo.' );
 function wp_rocket_exclude_external_js_from_optimization( $external_js_hosts ) {
 
 	/**
-	 * These are sample hosts, define your own!
+	 * These are popular external JS hosts, but make sure to define your own!
 	 * @link http://docs.wp-rocket.me/article/39-excluding-external-js-from-minification
 	 */
-	$external_js_hosts[] = 'apis.google.com';
-	$external_js_hosts[] = 'assets.pinterest.com';
-	$external_js_hosts[] = 'cdnjs.cloudflare.com';
-	$external_js_hosts[] = 'code.jquery.com';
-	$external_js_hosts[] = 'connect.facebook.net';
-	$external_js_hosts[] = 'js.metrix.getconversion.net';
-	$external_js_hosts[] = 'maps.googleapis.com';
-	$external_js_hosts[] = 'platform.twitter.com';
-	$external_js_hosts[] = 'scripts.mediavine.com';
-	$external_js_hosts[] = 'www.google-analytics.com';
-	$external_js_hosts[] = 'www.youtube.com';
+	$external_js_hosts[] = 'ajax.googleapis.com';      // custom jQuery
+	$external_js_hosts[] = 'apis.google.com';          // Google+ sharing
+	$external_js_hosts[] = 'assets.pinterest.com';     // Pinterest sharing
+	$external_js_hosts[] = 'cdnjs.cloudflare.com';     // custom jQuery
+	$external_js_hosts[] = 'code.jquery.com';          // custom jQuery
+	$external_js_hosts[] = 'connect.facebook.net';     // Facebook sharing
+	$external_js_hosts[] = 'maps.googleapis.com';      // Google maps
+	$external_js_hosts[] = 'platform.twitter.com';     // embedded Twitter
+	$external_js_hosts[] = 'secure.gravatar.com';      // Gravatar pictures
+	$external_js_hosts[] = 'use.typekit.net';          // Typekit fonts
+	$external_js_hosts[] = 'www.google.com';           // Google re-captcha
+	$external_js_hosts[] = 'www.google-analytics.com'; // Google Analytics
+	$external_js_hosts[] = 'www.youtube.com';          // embedded YouTube
 
 	/**
 	 * This excludes s0.wp.com and s1.wp.com up to s9.wp.com and
 	 * v1.wordpress.com (VideoPress) up to v9.wordpress.com.
+	 * Not sure how many of those exist, so 0-9 seemed safe. :)
 	 */
 	foreach ( range( 0, 9 ) as $n ) {
 		$external_js_hosts[] = "s$n.wp.com";

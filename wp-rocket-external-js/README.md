@@ -1,4 +1,4 @@
-# WP Rocket | External JavaScript Handler
+# WP Rocket | External Script Handler
 
 Prevents external JavaScript calls from being moved to the top of the document during WP Rocket’s minification process.
 
@@ -11,5 +11,5 @@ To be used with:
 * any setup where JS minification is enabled and calls to external JavaScript files are made
 
 Last tested with:
-* WP Rocket 2.8.x
-* WordPress 4.6.x
+* WP Rocket 2.9.x
+* WordPress 4.7.x

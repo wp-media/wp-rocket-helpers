@@ -14,12 +14,19 @@ defined( 'ABSPATH' ) or die( 'No direct access here.' );
 /**
  * Print debug output to footer of HTML source.
  */
-add_action( 'wp_footer', function() {
+function wp_rocket_constants_debug_helper() {
+
+	/**
+	 * Disable HTML minification on the fly, otherwise the HTML comment would
+	 * get stripped from the source code.
+	 */
+	add_filter( 'get_rocket_option_minify_html', '__return_false' );
 
 	$html  = PHP_EOL . PHP_EOL;
 	$html .= '<!--' . PHP_EOL;
 	$html .= '#################################################### ' . PHP_EOL . PHP_EOL;
-	$html .= 'WP ROCKET DEBUG: ' . PHP_EOL . PHP_EOL;
+	$html .= '## WP ROCKET DEBUG ##' . PHP_EOL;
+	$html .= '(HTML minification disabled "on the fly" by this helper plugin.)' . PHP_EOL . PHP_EOL;
 
 	$html .= '- constant WP_CACHE is ';
 	$html .= defined( 'WP_CACHE' ) ? '"' . var_export( WP_CACHE, true ) . '"' : 'not defined';
@@ -46,7 +53,8 @@ add_action( 'wp_footer', function() {
 
 	echo $html;
 
-}, PHP_INT_MAX );
+}
+add_action( 'wp_footer', 'wp_rocket_constants_debug_helper', PHP_INT_MAX );
 
 /**
  * Try to override DONOTCACHEPAGE constant.

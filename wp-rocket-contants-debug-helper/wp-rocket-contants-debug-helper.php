@@ -3,7 +3,7 @@ defined( 'ABSPATH' ) or die( 'No direct access here.' );
 /**
  * Plugin Name: WP Rocket | Constants Debug Helper
  * Description: Checks for defined constants (WP_CACHE, DONOTCACHEPAGE, DONOTMINIFY, DONOTMINIFYCSS, DONOTMINIFYJS) and prints their values as an HTML comment in the footer of the HTML source code.
- * Plugin URI:  https://github.com/wp-media/wp-rocket-helpers/wp-rocket-constants-debug-helper/
+ * Plugin URI:  https://github.com/wp-media/wp-rocket-helpers/tree/master/wp-rocket-constants-debug-helper/
  * Author:      WP Rocket Support Team
  * Author URI:  http://wp-rocket.me/
  * License:     GNU General Public License v3 or later
@@ -28,25 +28,35 @@ function wp_rocket_constants_debug_helper() {
 	$html .= '## WP ROCKET DEBUG ##' . PHP_EOL;
 	$html .= '(HTML minification disabled "on the fly" by this helper plugin.)' . PHP_EOL . PHP_EOL;
 
-	$html .= '- constant WP_CACHE is ';
-	$html .= defined( 'WP_CACHE' ) ? '"' . var_export( WP_CACHE, true ) . '"' : 'not defined';
-	$html .= PHP_EOL . PHP_EOL;
+	/**
+	 * Cannot use var_export() or print_r() inside an output buffer, so
+	 * apologies, this looks a bit wonky.
+	 */
+	$constant_names = array(
+		'WP_CACHE',
+		'DONOTCACHEPAGE',
+		'DONOTMINIFY',
+		'DONOTMINIFYCSS',
+		'DONOTMINIFYJS',
+	);
 
-	$html .= '- constant DONOTCACHEPAGE is ';
-	$html .= defined( 'DONOTCACHEPAGE' ) ? '"' . var_export( DONOTCACHEPAGE, true ) . '"' : 'not defined';
-	$html .= PHP_EOL . PHP_EOL;
+	$constant_values = array();
 
-	$html .= '- constant DONOTMINIFY is ';
-	$html .= defined( 'DONOTMINIFY' ) ? '"' . var_export( DONOTMINIFY, true ) . '"' : 'not defined';
-	$html .= PHP_EOL . PHP_EOL;
+	foreach ( $constant_names as $constant ) {
 
-	$html .= '- constant DONOTMINIFYCSS is ';
-	$html .= defined( 'DONOTMINIFYCSS' ) ? '"' . var_export( DONOTMINIFYCSS, true ) . '"' : 'not defined';
-	$html .= PHP_EOL . PHP_EOL;
+		if( ! defined( $constant ) ) {
+			$constant_values[ $constant ] = 'not defined';
+		} else {
+			$constant_values[ $constant ] = true === constant( $constant ) || 'true' === constant( $constant ) ? 'true' : 'false';
+		}
 
-	$html .= '- constant DONOTMINIFYJS is ';
-	$html .= defined( 'DONOTMINIFYJS' ) ? '"' . var_export( DONOTMINIFYJS, true ) . '"' : 'not defined';
-	$html .= PHP_EOL . PHP_EOL;
+		$html .= sprintf(
+			'- constant %1$s is %2$s',
+			$constant,
+			$constant_values[ $constant ]
+		);
+		$html .= PHP_EOL . PHP_EOL;
+	}
 
 	$html .= '####################################################' . PHP_EOL;
 	$html .= '-->' . PHP_EOL . PHP_EOL;

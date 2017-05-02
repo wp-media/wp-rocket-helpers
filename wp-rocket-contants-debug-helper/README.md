@@ -9,6 +9,29 @@ Checks for defined constants (`WP_CACHE`, `DONOTCACHEPAGE`, `DONOTMINIFY`, `DONO
 - Look for an HTML comment starting with `WP ROCKET DEBUG` towards the bottom of the source code view.
 - Each of the above constants gets listed in the comment.
 
+## Sample output in HTML source view
+
+```
+<!--
+####################################################
+
+## WP ROCKET DEBUG ##
+(HTML minification disabled "on the fly" by this helper plugin.)
+
+- constant WP_CACHE is true
+
+- constant DONOTCACHEPAGE is true
+
+- constant DONOTMINIFY is true
+
+- constant DONOTMINIFYCSS is not defined
+
+- constant DONOTMINIFYJS is not defined
+
+####################################################
+-->
+```
+
 To be used with:
 * any setup
 

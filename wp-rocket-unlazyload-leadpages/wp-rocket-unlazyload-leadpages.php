@@ -3,7 +3,7 @@ defined( 'ABSPATH' ) or die( 'No direct access to this file.' );
 /**
  * Plugin Name: WP Rocket | UnLazyLoad LeadPages
  * Description: Disables LazyLoad for iFrames/videos on LeadPages URLs.
- * Plugin URI:  https://github.com/wp-media/wp-rocket-helpers/wp-rocket-unlazyload-leadpages/
+ * Plugin URI:  https://github.com/wp-media/wp-rocket-helpers/tree/master/wp-rocket-unlazyload-leadpages/
  * Author:      WP Rocket Support Team
  * Author URI:  http://wp-rocket.me/
  * License:     GNU General Public License v3 or later

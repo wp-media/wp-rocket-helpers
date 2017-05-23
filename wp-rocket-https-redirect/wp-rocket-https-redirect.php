@@ -3,7 +3,7 @@ defined( 'ABSPATH' ) or die( 'No direct access to this file.' );
 /**
 * Plugin Name: WP Rocket | Redirect HTTP to HTTPS
 * Description: Adds rules to the .htaccess file in order to always redirect HTTP requests to HTTPS.
- * Plugin URI:  https://github.com/wp-media/wp-rocket-helpers/wp-rocket-https-redirect/
+ * Plugin URI:  https://github.com/wp-media/wp-rocket-helpers/tree/master/wp-rocket-https-redirect/
  * Author:      WP Rocket Support Team
  * Author URI:  http://wp-rocket.me/
  * License:     GNU General Public License v3 or later

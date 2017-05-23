@@ -1,9 +1,9 @@
 <?php
 defined( 'ABSPATH' ) or die( 'No direct access to this file.' );
 /**
-* Plugin Name: WP Rocket | Meta Charset Hack
-* Description: Moves the <code>&lt;meta charset></code> tag back to the top of <code>&lt;head></code>.
- * Plugin URI:  https://github.com/wp-media/wp-rocket-helpers/wp-rocket-meta-charset-hack/
+ * Plugin Name: WP Rocket | Meta Charset Hack
+ * Description: Moves the <code>&lt;meta charset></code> tag back to the top of <code>&lt;head></code>.
+ * Plugin URI:  https://github.com/wp-media/wp-rocket-helpers/tree/master/wp-rocket-meta-charset-hack/
  * Author:      WP Rocket Support Team
  * Author URI:  http://wp-rocket.me/
  * License:     GNU General Public License v3 or later

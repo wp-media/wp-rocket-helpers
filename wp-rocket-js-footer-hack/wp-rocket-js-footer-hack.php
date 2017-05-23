@@ -3,7 +3,7 @@ defined( 'ABSPATH' ) or die( 'No direct access to this file.' );
 /**
  * Plugin Name: WP Rocket | JS Footer Hack
  * Description: Injects a custom JavaScript tag before closing body tag.
- * Plugin URI:  https://github.com/wp-media/wp-rocket-helpers/wp-rocket-js-footer-hack/
+ * Plugin URI:  https://github.com/wp-media/wp-rocket-helpers/tree/master/wp-rocket-js-footer-hack/
  * Author:      WP Rocket Support Team
  * Author URI:  http://wp-rocket.me/
  * License:     GNU General Public License v3 or later
@@ -35,6 +35,12 @@ function wp_rocket_js_footer_hack__print_js() {
 function wp_rocket_js_footer_hack( $buffer ) {
 
 	$script_tag = wp_rocket_js_footer_hack__print_js();
+
+	// Do not process example code.
+	if ( 'http://example.com/example.js' === $script_tag ) {
+		
+		return $buffer;
+	}
 
 	preg_match_all( '/(<\/body>)/i', $buffer, $tags_match );
 

@@ -3,7 +3,7 @@ defined( 'ABSPATH' ) or die( 'No direct access to this file.' );
 /**
  * Plugin Name: WP Rocket | No Cache for Admins
  * Description: Never serve cached pages to logged-in administrators. Ever.
- * Plugin URI:  https://github.com/wp-media/wp-rocket-helpers/wp-rocket-no-cache-for-admins/
+ * Plugin URI:  https://github.com/wp-media/wp-rocket-helpers/tree/master/wp-rocket-no-cache-for-admins/
  * Author:      WP Rocket Support Team
  * Author URI:  http://wp-rocket.me/
  * License:     GNU General Public License v3 or later
@@ -71,7 +71,7 @@ function wp_rocket_no_cache_for_admins__nope() {
 		// Render admin notice.
 		printf(
 			'<div class="notice notice-warning"><p>%s</p></div>',
-			__( '☝️&#160;<strong>WP Rocket | No Cache for Admins:</strong> You’re using the same cache for all logged-in users. Therefore this plugin won’t be able to prevent caching for administrators. You will see cached pages when you visit your website, even as an administrator.' )
+			__( '☝️&#160;<strong>WP Rocket | No Cache for Admins:</strong> You are using the same cache for all logged-in users. Therefore this plugin will not be able to prevent caching for administrators. You will see cached pages when you visit your website, even as an administrator.' )
 		);
 
 		return true;

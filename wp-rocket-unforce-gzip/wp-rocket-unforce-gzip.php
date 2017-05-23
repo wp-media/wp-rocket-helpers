@@ -5,7 +5,7 @@ defined( 'ABSPATH' ) or die( 'No direct access here, kiddo.' );
  * Description: Removes GZIP-related .htaccess rules.
  * Author:      WP Rocket Support Team
  * Author URI:  http://wp-rocket.me/
- * Plugin URI:  https://github.com/wp-media/wp-rocket-helpers/wp-rocket-unforce-gzip/
+ * Plugin URI:  https://github.com/wp-media/wp-rocket-helpers/tree/master/wp-rocket-unforce-gzip/
  * License:     GNU General Public License v3 or later
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
  */

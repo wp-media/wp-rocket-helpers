@@ -3,7 +3,7 @@ defined( 'ABSPATH' ) or die( 'No direct access to this file.' );
 /**
  * Plugin Name: WP Rocket | Purge Custom Post URLs
  * Description: Adds a custom set of URLs to be purged from the cache when a post is updated.
- * Plugin URI:  https://github.com/wp-media/wp-rocket-helpers/wp-rocket-purge-custom-post-urls/
+ * Plugin URI:  https://github.com/wp-media/wp-rocket-helpers/tree/master/wp-rocket-purge-custom-post-urls/
  * Author:      WP Rocket Support Team
  * Author URI:  http://wp-rocket.me/
  * License:     GNU General Public License v3 or later

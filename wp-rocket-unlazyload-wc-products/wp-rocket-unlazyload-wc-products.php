@@ -3,7 +3,7 @@ defined( 'ABSPATH' ) or die( 'No direct access to this file.' );
 /**
  * Plugin Name: WP Rocket | Unlazyload WooCommerce Product Images
  * Description: Disables LazyLoad on WooCommerce main shop page, product category pages, product tag pages, and single product pages.
- * Plugin URI:  https://github.com/wp-media/wp-rocket-helpers/wp-rocket-unlazyload-wc-products/
+ * Plugin URI:  https://github.com/wp-media/wp-rocket-helpers/tree/master/wp-rocket-unlazyload-wc-products/
  * Author:      WP Rocket Support Team
  * Author URI:  http://wp-rocket.me/
  * License:     GNU General Public License v3 or later

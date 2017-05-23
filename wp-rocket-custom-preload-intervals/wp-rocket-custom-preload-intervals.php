@@ -3,7 +3,7 @@ defined( 'ABSPATH' ) or die( 'No direct access to this file.' );
 /**
  * Plugin Name: WP Rocket | Custom Sitemap Preload Intervals
  * Description: Adds a custom set of sitemap preload intervals in WP Rocket’s Preload settings tab.
- * Plugin URI:  https://github.com/wp-media/wp-rocket-helpers/wp-rocket-custom-preload-intervals/
+ * Plugin URI:  https://github.com/wp-media/wp-rocket-helpers/tree/master/wp-rocket-custom-preload-intervals/
  * Author:      WP Rocket Support Team
  * Author URI:  http://wp-rocket.me/
  * License:     GNU General Public License v3 or later

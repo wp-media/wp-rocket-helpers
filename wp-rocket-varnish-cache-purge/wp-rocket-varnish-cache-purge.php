@@ -5,7 +5,7 @@ defined( 'ABSPATH' ) or die( 'No direct access here, kiddo.' );
  * Description: Forces Varnish cache purging with WP Rocket 2.6.8 to 2.6.16.
  * Author:      WP Rocket Support Team
  * Author URI:  http://wp-rocket.me/
- * Plugin URI:  https://github.com/wp-media/wp-rocket-helpers/wp-rocket-varnish-cache-purge/
+ * Plugin URI:  https://github.com/wp-media/wp-rocket-helpers/tree/master/wp-rocket-varnish-cache-purge/
  * License:     GNU General Public License v3 or later
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
  */

@@ -5,7 +5,7 @@ defined( 'ABSPATH' ) or die( 'No direct access here.' );
  * Description: Prevents external JavaScript calls from being moved to the top of the document during WP Rocket’s minification process.
  * Author:      WP Rocket Support Team
  * Author URI:  http://wp-rocket.me/
- * Plugin URI:  https://github.com/wp-media/wp-rocket-helpers/wp-rocket-external-js/
+ * Plugin URI:  https://github.com/wp-media/wp-rocket-helpers/tree/master/wp-rocket-external-js/
  * License:     GNU General Public License v3 or later
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
  */
@@ -19,7 +19,7 @@ defined( 'ABSPATH' ) or die( 'No direct access here.' );
 function wp_rocket_exclude_external_js_from_optimization( $external_js_hosts ) {
 
 	/**
-	 * These are popular external JS hosts, but make sure to define your own!
+	 * These are popular JS hosts. Make sure to define your own furhter below.
 	 * @link http://docs.wp-rocket.me/article/39-excluding-external-js-from-minification
 	 */
 	$external_js_hosts[] = 'ajax.googleapis.com';      // custom jQuery
@@ -45,6 +45,11 @@ function wp_rocket_exclude_external_js_from_optimization( $external_js_hosts ) {
 		$external_js_hosts[] = "s$n.wp.com";
 		$external_js_hosts[] = "v$n.wordpress.com";
 	}
+
+	/**
+	 * Put your custom code here!
+	 */
+	// $external_js_hosts[] = 'example.com';
 
 	return $external_js_hosts;
 }

@@ -1,9 +1,9 @@
 <?php
 defined( 'ABSPATH' ) or die( 'No direct access to this file.' );
 /**
-* Plugin Name: WP Rocket | Redirect www to non-www
-* Description: Fixes redirection from www to non-www URLs.
- * Plugin URI:  https://github.com/wp-media/wp-rocket-helpers/wp-rocket-www-nonwww-redirect/
+ * Plugin Name: WP Rocket | Redirect www to non-www
+ * Description: Fixes redirection from www to non-www URLs.
+ * Plugin URI:  https://github.com/wp-media/wp-rocket-helpers/tree/master/wp-rocket-www-nonwww-redirect/
  * Author:      WP Rocket Support Team
  * Author URI:  http://wp-rocket.me/
  * License:     GNU General Public License v3 or later

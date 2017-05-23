@@ -5,7 +5,7 @@ defined( 'ABSPATH' ) or die( 'No direct access here, kiddo.' );
  * Description: Programmatically deactivates minification for events posts, events archives, events taxonomy pages, and posts/pages containing events shortcodes.
  * Author:      WP Rocket Support Team
  * Author URI:  http://wp-rocket.me/
- * Plugin URI:  https://github.com/wp-media/wp-rocket-helpers/wp-rocket-events-calendar-unminify/
+ * Plugin URI:  https://github.com/wp-media/wp-rocket-helpers/tree/master/wp-rocket-events-calendar-unminify/
  * License:     GNU General Public License v3 or later
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
  */
@@ -39,7 +39,7 @@ add_action( 'template_redirect', 'wp_rocket_unminify_events_calendar' );
 
 /**
  * Forces DONOTMINIFYCSS for posts containing [tribe_mini_calendar] shortcode.
- * 
+ *
  * @param  string $content Post content
  * @return string          Post content
  */

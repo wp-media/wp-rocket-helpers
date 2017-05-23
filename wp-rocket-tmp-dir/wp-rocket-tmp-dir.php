@@ -3,7 +3,7 @@ defined( 'ABSPATH' ) or die( 'No direct access to this file.' );
 /**
  * Plugin Name: WP Rocket | TMP Directory
  * Description: Sets a custom tmp directory for WP Rocket.
- * Plugin URI:  https://github.com/wp-media/wp-rocket-helpers/wp-rocket-tmp-dir/
+ * Plugin URI:  https://github.com/wp-media/wp-rocket-helpers/tree/master/wp-rocket-tmp-dir/
  * Author:      WP Rocket Support Team
  * Author URI:  http://wp-rocket.me/
  * License:     GNU General Public License v3 or later
@@ -24,5 +24,10 @@ function wp_rocket__tmp_dir() {
 	 * Stop editing.
 	 */
 }
-add_filter( 'rocket_override_min_cachepath', '__return_true' );
-add_filter( 'rocket_min_cachePath', 'wp_rocket__tmp_dir' );
+
+// Do not process example code.
+if ( '/path/to/tmp_dir/' !== wp_rocket__tmp_dir() ) {
+
+	add_filter( 'rocket_override_min_cachepath', '__return_true' );
+	add_filter( 'rocket_min_cachePath', 'wp_rocket__tmp_dir' );
+}

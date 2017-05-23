@@ -3,7 +3,7 @@ defined( 'ABSPATH' ) or die( 'No direct access to this file.' );
 /**
  * Plugin Name: WP Rocket | UnLazyLoad Essential Grid
  * Description: Disables WP Rocket’s LazyLoad feature on pages with <a href="https://www.themepunch.com/portfolio/essential-grid-wordpress-plugin/">Essential Grid</a>.
- * Plugin URI:  https://github.com/wp-media/wp-rocket-helpers/wp-rocket-unlazyload-essential-grid/
+ * Plugin URI:  https://github.com/wp-media/wp-rocket-helpers/tree/master/wp-rocket-unlazyload-essential-grid/
  * Author:      WP Rocket Support Team
  * Author URI:  http://wp-rocket.me/
  * License:     GNU General Public License v3 or later

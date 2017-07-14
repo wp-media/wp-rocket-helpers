@@ -31,7 +31,7 @@ if ( ! function_exists( 'is_wp_rocket_active' ) ) {
  */
 function wp_rocket_cache_feed( $uri ) {
 	$feed = '(.*)/' . $GLOBALS['wp_rewrite']->feed_base . '/?';
-	if ( in_array( $feed, $uri ) ) {
+	if ( in_array( $feed, $uri, true ) ) {
 		$uri = array_flip( $uri );
 		unset( $uri[ $feed ] );
 		$uri = array_flip( $uri );

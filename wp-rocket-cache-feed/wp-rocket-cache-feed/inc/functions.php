@@ -48,7 +48,7 @@ function wp_rocket_cache_feed( $uri ) {
  * @return string HTML for the notice
  */
 function wp_rocket_cache_feed_notice() {
-	echo '<div class="error"><p>' . __( 'This plugin requires WP Rocket to be active. Please activate WP Rocket before activating WP Rocket for DreamPress.', 'wp-rocket-cache-feed' ) . '</p></div>';
+	echo '<div class="notice notice-error"><p>' . __( 'This plugin requires WP Rocket to be active. Please activate WP Rocket before activating WP Rocket for DreamPress.', 'wp-rocket-cache-feed' ) . '</p></div>';
 
 	if ( isset( $_GET['activate'] ) ) {
 		unset( $_GET['activate'] );

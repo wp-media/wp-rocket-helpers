@@ -1,6 +1,6 @@
 # WP Rocket | Constants Debug Helper
 
-Checks for defined constants (`WP_CACHE`, `DONOTCACHEPAGE`, `DONOTMINIFY`, `DONOTMINIFYCSS`, `DONOTMINIFYJS`) and prints their values as an HTML comment in the footer of the HTML source code.
+Checks for defined constants (`WP_CACHE`, `DONOTCACHEPAGE`, `DONOTMINIFY`, `DONOTMINIFYCSS`, `DONOTMINIFYJS`) and the `do_rocket_generate_caching_files` filter, prints their values as an HTML comment in the footer of the HTML source code.
 
 ## How to use
 - Once you have installed and activated the plugin, clear the cache.
@@ -9,7 +9,7 @@ Checks for defined constants (`WP_CACHE`, `DONOTCACHEPAGE`, `DONOTMINIFY`, `DONO
 - Look for an HTML comment starting with `WP ROCKET DEBUG` towards the bottom of the source code view.
 - Each of the above constants gets listed in the comment.
 
-## Sample output in HTML source view
+## Default output in HTML source view
 
 ```
 <!--
@@ -20,13 +20,15 @@ Checks for defined constants (`WP_CACHE`, `DONOTCACHEPAGE`, `DONOTMINIFY`, `DONO
 
 - constant WP_CACHE is true
 
-- constant DONOTCACHEPAGE is true
+- constant DONOTCACHEPAGE is not defined
 
-- constant DONOTMINIFY is true
+- constant DONOTMINIFY is not defined
 
 - constant DONOTMINIFYCSS is not defined
 
 - constant DONOTMINIFYJS is not defined
+
+- filter do_rocket_generate_caching_files is true
 
 ####################################################
 -->

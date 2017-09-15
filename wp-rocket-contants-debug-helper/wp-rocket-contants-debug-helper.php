@@ -58,6 +58,11 @@ function wp_rocket_constants_debug_helper() {
 		$html .= PHP_EOL . PHP_EOL;
 	}
 
+	$maybe_filter = has_filter( 'do_rocket_generate_caching_files' );
+	$filter_value = true === $maybe_filter || 'true' === $maybe_filter ? 'true' : 'false';
+
+	$html .= sprintf( '- filter do_rocket_generate_caching_files is %s', $filter_value ) . PHP_EOL . PHP_EOL;
+
 	$html .= '####################################################' . PHP_EOL;
 	$html .= '-->' . PHP_EOL . PHP_EOL;
 

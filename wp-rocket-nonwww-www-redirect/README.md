@@ -1,4 +1,4 @@
-# WP Rocket | Redirect www to non-www
+# WP Rocket | Redirect non-www to www
 
 Adds rules to the .htaccess file in order to always redirect non-www. requests to www URLs.
 

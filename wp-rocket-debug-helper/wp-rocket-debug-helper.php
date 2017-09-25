@@ -14,7 +14,7 @@ defined( 'ABSPATH' ) or die( 'No direct access here.' );
 /**
  * Print debug output to footer of HTML source.
  */
-function wp_rocket_constants_debug_helper() {
+function wp_rocket_debug_helper() {
 
 	/**
 	 * Disable HTML minification on the fly, otherwise the HTML comment would
@@ -69,9 +69,24 @@ function wp_rocket_constants_debug_helper() {
 	$html .= PHP_EOL . '## Filters' . PHP_EOL . PHP_EOL;
 
 	$maybe_filter = has_filter( 'do_rocket_generate_caching_files' );
-	$filter_value = true === $maybe_filter || 'true' === $maybe_filter ? 'true' : 'false';
+	$filter_output = true === $maybe_filter || 'true' === $maybe_filter ? 'set' : 'not set';
 
-	$html .= sprintf( '- filter do_rocket_generate_caching_files is %s', $filter_value ) . PHP_EOL;
+	global $wp_filter;
+
+	foreach ( $wp_filter as $filter_name => $filter_value ) {
+		if ( false !== strpos( $filter_name, 'do_rocket_generate_caching_files' ) ) {
+
+			$current_filter = $filter_value->current();
+
+			foreach ( $current_filter as $key => $value ) {
+
+				$filter_output .= sprintf( ', value is: %s', var_export( $value['function'], true ) );
+			}
+
+		}
+	}
+
+	$html .= sprintf( '- filter do_rocket_generate_caching_files is %s', $filter_output ) . PHP_EOL;
 
 	/**
 	 * Per-page cache options
@@ -116,7 +131,7 @@ function wp_rocket_constants_debug_helper() {
 	echo $html;
 
 }
-add_action( 'wp_footer', 'wp_rocket_constants_debug_helper', PHP_INT_MAX );
+add_action( 'wp_footer', 'wp_rocket_debug_helper', PHP_INT_MAX );
 
 /**
  * Try to override DONOTCACHEPAGE constant.

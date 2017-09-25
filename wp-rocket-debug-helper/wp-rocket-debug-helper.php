@@ -26,7 +26,7 @@ function wp_rocket_debug_helper() {
 	$html .= '<!--' . PHP_EOL;
 	$html .= '#################################################### ' . PHP_EOL;
 	$html .= '## WP ROCKET DEBUG ##' . PHP_EOL;
-	$html .= '(HTML minification disabled “on the fly” by this helper plugin in order for this comment to be displayed.)' . PHP_EOL . PHP_EOL;
+	$html .= '(HTML minification disabled dynamically by this helper plugin in order for this comment to be displayed.)' . PHP_EOL . PHP_EOL;
 
 	/**
 	 * Constants
@@ -66,27 +66,36 @@ function wp_rocket_debug_helper() {
 	/**
 	 * Filters
 	 */
-	$html .= PHP_EOL . '## Filters' . PHP_EOL . PHP_EOL;
+	$html .= PHP_EOL . '## Filters' . PHP_EOL;
+	$html .= '(Filter `rocket_override_donotcachepage` gets set by WP Rocket core in certain environments.)' . PHP_EOL . PHP_EOL;
 
-	$maybe_filter = has_filter( 'do_rocket_generate_caching_files' );
-	$filter_output = true === $maybe_filter || 'true' === $maybe_filter ? 'set' : 'not set';
+	$filters = array(
+		'do_rocket_generate_caching_files',
+		'rocket_override_donotcachepage'
+	);
 
-	global $wp_filter;
+	foreach ( $filters as $filter ) {
 
-	foreach ( $wp_filter as $filter_name => $filter_value ) {
-		if ( false !== strpos( $filter_name, 'do_rocket_generate_caching_files' ) ) {
+		$filter_output = 'not set';
 
-			$current_filter = $filter_value->current();
+		global $wp_filter;
 
-			foreach ( $current_filter as $key => $value ) {
+		foreach ( $wp_filter as $filter_name => $filter_value ) {
+			if ( false !== strpos( $filter_name, $filter ) ) {
 
-				$filter_output .= sprintf( ', value is: %s', var_export( $value['function'], true ) );
+				$current_filter = $filter_value->current();
+
+				foreach ( $current_filter as $key => $value ) {
+
+					$filter_output = 'set';
+					$filter_output .= sprintf( ', value is: %s', var_export( $value['function'], true ) );
+
+					$html .= sprintf( '- filter %1$s is %2$s', $filter, $filter_output ) . PHP_EOL;
+				}
+
 			}
-
 		}
 	}
-
-	$html .= sprintf( '- filter do_rocket_generate_caching_files is %s', $filter_output ) . PHP_EOL;
 
 	/**
 	 * Per-page cache options
@@ -132,8 +141,3 @@ function wp_rocket_debug_helper() {
 
 }
 add_action( 'wp_footer', 'wp_rocket_debug_helper', PHP_INT_MAX );
-
-/**
- * Try to override DONOTCACHEPAGE constant.
- */
-// add_filter( 'rocket_override_donotcachepage', '__return_true', PHP_INT_MAX );

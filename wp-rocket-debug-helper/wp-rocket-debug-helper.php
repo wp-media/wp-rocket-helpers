@@ -89,12 +89,12 @@ function wp_rocket_debug_helper() {
 
 					$filter_output = 'set';
 					$filter_output .= sprintf( ', value is: %s', var_export( $value['function'], true ) );
-
-					$html .= sprintf( '- filter %1$s is %2$s', $filter, $filter_output ) . PHP_EOL;
 				}
 
 			}
 		}
+
+		$html .= sprintf( '- filter %1$s is %2$s', $filter, $filter_output ) . PHP_EOL;
 	}
 
 	/**

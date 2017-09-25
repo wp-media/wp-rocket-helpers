@@ -25,8 +25,10 @@ Checks for various constants, filters, and per-page cache options, prints their 
 - constant DONOTMINIFYJS is true
 
 ## Filters
+(Filter `rocket_override_donotcachepage` gets set by WP Rocket core in certain environments.)
 
-- filter do_rocket_generate_caching_files is true
+- filter do_rocket_generate_caching_files is not set
+- filter rocket_override_donotcachepage is set, value is: 'rocket_override_donotcachepage_on_thrive_leads'
 
 ## Per-page cache options:
 

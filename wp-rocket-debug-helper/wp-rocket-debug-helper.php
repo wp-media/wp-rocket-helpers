@@ -16,6 +16,10 @@ defined( 'ABSPATH' ) or die( 'No direct access here.' );
  */
 function wp_rocket_debug_helper() {
 
+	if ( ! function_exists( 'get_rocket_option' ) ) {
+		return;
+	}
+
 	/**
 	 * Disable HTML minification on the fly, otherwise the HTML comment would
 	 * get stripped from the source code.

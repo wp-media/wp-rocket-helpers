@@ -31,9 +31,11 @@ function wp_rocket_exclude_external_js_from_optimization( $external_js_hosts ) {
 	$external_js_hosts[] = 'maps.googleapis.com';      // Google maps
 	$external_js_hosts[] = 'platform.twitter.com';     // embedded Twitter
 	$external_js_hosts[] = 'secure.gravatar.com';      // Gravatar pictures
+	$external_js_hosts[] = 'use.fontawesome.com';      // FontAwesome
 	$external_js_hosts[] = 'use.typekit.net';          // Typekit fonts
 	$external_js_hosts[] = 'www.google.com';           // Google re-captcha
 	$external_js_hosts[] = 'www.google-analytics.com'; // Google Analytics
+	$external_js_hosts[] = 'www.googletagmanager.com'; // Google Tag Manager
 	$external_js_hosts[] = 'www.youtube.com';          // embedded YouTube
 
 	/**

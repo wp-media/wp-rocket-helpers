@@ -1,4 +1,4 @@
-# WP Rocket | External JavaScript Handler
+# WP Rocket | TMP Directory
 
 Sets a custom tmp directory for WP Rocket.
 
@@ -11,5 +11,5 @@ To be used with:
 * any setup where WP Rocket cannot write to the server’s default tmp directory.
 
 Last tested with:
-* WP Rocket 2.9.x
-* WordPress 4.7.x
+* WP Rocket 2.10.x
+* WordPress 4.9.x

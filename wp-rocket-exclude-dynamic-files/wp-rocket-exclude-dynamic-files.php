@@ -1,7 +1,7 @@
 <?php
 defined( 'ABSPATH' ) or die( 'No direct access here.' );
 /**
- * Plugin Name: WP Rocket | Exclude Dynamic Files
+ * Plugin Name: WP Rocket | Exclude from Static File Creation
  * Description: Exclude specific dynamic files from being served as static files.
  * Author:      WP Rocket Support Team
  * Author URI:  http://wp-rocket.me/
@@ -14,15 +14,16 @@ defined( 'ABSPATH' ) or die( 'No direct access here.' );
  * Exclude scripts from WP Rocket’s cache busting.
  *
  * @param  array  $excluded_files   Array of script URLs to be excluded
- * @return array             Extended array script URLs to be excluded
+ * @return array                    Extended array script URLs to be excluded
  */
-function wp_rocket_exclude_dynamic_files( $excluded_files = array() ) {
+function wp_rocket__exclude_dynamic_files( $excluded_files = array() ) {
 
 	/**
 	 * This is a sample file URL, define your own!
+	 * Duplicate below line as needed to exclude multiple files
 	 */
 	$excluded_files[] = '/wp-content/themes/example-theme/example-css.php';
 
 	return $excluded_files;
 }
-add_filter( 'rocket_exclude_static_dynamic_resources', 'wp_rocket_exclude_dynamic_files' );
+add_filter( 'rocket_exclude_static_dynamic_resources', 'wp_rocket__exclude_dynamic_files' );

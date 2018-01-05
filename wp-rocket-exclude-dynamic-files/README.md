@@ -1,4 +1,4 @@
-# WP Rocket | Exclude Dynamic Files
+# WP Rocket | Exclude from Static File Creation
 
 Excludes specific dynamic files from being served as static files by WP Rocket.
 

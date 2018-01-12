@@ -1,5 +1,5 @@
 <?php
-defined( 'ABSPATH' ) or die( 'No direct access here.' );
+defined( 'ABSPATH' ) or die();
 /**
  * Plugin Name: WP Rocket | Debug Helper
  * Description: Checks for various constants, filters, and per-page cache options, prints their values as an HTML comment in the footer of the HTML source code.
@@ -12,30 +12,111 @@ defined( 'ABSPATH' ) or die( 'No direct access here.' );
 
 
 /**
- * Print debug output to footer of HTML source.
+ * Render complete formatted debug notice
  */
-function wp_rocket_debug_helper() {
+function wp_rocket_debug_helper__render_formatted_debug_notice() {
 
 	if ( ! function_exists( 'get_rocket_option' ) ) {
 		return;
 	}
 
 	/**
-	 * Disable HTML minification on the fly, otherwise the HTML comment would
-	 * get stripped from the source code.
+	 * BEGIN
+	 */
+	$html  = wp_rocket_debug_helper__render__begin();
+	$html .= PHP_EOL;
+
+	/**
+	 * Disable HTML minification on the fly.
+	 * (Otherwise the HTML comment would get stripped from the source code.)
 	 */
 	add_filter( 'get_rocket_option_minify_html', '__return_false' );
+	$html .= sprintf( 'Note: %s', wp_rocket_debug_helper__render__note_minify_html() );
+	$html .= PHP_EOL . PHP_EOL;
+
+	/**
+	 * CONSTANTS
+	 */
+	$html .= '## Constants' . PHP_EOL;
+	$html .= PHP_EOL;
+	$html .= wp_rocket_debug_helper__render__constants();
+	$html .= PHP_EOL;
+
+	/**
+	 * FILTERS
+	 */
+	$html .= '## Filters' . PHP_EOL;
+ 	$html .= 'Note: Filter `rocket_override_donotcachepage` gets set by WP Rocket core in certain environments.';
+	$html .= PHP_EOL . PHP_EOL;
+	$html .= wp_rocket_debug_helper__render__filters();
+	$html .= PHP_EOL;
+
+	/**
+	 * Only on singular views: Cache Options metabox values
+	 */
+	if ( is_singular() ) {
+
+		// Get current post ID.
+		$current_post_id = absint( $GLOBALS['post']->ID );
+
+		/**
+		 * METABOX
+		 */
+		$html .= '## Cache Options metabox' . PHP_EOL;
+		$html .= sprintf( 'Note: You’re viewing post ID #%s', $current_post_id );
+		$html .= PHP_EOL . PHP_EOL;
+
+		// Excluded from cache?
+		$html .= wp_rocket_debug_helper__render__cache_reject( $current_post_id );
+		$html .= PHP_EOL;
+
+		// Other cache options
+		$html .= wp_rocket_debug_helper__render__metabox( $current_post_id );
+		$html .= PHP_EOL;
+	}
+
+	/**
+	 * END
+	 */
+	$html .= wp_rocket_debug_helper__render__end();
+	$html .= PHP_EOL;
+
+	print $html;
+}
+add_action( 'wp_footer', 'wp_rocket_debug_helper__render_formatted_debug_notice', PHP_INT_MAX );
+
+/**
+ * Render begin of debug notice
+ */
+function wp_rocket_debug_helper__render__begin() {
 
 	$html  = PHP_EOL . PHP_EOL;
 	$html .= '<!--' . PHP_EOL;
-	$html .= '#################################################### ' . PHP_EOL;
-	$html .= '## WP ROCKET DEBUG ##' . PHP_EOL;
-	$html .= '(HTML minification disabled dynamically by this helper plugin in order for this comment to be displayed.)' . PHP_EOL . PHP_EOL;
+	$html .= '#################################################### ';
+	$html .= PHP_EOL;
+	$html .= '## WP ROCKET DEBUG ##';
 
-	/**
-	 * Constants
-	 */
-	$html .= '## Constants' . PHP_EOL . PHP_EOL;
+	return $html;
+}
+
+/**
+ * Render end of debug notice
+ */
+function wp_rocket_debug_helper__render__end() {
+
+	$html  = PHP_EOL . '####################################################';
+	$html .= PHP_EOL;
+	$html .= '-->';
+
+	return $html;
+}
+
+/**
+ * Render section: Contants
+ */
+function wp_rocket_debug_helper__render__constants() {
+
+	$html = '';
 
 	/**
 	 * Cannot use var_export() or print_r() inside an output buffer, so
@@ -56,31 +137,33 @@ function wp_rocket_debug_helper() {
 		if( ! defined( $constant ) ) {
 			$constant_values[ $constant ] = 'not defined';
 		} else {
-			$constant_values[ $constant ] = true === constant( $constant ) || 'true' === constant( $constant ) ? 'true' : 'false';
+			$constant_values[ $constant ] = true === constant( $constant ) || 'true' === constant( $constant ) ? 'TRUE' : 'FALSE';
 		}
 
 		$html .= sprintf(
-			'- constant %1$s is %2$s',
+			'- constant %1$s is: %2$s',
 			$constant,
 			$constant_values[ $constant ]
 		);
 		$html .= PHP_EOL;
 	}
 
-	/**
-	 * Filters
-	 */
-	$html .= PHP_EOL . '## Filters' . PHP_EOL;
-	$html .= '(Filter `rocket_override_donotcachepage` gets set by WP Rocket core in certain environments.)' . PHP_EOL . PHP_EOL;
+	return $html;
+}
 
-	$filters = array(
-		'do_rocket_generate_caching_files',
-		'rocket_override_donotcachepage'
-	);
+/**
+ * Render section: Filters
+ */
+function wp_rocket_debug_helper__render__filters( $filters = array(
+	'do_rocket_generate_caching_files',
+	'rocket_override_donotcachepage'
+) ) {
+
+	$html = '';
 
 	foreach ( $filters as $filter ) {
 
-		$filter_output = 'not set';
+		$html_filter = 'not set';
 
 		global $wp_filter;
 
@@ -91,22 +174,31 @@ function wp_rocket_debug_helper() {
 
 				foreach ( $current_filter as $key => $value ) {
 
-					$filter_output = 'set';
-					$filter_output .= sprintf( ', value is: %s', var_export( $value['function'], true ) );
+					$html_filter  = 'set';
+					$html_filter .= sprintf( ' (%s)', var_export( $value['function'], true ) );
+
+					if ( 'rocket_override_donotcachepage_on_thrive_leads' === $value['function'] ) {
+						$html_filter = sprintf( 'default (%s)', var_export( $value['function'], true ) );
+					}
+
 				}
 
 			}
 		}
 
-		$html .= sprintf( '- filter %1$s is %2$s', $filter, $filter_output ) . PHP_EOL;
+		$html .= sprintf( '- filter %1$s is: %2$s', $filter, $html_filter );
+		$html .= PHP_EOL;
 	}
 
-	/**
-	 * Per-page cache options
-	 */
-	$html .= PHP_EOL . '## Per-page cache options: ' . PHP_EOL . PHP_EOL;
+	return $html;
+}
 
-	$html .= PHP_EOL . '- Cache option rocket_post_nocache: handled through do_rocket_generate_caching_files filter as listed above' . PHP_EOL;
+/**
+ * Render section: Cache options metabox
+ */
+function wp_rocket_debug_helper__render__metabox() {
+
+	$html = '';
 
 	$cache_options = array(
 		'lazyload',
@@ -121,27 +213,56 @@ function wp_rocket_debug_helper() {
 
 	foreach ( $cache_options as $cache_option ) {
 
-		if ( 0 === get_rocket_option( $cache_option ) ) {
+		$value = get_rocket_option( $cache_option );
+		$value = is_rocket_post_excluded_option( $cache_option );
 
-			$html .= sprintf( '- Cache option %s on this page is 0', $cache_option ) . PHP_EOL;
-
-		} elseif ( 0 === get_rocket_option( $cache_option ) ) {
-
-			$html .= sprintf( '- Cache option %s on this page is 1', $cache_option ) . PHP_EOL;
-
-		} elseif ( false === get_rocket_option( $cache_option ) ) {
-
-			$html .= sprintf( '- Cache option %s on this page is false', $cache_option ) . PHP_EOL;
-
+		if ( '1' === $value ) {
+			$formatted_value = 'DEACTIVATED';
 		} else {
-			// silence
+			$formatted_value = 'unchanged';
 		}
+
+		if ( 'minify_html' === $cache_option ) {
+			$formatted_value .= PHP_EOL;
+			$formatted_value .= sprintf( '  (Remember: %s)',
+				wp_rocket_debug_helper__render__note_minify_html()
+			);
+		}
+
+		$html .= sprintf( '- Cache option %1$s: %2$s',
+			$cache_option,
+			$formatted_value
+		);
+		$html .= PHP_EOL;
 	}
 
-	$html .= PHP_EOL . '####################################################' . PHP_EOL;
-	$html .= '-->' . PHP_EOL;
-
-	echo $html;
-
+	return $html;
 }
-add_action( 'wp_footer', 'wp_rocket_debug_helper', PHP_INT_MAX );
+
+/**
+ * Helper: Check for cache exclusion
+ */
+function wp_rocket_debug_helper__render__cache_reject( $current_post_id ) {
+
+	// No way to find out if the “Never cache this page” option is checked,
+	// but we can find out whether or not this post is excluded from cache.
+	$excluded_post_paths = get_rocket_option( 'cache_reject_uri', array() );
+	$current_post_path   = rocket_clean_exclude_file( get_permalink( $current_post_id ) );
+	$maybe_post_excluded = in_array( $current_post_path, $excluded_post_paths);
+
+	$html_maybe_excluded = 'not excluded from caching via “Never cache this page”, or “Never cache (URL)”';
+
+	if ( $maybe_post_excluded ) {
+		$html_maybe_excluded = 'EXCLUDED from caching via “Never cache this page”, or “Never cache (URL)”';
+	}
+
+	return sprintf( '- This post is %s', $html_maybe_excluded );
+}
+
+/**
+ * Helper: Note about Minify HTML
+ */
+function wp_rocket_debug_helper__render__note_minify_html() {
+
+	return 'Minify HTML is dynamically disabled, so this debug notice can be displayed.';
+}

@@ -14,32 +14,36 @@ Checks for various constants, filters, and per-page cache options, prints their 
 <!--
 ####################################################
 ## WP ROCKET DEBUG ##
-(HTML minification disabled "on the fly" by this helper plugin.)
+Note: Minify HTML is dynamically disabled, so this debug notice can be displayed.
 
 ## Constants
 
-- constant WP_CACHE is true
-- constant DONOTCACHEPAGE is not defined
-- constant DONOTMINIFY is not defined
-- constant DONOTMINIFYCSS is true
-- constant DONOTMINIFYJS is true
+- constant WP_CACHE is: TRUE
+- constant DONOTCACHEPAGE is: not defined
+- constant DONOTMINIFY is: not defined
+- constant DONOTMINIFYCSS is: not defined
+- constant DONOTMINIFYJS is: not defined
 
 ## Filters
-(Filter `rocket_override_donotcachepage` gets set by WP Rocket core in certain environments.)
+Note: Filter `rocket_override_donotcachepage` gets set by WP Rocket core in certain environments.)
 
-- filter do_rocket_generate_caching_files is not set
-- filter rocket_override_donotcachepage is set, value is: 'rocket_override_donotcachepage_on_thrive_leads'
+- filter do_rocket_generate_caching_files is: not set
+- filter rocket_override_donotcachepage is: default ('rocket_override_donotcachepage_on_thrive_leads')
 
-## Per-page cache options:
+## Cache Options metabox
+Note: You’re viewing post ID #1
 
+- This post is not excluded from caching via “Never cache this page”, or “Never cache (URL)”
+- Cache option lazyload: unchanged
+- Cache option lazyload_iframes: unchanged
+- Cache option minify_html: unchanged
+  (Remember: Minify HTML is dynamically disabled, so this debug notice can be displayed.)
+- Cache option minify_css: unchanged
+- Cache option minify_js: unchanged
+- Cache option cdn: unchanged
+- Cache option async_css: unchanged
+- Cache option defer_all_js: unchanged
 
-- Cache option rocket_post_nocache: handled through do_rocket_generate_caching_files filter as listed above
-- Cache option minify_html on this page is false
-- Cache option minify_css on this page is false
-- Cache option minify_js on this page is false
-- Cache option cdn on this page is false
-- Cache option async_css on this page is false
-- Cache option defer_all_js on this page is false
 
 ####################################################
 -->
@@ -49,5 +53,5 @@ To be used with:
 * any setup
 
 Last tested with:
-* WP Rocket 2.10.x
+* WP Rocket 2.11.x
 * WordPress 4.9.x

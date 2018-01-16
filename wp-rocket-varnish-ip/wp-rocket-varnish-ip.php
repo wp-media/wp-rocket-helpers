@@ -55,7 +55,7 @@ register_activation_hook( __FILE__, 'wp_rocket_varnish_ip__flush' );
 function wp_rocket_varnish_ip__deactivate() {
 
 	// Remove all added functionality.
-	add_action( 'rocket_varnish_ip', 'wp_rocket_varnish_ip__custom_ip' );
+	remove_action( 'rocket_varnish_ip', 'wp_rocket_varnish_ip__custom_ip' );
 
 	// Flush .htaccess rules, and regenerate WP Rocket config file.
 	wp_rocket_varnish_ip__flush();

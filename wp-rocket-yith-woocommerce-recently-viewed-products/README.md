@@ -1,4 +1,4 @@
-# WP Rocket | WooCommerce recently viewed products Integration
+# WP Rocket | YITH WooCommerce Recently Viewed Products Integration
 
 Create a specific cache for each value of woocommerce_recently_viewed cookie
 

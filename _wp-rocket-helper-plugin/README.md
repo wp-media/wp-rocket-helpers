@@ -1,11 +1,12 @@
-# WP Rocket | {What This Plugin Does}
+# {Name from file header}
 
-{Boilerplate for maintainable WP Rocket customisations. This line should be replaced with the description from the plugin file header.}
+{Description from file header.}
 
 ⚠️ **This boilerplate plugin does not provide a downloadable ZIP file on purpose.**
 
-{Optional: 🚧 **ADVANCED CUSTOMIZATION, HANDLE WITH CARE!**}
-{Optional: 📝 **Manual code edit required before use!**}
+{Optional: A warning or hint about required code edits, like:}
+{🚧 **ADVANCED CUSTOMIZATION, HANDLE WITH CARE!**}
+{📝 **Manual code edit required before use!**}
 
 {Optional: Short description of required code edits.}
 

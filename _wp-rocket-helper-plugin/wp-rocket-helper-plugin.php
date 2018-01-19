@@ -8,17 +8,20 @@
  * License:     GNU General Public License v2 or later
  * License URI: http://www.gnu.org/licenses/gpl-2.0.html
  *
- * Copyright WP Media 2018
+ * Copyright SAS WP MEDIA 2018
  */
 
 // Standard plugin security, keep this line in place.
 defined( 'ABSPATH' ) or die();
 
+// EDIT THIS:
+// Replace `boilerplate` with your custom subnamespace.
+namespace WP_Rocket\Helpers\boilerplate;
 
 
 // BEFORE YOU MOVE ON:
-// Do a file search for `wp_rocket_helper_plugin` and replace it with your
-// custom function prefix.
+// Do a file search for `boilerplate` and replace it with your
+// custom subnamespace defined above.
 
 
 
@@ -26,8 +29,10 @@ defined( 'ABSPATH' ) or die();
  * Adds customizations once WP Rocket has loaded.
  * HEADS UP: If you keep the deactivation hook further down this file,
  * you will have to edit it to remove_filter() this function.
+ *
+ * @author {Author Name}
  */
-function wp_rocket_helper_plugin() {
+function do_stuff() {
 
 	// Do something here.
 	// Example: Disable page caching.
@@ -37,7 +42,7 @@ function wp_rocket_helper_plugin() {
 // Hooking into `wp_rocket_loaded` is a safe way to make sure all WP Rocket
 // features are available, however, it’s not required.
 // Using other hooks directly will be just fine in most cases.
-add_action( 'wp_rocket_loaded', 'wp_rocket_helper_plugin' );
+add_action( 'wp_rocket_loaded', __NAMESPACE__ . '\do_stuff' );
 
 
 
@@ -46,8 +51,10 @@ add_action( 'wp_rocket_loaded', 'wp_rocket_helper_plugin' );
 
 /**
  * Updates .htaccess, regenerates WP Rocket config file.
+ *
+ * @author {Author Name}
  */
-function wp_rocket_helper_plugin__flush() {
+function flush_wp_rocket() {
 
 	if ( ! function_exists( 'flush_rocket_htaccess' )
 	  || ! function_exists( 'rocket_generate_config_file' ) ) {
@@ -60,17 +67,19 @@ function wp_rocket_helper_plugin__flush() {
 	// Regenerate WP Rocket config file.
 	rocket_generate_config_file();
 }
-register_activation_hook( __FILE__, 'wp_rocket_helper_plugin__flush' );
+register_activation_hook( __FILE__, __NAMESPACE__ . '\flush_wp_rocket' );
 
 /**
  * Removes customizations, updates .htaccess, regenerates config file.
+ *
+ * @author {Author Name}
  */
-function wp_rocket_helper_plugin__deactivate() {
+function deactivate() {
 
 	// Remove all functionality added above.
-	remove_filter( 'wp_rocket_loaded', 'wp_rocket_helper_plugin' );
+	remove_filter( 'wp_rocket_loaded', __NAMESPACE__ . '\do_stuff' );
 
 	// Flush .htaccess rules, and regenerate WP Rocket config file.
-	wp_rocket_helper_plugin__flush();
+	flush_wp_rocket();
 }
-register_deactivation_hook( __FILE__, 'wp_rocket_helper_plugin__deactivate' );
+register_deactivation_hook( __FILE__, __NAMESPACE__ . '\deactivate' );

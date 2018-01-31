@@ -46,15 +46,15 @@ wp-rocket-helpers
 ┃
 ┣ htaccess
 ┃ ┃
-┃ ┣ wp-rocket-htaccess-trailing-slash         (wp-rocket-enforce-trailing-slash)
 ┃ ┣ wp-rocket-htaccess-fonts-no-cors          (wp-rocket-htaccess-fonts-no-cors)
 ┃ ┣ wp-rocket-htaccess-https                  (wp-rocket-https-redirect)
 ┃ ┣ wp-rocket-htaccess-no-gzip                (wp-rocket-unforce-gzip)
 ┃ ┣ wp-rocket-htaccess-nonwww-www             (wp-rocket-nonwww-www-redirect)
 ┃ ┣ wp-rocket-htaccess-nonwww-www-https
+┃ ┣ wp-rocket-htaccess-remove-rewrites        (wp-rocket-remove-rewrite-rules)
+┃ ┣ wp-rocket-htaccess-trailing-slash         (wp-rocket-enforce-trailing-slash)
 ┃ ┣ wp-rocket-htaccess-www-nonwww             (wp-rocket-www-nonwww-redirect)
-┃ ┣ wp-rocket-htaccess-www-nonwww-https
-┃ ┗ wp-rocket-htaccess-remove-rewrites        (wp-rocket-remove-rewrite-rules)
+┃ ┗ wp-rocket-htaccess-www-nonwww-https
 ┃
 ┣ lazyload
 ┃ ┃
@@ -62,10 +62,10 @@ wp-rocket-helpers
 ┃
 ┣ static-files
 ┃ ┃
-┃ ┣ wp-rocket-static-exclude-dynamic-files    (wp-rocket-exclude-dynamic-files)
 ┃ ┣ wp-rocket-static-exclude-async-css        (wp-rocket-exclude-from-async-css)
-┃ ┣ wp-rocket-static-exclude-query-string     (wp-rocket-exclude-from-cache-busting)
 ┃ ┣ wp-rocket-static-exclude-defer-js         (wp-rocket-exclude-from-defer-js)
+┃ ┣ wp-rocket-static-exclude-dynamic-files    (wp-rocket-exclude-dynamic-files)
+┃ ┣ wp-rocket-static-exclude-query-string     (wp-rocket-exclude-from-cache-busting)
 ┃ ┣ wp-rocket-static-external-js              (wp-rocket-external-js)
 ┃ ┗ wp-rocket-static-mobile-no-opt-css
 ┃

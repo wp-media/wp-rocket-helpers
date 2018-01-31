@@ -64,9 +64,9 @@ wp-rocket-helpers
 ┃
 ┣ static-files
 ┃ ┃
-┃ ┣ wp-rocket-static-exclude-async-css        (wp-rocket-exclude-from-async-css)
 ┃ ┣ wp-rocket-static-exclude-defer-js         (wp-rocket-exclude-from-defer-js)
 ┃ ┣ wp-rocket-static-exclude-dynamic-files    (wp-rocket-exclude-dynamic-files)
+┃ ┣ wp-rocket-static-exclude-opt-css          (wp-rocket-exclude-from-async-css)
 ┃ ┣ wp-rocket-static-exclude-query-string     (wp-rocket-exclude-from-cache-busting)
 ┃ ┣ wp-rocket-static-external-js              (wp-rocket-external-js)
 ┃ ┗ wp-rocket-static-mobile-no-opt-css

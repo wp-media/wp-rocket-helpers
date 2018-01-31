@@ -1,46 +1,86 @@
-# WP Rocket Helpers
-This repository hosts a number of helper plugins that target some specific use cases for WP Rocket.
+# Helper Plugins v2.0 working draft
 
+## Should we deprecate these?
 
-## Who is this for?
+This one addresses installs prior to v2.7 with with Varnish:
+- [wp-rocket-varnish-cache-purge](https://github.com/wp-media/wp-rocket-helpers/tree/master/wp-rocket-varnish-cache-purge)
 
-WP Rocket is known to be straight-forward and easy to use. Sometimes a specific use case might require to alter its functionality, though.
+These are probably irrelevant since the new minify lib in 2.11?
+- [wp-rocket-events-calendar-unminify](https://github.com/wp-media/wp-rocket-helpers/tree/master/wp-rocket-events-calendar-unminify)
+- [wp-rocket-fix-400-minification](https://github.com/wp-media/wp-rocket-helpers/tree/master/wp-rocket-fix-400-minification)
 
-The helper plugins in this repository provide solutions for some of the more common use cases that still seem too “edge case” to be included as options in WP Rocket’s user interface.
+## Proposed new repo structure
 
-### WP Rocket users
-If you don’t write code on a daily basis, you may want to [contact our support team](https://wp-rocket.me/support/) before using any of these plugins. (That is, unless you had contacted us already, and we sent you here).
+We seem to have quickly outgrown the days where we had so few plugins that they could be dumped in one list, without a consistent naming pattern, and still be found easily.
 
-### Developers
-For developers and other code-savvy folk, many of WP Rocket’s functions, filters and action hooks used in these plugins are documented in our [developer docs](http://docs.wp-rocket.me/collection/86-codex).
+How about we add a rudimentary, (hopefully) intuitive level of subfolders, and harmonise plugin names? Here’s a proposal (current names in brackets):
 
-**All helper plugins from this repository require [WP Rocket](https://wp-rocket.me/) to be up and running on your WordPress site.** If you don’t use WP Rocket on your WordPress site, don’t use any of these helper plugins.
-
-### Test before using
-> ❗️&#160;**Use these plugins responsibly!**&#160;❗️
->
-> We don’t maintain all of these helper plugins actively at all times; some may target older versions of WP Rocket, or of other plugins. Some may even become outdated over time.
->
-> **Any plugins from this repository should be activated and tested in a testing environment first before you install them on your productive website.**
-
-## How to use
-
-- Each sub-folder in this repository contains at least 1 PHP file and 1 ZIP file.
-- PHP files are for code-savvy people to take a look at what the plugin does.
-- The ZIP file is the one you can download and install in WordPress.
-
-_Not familiar with GitHub? Here’s a [animated GIF](/how-to-download-zip.gif) on how to download one of the ZIP files from this repository._
-
-### Installation
-
-- Download one of the ZIP files from this repository.
-- Don’t unpack it! If your browser unpacks it automatically (can happen e.g. with Safari), you will have to re-ZIP it before proceeding.
-- Install the ZIP file through your WordPress admin interface: Go to _Plugins→Add&#160;new→Upload_, upload the ZIP file and activate the plugin.
-
-## Support
-Support for WP Rocket is our business.&#160;🙂 <br>
-**Got a valid license for WP Rocket?** Feel free to use our dedicated [support form](https://wp-rocket.me/support/)!<br>
-**Don’t own a valid license?** You can get one [right here](https://wp-rocket.me/pricing/)!
-
-## License
-All helper plugins in this repository are published under [GPL version 3](/LICENSE).
+```
+wp-rocket-helpers
+┃
+┣ cache
+┃ ┃
+┃ ┣ wp-rocket-cache-domain-ending             (wp-rocket-domain-ending-length)
+┃ ┣ wp-rocket-cache-donotcachepage            (wp-rocket-override-donotcachepage)
+┃ ┣ wp-rocket-cache-dynamic-cookie
+┃ ┣ wp-rocket-cache-feed
+┃ ┣ wp-rocket-cache-purge-urls                (wp-rocket-purge-custom-post-urls)
+┃ ┣ wp-rocket-cache-search-results
+┃ ┣ wp-rocket-no-cache                        (wp-rocket-disable-cache)
+┃ ┣ wp-rocket-no-cache-auto-purge             (wp-rocket-disable-cache-clear)
+┃ ┣ wp-rocket-no-cache-for-admins
+┃ ┗ wp-rocket-no-cache-urls-regexes           (wp-rocket-regex-exclusions)
+┃
+┣ compatibility
+┃ ┃
+┃ ┣ wp-rocket-compat-cookie-notice            (wp-rocket-cookie-notice-integration)
+┃ ┣ wp-rocket-compat-dreampress               (wp-rocket-for-dreampress)
+┃ ┣ wp-rocket-compat-edd-cart-widget          (wp-rocket-edd-cookie)
+┃ ┣ wp-rocket-compat-essential-grid           (wp-rocket-unlazyload-essential-grid)
+┃ ┣ wp-rocket-compat-leadpages                (wp-rocket-unlazyload-leadpages)
+┃ ┣ wp-rocket-compat-premium-seo-pack         (wp-rocket-unload-psp-styles)
+┃ ┣ wp-rocket-compat-varnish-ip               (wp-rocket-varnish-ip)
+┃ ┣ wp-rocket-compat-vg-wort-pixel            (wp-rocket-vg-wort-pixel)
+┃ ┣ wp-rocket-compat-wc-product-images        (wp-rocket-unlazyload-wc-products)
+┃ ┗ wp-rocket-comapt-yith-wc-recently-viewed  (wp-rocket-yith-woocommerce-recently-viewed-products)
+┃
+┣ htaccess
+┃ ┃
+┃ ┣ wp-rocket-htaccess-trailing-slash         (wp-rocket-enforce-trailing-slash)
+┃ ┣ wp-rocket-htaccess-fonts-no-cors          (wp-rocket-htaccess-fonts-no-cors)
+┃ ┣ wp-rocket-htaccess-https                  (wp-rocket-https-redirect)
+┃ ┣ wp-rocket-htaccess-no-gzip                (wp-rocket-unforce-gzip)
+┃ ┣ wp-rocket-htaccess-nonwww-www             (wp-rocket-nonwww-www-redirect)
+┃ ┣ wp-rocket-htaccess-nonwww-www-https
+┃ ┣ wp-rocket-htaccess-www-nonwww             (wp-rocket-www-nonwww-redirect)
+┃ ┣ wp-rocket-htaccess-www-nonwww-https
+┃ ┗ wp-rocket-htaccess-remove-rewrites        (wp-rocket-remove-rewrite-rules)
+┃
+┣ lazyload
+┃ ┃
+┃ ┗ wp-rocket-lazyload-threshold
+┃
+┣ static-files
+┃ ┃
+┃ ┣ wp-rocket-static-exclude-dynamic-files    (wp-rocket-exclude-dynamic-files)
+┃ ┣ wp-rocket-static-exclude-async-css        (wp-rocket-exclude-from-async-css)
+┃ ┣ wp-rocket-static-exclude-query-string     (wp-rocket-exclude-from-cache-busting)
+┃ ┣ wp-rocket-static-exclude-defer-js         (wp-rocket-exclude-from-defer-js)
+┃ ┣ wp-rocket-static-external-js              (wp-rocket-external-js)
+┃ ┗ wp-rocket-static-mobile-no-opt-css
+┃
+┣ various
+┃ ┃
+┃ ┣ wp-rocket-custom-preload-intervals
+┃ ┣ wp-rocket-debug-helper
+┃ ┣ wp-rocket-footer-insert-js                (wp-rocket-js-footer-hack)
+┃ ┣ wp-rocket-meta-charset                    (wp-rocket-meta-charset-hack)
+┃ ┣ wp-rocket-reset-white-label
+┃ ┣ wp-rocket-settings-access
+┃ ┗ wp-rocket-tmp-dir
+┃
+┣ .gitignore
+┣ how-to-download-zip.gif
+┣ LICENSE
+┗ README.md
+```

@@ -13,7 +13,9 @@ These are probably irrelevant since the new minify lib in 2.11?
 
 We seem to have quickly outgrown the days where we had so few plugins that they could be dumped in one list, without a consistent naming pattern, and still be found easily.
 
-How about we add a rudimentary, (hopefully) intuitive level of subfolders, and harmonise plugin names? Here’s a proposal (current names in brackets):
+**How about we add a rudimentary, (hopefully) intuitive level of subfolders, and harmonise plugin names?**
+
+Here’s a proposal (current names in brackets):
 
 ```
 wp-rocket-helpers

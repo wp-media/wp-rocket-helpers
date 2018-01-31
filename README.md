@@ -69,7 +69,7 @@ wp-rocket-helpers
 ┃ ┣ wp-rocket-static-exclude-opt-css          (wp-rocket-exclude-from-async-css)
 ┃ ┣ wp-rocket-static-exclude-query-string     (wp-rocket-exclude-from-cache-busting)
 ┃ ┣ wp-rocket-static-external-js              (wp-rocket-external-js)
-┃ ┗ wp-rocket-static-mobile-no-opt-css
+┃ ┗ wp-rocket-static-no-opt-css-mobile
 ┃
 ┣ various
 ┃ ┃

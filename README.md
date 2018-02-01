@@ -15,9 +15,9 @@ The plugins in this repository provide solutions for some of the more common use
 ## Table of contents
 
 1. [General notes](#1-general-notes)
-   1.1. [What are Helper Plugins?](#11-what-are-helper-plugins)
-   1.2. [Whom are Helper Plugins for?](#12-whom-are-helper-plugins-for)
-   1.3. [What are Helper Plugins not?](#13-what-are-helper-plugins-not)
+   - [What are Helper Plugins?](#11-what-are-helper-plugins)
+   - [Whom are Helper Plugins for?](#12-whom-are-helper-plugins-for)
+   - [What are Helper Plugins not?](#13-what-are-helper-plugins-not)
 2. [Minimum requirements](#2-minimum-requirements)
 3. [How to use](#3-how-to-use)
    - [Installation](#31-installtion)

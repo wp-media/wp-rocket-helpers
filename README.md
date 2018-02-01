@@ -20,7 +20,7 @@ The plugins in this repository provide solutions for some of the more common use
    - [What are Helper Plugins not?](#13-what-are-helper-plugins-not)
 2. [Minimum requirements](#2-minimum-requirements)
 3. [How to use](#3-how-to-use)
-   - [Installation](#31-installtion)
+   - [Installation](#31-installation)
    - [Support](#32-support)
 4. [Naming conventions](#4-naming-conventions)
    - [Namespaces and functions](#41-namespaces-and-functions)

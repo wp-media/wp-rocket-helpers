@@ -14,17 +14,17 @@ The plugins in this repository provide solutions for some of the more common use
 
 ## Table of contents
 
-1. [General notes](#1-general-notes)
-  * [What are Helper Plugins?](#11-what-are-helper-plugins)
-  * [Whom are Helper Plugins for?](#12-whom-are-helper-plugins-for)
-  * [What are Helper Plugins not?](#13-what-are-helper-plugins-not)
+1.[General notes](#1-general-notes)
+   - [What are Helper Plugins?](#11-what-are-helper-plugins)
+   - [Whom are Helper Plugins for?](#12-whom-are-helper-plugins-for)
+   - [What are Helper Plugins not?](#13-what-are-helper-plugins-not)
 * [Minimum requirements](#2-minimum-requirements)
 * [How to use](#3-how-to-use)
-  * [Installation](#31-installtion)
-  * [Support](#32-support)
+   - [Installation](#31-installtion)
+   - [Support](#32-support)
 * [Naming conventions](#4-naming-conventions)
-  * [Namespaces and functions](#41-namespaces-and-functions)
-  * [Naming placeholder URLs, domains, values](#42-naming-placeholder-urls-domains-values)
+   - [Namespaces and functions](#41-namespaces-and-functions)
+   - [Naming placeholder URLs, domains, values](#42-naming-placeholder-urls-domains-values)
 * [License](#5-license)
 * [Questions?](#6-questions)
 

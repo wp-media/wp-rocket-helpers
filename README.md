@@ -14,7 +14,7 @@ The plugins in this repository provide solutions for some of the more common use
 
 ## Table of contents
 
-1.[General notes](#1-general-notes)
+1. [General notes](#1-general-notes)
    - [What are Helper Plugins?](#11-what-are-helper-plugins)
    - [Whom are Helper Plugins for?](#12-whom-are-helper-plugins-for)
    - [What are Helper Plugins not?](#13-what-are-helper-plugins-not)

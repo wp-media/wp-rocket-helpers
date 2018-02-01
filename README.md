@@ -1,88 +1,149 @@
-# Helper Plugins v2.0 working draft
+# WP Rocket Helpers
+This repository hosts a number of plugins that target specific use cases for WP Rocket.
 
-## Should we deprecate these?
+WP Rocket is known to be straight-forward and easy to use. However, sometimes a specific use case might require to alter its functionality.
 
-This one addresses installs prior to v2.7 with with Varnish:
-- [wp-rocket-varnish-cache-purge](https://github.com/wp-media/wp-rocket-helpers/tree/master/wp-rocket-varnish-cache-purge)
+The plugins in this repository provide solutions for some of the more common use cases that still seem too “edge case” to be included as options in WP Rocket’s user interface.
 
-These are probably irrelevant since the new minify lib in 2.11?
-- [wp-rocket-events-calendar-unminify](https://github.com/wp-media/wp-rocket-helpers/tree/master/wp-rocket-events-calendar-unminify)
-- [wp-rocket-fix-400-minification](https://github.com/wp-media/wp-rocket-helpers/tree/master/wp-rocket-fix-400-minification)
+## 📋 TL;DR
+> - Helper Plugins, like WP Rocket, require PHP 5.3+.
+> - Helper Plugins by design don’t have version numbers, because we don’t maintain them on a regular basis.
+> - Helper Plugins provide a sustainable way to customize WP Rocket’s behaviour, because they’re easier to spot than code snippets hidden in functions.php.
+> - 🚀 **All plugins from this repository require [WP Rocket](https://wp-rocket.me/) to be up and running on your WordPress site.** If you don’t use WP Rocket on your WordPress site, don’t install any of these plugins.
+> - ☝️ **Test before use!** We don’t maintain all of these helper plugins actively at all times; some may target older versions of WP Rocket, or of other plugins. Some may even become outdated over time.
 
-## Proposed new repo structure
+## Table of contents
 
-We seem to have quickly outgrown the days where we had so few plugins that they could be dumped in one list, without a consistent naming pattern, and still be found easily.
+1. General notes
+   1.1 What are Helper Plugins?
+   1.2. Whom are Helper Plugins for?
+   1.3. What are Helper Plugins not?
+2. Minimum requirements
+3. How to use
+   3.1. Installation
+   3.2. Support
+4. Naming conventions
+   4.1. Namespaces and functions
+   4.2. Naming placeholder URLs, domains, values
+5. License
+6. Questions
 
-**How about we add a rudimentary, (hopefully) intuitive level of subfolders, and harmonise plugin names?**
+---
 
-Here’s a proposal (current names in brackets):
+## 1. General notes
+### 1.1. What are Helper Plugins?
+We use the term “Helper Plugin” to describe a simple WordPress plugin that customises the behaviour of WP Rocket in some sort of way.
+
+A Helper Plugin usually consists of 1 single PHP file, wrapped in a folder, downloadable and installable as a regular ZIP.
+
+> 💡 **The main idea behind Helper Plugins is easy-to-spot customizations.**
+> Other than code snippets dumped into functions.php files, customizations that come wrapped in a little plugin can be spotted at a glance.
+
+### 1.2. Whom are Helper Plugins for?
+Helper Plugins are for all types of WP Rocket users:
+
+* People who just know how to upload a WordPress plugin
+* Technically well-versed site owners
+* Experienced developers
+* Our own support crew
+
+#### WP Rocket users
+If you don’t write code on a daily basis, you may want to [contact our support team](https://wp-rocket.me/support/) before using any of these plugins. (That is, unless you had contacted us already, and we sent you here.)
+
+#### Developers
+For developers and other code-savvy folk, many of WP Rocket’s functions, filters and action hooks used in these plugins are documented in our [developer docs](http://docs.wp-rocket.me/collection/86-codex).
+
+### 1.3. What are Helper Plugins not?
+**Helper Plugins are not works of elaborate software development.**
+They are certainly not [OOP](https://en.wikipedia.org/wiki/Object-oriented_programming), nor even class-based—just simple, procedural functions.
+
+**Helper Plugins are not versioned, changelogged, or maintained in the usual sense.**
+We don’t guarantee that all Helper Plugins work with all WP Rocket versions at all times; however, when a Helper Plugin gets published, or updated, it usually sports a basic _“Last tested with”_ section in the README file.
+
+## 2. Minimum requirements
+Helper Plugins fall under the same minimum requirements as WP Rocket: PHP 5.3 or greater, and WordPress 4.1 or greater at the moment of this writing (early 2018).
+
+## 3. How to use
+
+- Each sub-folder in this repository contains at least 1 PHP file and 1 ZIP file.
+- PHP files are for code-savvy people to take a look at what the plugin does.
+- The ZIP file is the one you can download and install in WordPress.
+
+> 💡 **Need help with downloading?**
+> Here’s an [animated GIF](/how-to-download-zip.gif) on how to download one of the ZIP files from this repository._
+
+### 3.1. Installation
+
+- Download one of the ZIP files from this repository.
+- Don’t unpack it! If your browser unpacks it automatically (can happen e.g. with Safari), you will have to re-ZIP it before proceeding.
+- Install the ZIP file through your WordPress admin interface: Go to _Plugins→Add&#160;new→Upload_, upload the ZIP file and activate the plugin.
+
+### 3.2. Support
+Support for WP Rocket is our business.&#160;🙂 <br>
+**Got a valid license for WP Rocket?** Feel free to use our dedicated [support form](https://wp-rocket.me/support/)!<br>
+**Don’t own a valid license?** You can get one [right here](https://wp-rocket.me/pricing/)!
+
+## 4. Naming conventions
+> 💡 **Folder names help grouping a folder in a list of other folders.**
+> That’s why folder names for these Helper Plugins start with a `wp-rocket`- prefix, followed by feature and action keywords.
+
+While file lists are not always sorted by name, it’s the default sort on GitHub and in many FTP clients.
+
+Inside the WordPress plugin folder, a Helper Plugin should be listed next to WP Rocket itself, so a user or support agent can easily spot it.
+
+In this GitHub repository, plugins that address the same feature (cache, lazyload, .htaccess rewrites …) are listed in groups, thus making it easier to skim the repo for a specific plugin.
+
+### 4.1. Namespaces and functions
+> 💡 **We use PHP namespaces to improve readability.**
+> Replacing verbose function prefixes with a PHP namespace can make actual function names more comprehensive, and our code remains easy to read.
+
+It’s easy to over-engineer naming conventions, so we stick to a pragmatic rule of thumb when in doubt:
+
+1. Namespaces should be unique and consistent.
+2. Function names should be descriptive.
+
+We rely on one consistent namespace for all Helper Plugins, and descriptive subnamespaces for each plugin:
+
+```php
+namespace WP_Rocket\Helpers\{subnamespace(s)}
+```
+
+Or more specifically:
+
+```php
+namespace WP_Rocket\Helpers\{feature}\{what_this_plugin_does}
+```
+
+Example:
+```php
+namespace WP_Rocket\Helpers\cache\no_cache_for_admins;
+
+function handle_cache_for_admins() {
+    // Handle caching for logged-in administrators.
+}
+add_action( 'init', __NAMESPACE__ . '\handle_cache_for_admins' );
+```
+
+### 4.2. Naming placeholder URLs, domains, values
+There is one domain on the internet for the sole purpose of _“illustrative examples in documents”_: [example.com](https://example.com/)
+
+You can safely use it as anything you want:
 
 ```
-wp-rocket-helpers
-┃
-┣ cache
-┃ ┃
-┃ ┣ wp-rocket-cache-domain-ending             (wp-rocket-domain-ending-length)
-┃ ┣ wp-rocket-cache-donotcachepage            (wp-rocket-override-donotcachepage)
-┃ ┣ wp-rocket-cache-dynamic-cookie
-┃ ┣ wp-rocket-cache-feed
-┃ ┣ wp-rocket-cache-purge-urls                (wp-rocket-purge-custom-post-urls)
-┃ ┣ wp-rocket-cache-search-results
-┃ ┣ wp-rocket-no-cache                        (wp-rocket-disable-cache)
-┃ ┣ wp-rocket-no-cache-auto-purge             (wp-rocket-disable-cache-clear)
-┃ ┣ wp-rocket-no-cache-for-admins
-┃ ┗ wp-rocket-no-cache-urls-regexes           (wp-rocket-regex-exclusions)
-┃
-┣ compatibility
-┃ ┃
-┃ ┣ wp-rocket-compat-cookie-notice            (wp-rocket-cookie-notice-integration)
-┃ ┣ wp-rocket-compat-dreampress               (wp-rocket-for-dreampress)
-┃ ┣ wp-rocket-compat-edd-cart-widget          (wp-rocket-edd-cookie)
-┃ ┣ wp-rocket-compat-essential-grid           (wp-rocket-unlazyload-essential-grid)
-┃ ┣ wp-rocket-compat-leadpages                (wp-rocket-unlazyload-leadpages)
-┃ ┣ wp-rocket-compat-premium-seo-pack         (wp-rocket-unload-psp-styles)
-┃ ┣ wp-rocket-compat-varnish-ip               (wp-rocket-varnish-ip)
-┃ ┣ wp-rocket-compat-vg-wort-pixel            (wp-rocket-vg-wort-pixel)
-┃ ┣ wp-rocket-compat-wc-product-images        (wp-rocket-unlazyload-wc-products)
-┃ ┗ wp-rocket-comapt-yith-wc-recently-viewed  (wp-rocket-yith-woocommerce-recently-viewed-products)
-┃
-┣ htaccess
-┃ ┃
-┃ ┣ wp-rocket-htaccess-fonts-no-cors          (wp-rocket-htaccess-fonts-no-cors)
-┃ ┣ wp-rocket-htaccess-https                  (wp-rocket-https-redirect)
-┃ ┣ wp-rocket-htaccess-no-gzip                (wp-rocket-unforce-gzip)
-┃ ┣ wp-rocket-htaccess-nonwww-www             (wp-rocket-nonwww-www-redirect)
-┃ ┣ wp-rocket-htaccess-nonwww-www-https
-┃ ┣ wp-rocket-htaccess-remove-rewrites        (wp-rocket-remove-rewrite-rules)
-┃ ┣ wp-rocket-htaccess-trailing-slash         (wp-rocket-enforce-trailing-slash)
-┃ ┣ wp-rocket-htaccess-www-nonwww             (wp-rocket-www-nonwww-redirect)
-┃ ┗ wp-rocket-htaccess-www-nonwww-https
-┃
-┣ lazyload
-┃ ┃
-┃ ┗ wp-rocket-lazyload-threshold
-┃
-┣ static-files
-┃ ┃
-┃ ┣ wp-rocket-static-exclude-defer-js         (wp-rocket-exclude-from-defer-js)
-┃ ┣ wp-rocket-static-exclude-dynamic-files    (wp-rocket-exclude-dynamic-files)
-┃ ┣ wp-rocket-static-exclude-opt-css          (wp-rocket-exclude-from-async-css)
-┃ ┣ wp-rocket-static-exclude-query-string     (wp-rocket-exclude-from-cache-busting)
-┃ ┣ wp-rocket-static-external-js              (wp-rocket-external-js)
-┃ ┗ wp-rocket-static-no-opt-css-mobile
-┃
-┣ various
-┃ ┃
-┃ ┣ wp-rocket-custom-preload-intervals
-┃ ┣ wp-rocket-debug-helper
-┃ ┣ wp-rocket-footer-insert-js                (wp-rocket-js-footer-hack)
-┃ ┣ wp-rocket-meta-charset                    (wp-rocket-meta-charset-hack)
-┃ ┣ wp-rocket-reset-white-label
-┃ ┣ wp-rocket-settings-access
-┃ ┗ wp-rocket-tmp-dir
-┃
-┣ .gitignore
-┣ how-to-download-zip.gif
-┣ LICENSE
-┗ README.md
+https://example.com
+http://example.com
+https://sub-domain.example.com
+person@example.com
+ftp.example.com
 ```
+
+> 💡 **Placeholders must be replaced!**
+> Whenever you see `example.com` in the code of a Helper Plugin, make sure you replace it with a custom value before you activate the plugin!
+
+## 5. License
+
+All plugins in this repository, like WordPress and WP Rocket, are licensed under [GNU General Public License v2 or later](/LICENSE).
+
+## 6. Questions?
+
+Shoot us a message at: [wp-rocket.me/contact/](https://wp-rocket.me/contact/?nocache)

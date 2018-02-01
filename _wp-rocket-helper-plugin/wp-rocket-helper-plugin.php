@@ -11,12 +11,12 @@
  * Copyright SAS WP MEDIA 2018
  */
 
+// EDIT THIS: Replace `boilerplate` with your custom subnamespace.
+// Namespaces must be declared before any other declaration.
+namespace WP_Rocket\Helpers\boilerplate;
+
 // Standard plugin security, keep this line in place.
 defined( 'ABSPATH' ) or die();
-
-// EDIT THIS:
-// Replace `boilerplate` with your custom subnamespace.
-namespace WP_Rocket\Helpers\boilerplate;
 
 
 // BEFORE YOU MOVE ON:

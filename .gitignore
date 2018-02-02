@@ -1,3 +1,9 @@
 *.bak
+*.lnk
 *.log
 .DS_STORE
+.localized
+[Dd]esktop.ini
+ehthumbs.db
+ehthumbs_vista.db
+Thumbs.db

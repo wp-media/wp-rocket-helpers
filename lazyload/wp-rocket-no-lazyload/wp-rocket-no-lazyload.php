@@ -25,13 +25,10 @@ defined( 'ABSPATH' ) or die();
  */
 function deactivate_on_single_post() {
 
-	// Stop if not on a 'post' post type singular template.
-	if ( ! is_singular( 'post' ) ) {
-		return false;
+	// Disable LazyLoad for images on a 'post' post type singular template.
+	if ( is_singular( 'post' ) ) {
+		add_filter( 'do_rocket_lazyload', '__return_false' );
 	}
-
-	// Disable LazyLoad for images.
-	add_filter( 'do_rocket_lazyload', '__return_false' );
 }
 add_filter( 'wp', __NAMESPACE__ . '\deactivate_on_single_post' );
 
@@ -42,13 +39,10 @@ add_filter( 'wp', __NAMESPACE__ . '\deactivate_on_single_post' );
  */
 function deactivate_on_single_product() {
 
-	// Stop if not on a 'product' post type singular template.
-	if ( ! is_singular( 'product' ) ) {
-		return false;
+	// Disable LazyLoad for images on a 'product' post type singular template.
+	if ( is_singular( 'product' ) ) {
+		add_filter( 'do_rocket_lazyload', '__return_false' );
 	}
-
-	// Disable LazyLoad for images.
-	add_filter( 'do_rocket_lazyload', '__return_false' );
 }
 add_filter( 'wp', __NAMESPACE__ . '\deactivate_on_single_product' );
 
@@ -59,13 +53,10 @@ add_filter( 'wp', __NAMESPACE__ . '\deactivate_on_single_product' );
  */
 function deactivate_on_search_results() {
 
-	// Stop if not on a search results template.
-	if ( ! is_search() ) {
-		return false;
+	// Disable LazyLoad for images on a search results template.
+	if ( is_search() ) {
+		add_filter( 'do_rocket_lazyload', '__return_false' );
 	}
-
-	// Disable LazyLoad for images.
-	add_filter( 'do_rocket_lazyload', '__return_false' );
 }
 add_filter( 'wp', __NAMESPACE__ . '\deactivate_on_search_results' );
 

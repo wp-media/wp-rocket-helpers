@@ -68,7 +68,7 @@ function maybe_render_admin_notice() {
 	// Render message.
 	printf(
 		'<div class="notice notice-info"><p>%s</p></div>',
-		__( '<strong>Note:</strong> LazyLoad is programmatically disabled on WooCommerce product pages by the <em>Unlazyload WooCommerce Product Images</em> plugin.' )
+		__( '<strong>Note:</strong> LazyLoad is programmatically disabled on WooCommerce product pages by the <em>No LazyLoad for WooCommerce Product Images</em> plugin.' )
 	);
 }
 add_action( 'admin_notices', __NAMESPACE__ . '\maybe_render_admin_notice', 100 );

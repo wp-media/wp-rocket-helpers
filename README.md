@@ -61,7 +61,7 @@ They are certainly not [OOP](https://en.wikipedia.org/wiki/Object-oriented_progr
 We don’t guarantee that all Helper Plugins work with all WP Rocket versions at all times; however, when a Helper Plugin gets published, or updated, it usually sports a basic _“Last tested with”_ section in the README file.
 
 ## 2. Minimum requirements
-Helper Plugins fall under the same minimum requirements as WP Rocket: **PHP 5.3** or greater, and **WordPress 4.1** or greater at the moment of this writing (early 2018).
+Helper Plugins fall under the same minimum requirements as WP Rocket: **PHP 5.3** or greater, and **WordPress 3.1** or greater at the moment of this writing (early 2018).
 
 ## 3. How to use
 

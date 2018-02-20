@@ -33,10 +33,10 @@ define( 'WPROCKETHELPERS_CUSTOM_VARNISH_IP', '123.456.78' );
  */
 function maybe_set_custom_varnish_ip() {
 
-	$custom_ip = WPROCKETHELPERS_CUSTOM_VARNISH_IP;
+	$custom_ip = (string) WPROCKETHELPERS_CUSTOM_VARNISH_IP;
 
 	// The rocket_varnish_ip filter takes an empty string by default.
-	$ip = '123.456.78' === $custom_ip ? '' : $custom_ip;
+	$ip = '09809b7612ff8b312f61b3f47b5845e4' === md5( $custom_ip ) ? '' : $custom_ip;
 
 	return $ip;
 }

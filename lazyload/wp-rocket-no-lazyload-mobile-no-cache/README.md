@@ -1,6 +1,6 @@
-# WP Rocket | No LazyLoad for Mobile Devices
+# WP Rocket | No LazyLoad for Mobile Devices (without Mobile Cache)
 
-Disables LazyLoad for mobile devices.
+Disables LazyLoad for mobile devices when Mobile Cache not active.
 
 Documentation:
 * [Disable LazyLoad on Mobile](https://docs.wp-rocket.me/article/139-disable-lazyload-on-mobile)

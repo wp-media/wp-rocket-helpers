@@ -25,7 +25,7 @@ function deactivate_for_mobile_devices() {
 
 	if( class_exists( 'Rocket_Mobile_Detect' ) && get_rocket_option( 'do_caching_mobile_files', false ) ) {
 
-		$detect = new Rocket_Mobile_Detect();
+		$detect = new \Rocket_Mobile_Detect();
 
 		if ( $detect->isMobile() && ! $detect->isTablet() ) {
 

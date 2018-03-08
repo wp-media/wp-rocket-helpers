@@ -25,7 +25,7 @@ defined( 'ABSPATH' ) or die();
  */
 function clean_product_cache_after_order( $order_id ) {
 
-	$order  = new WC_Order( $order_id );
+	$order  = new \WC_Order( $order_id );
 	$items  = $order->get_items();
 
 	foreach ( $items as $item ) {

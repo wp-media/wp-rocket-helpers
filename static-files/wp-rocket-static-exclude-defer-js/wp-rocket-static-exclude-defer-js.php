@@ -27,7 +27,8 @@ function exclude_files( $excluded_files = array() ) {
 
 	/**
 	 * EDIT THIS:
-	 * Replace, or multiply and edit below line as needed to exclude files.
+	 * Edit below line as needed to exclude files.
+	 * To exclude mupltiple files, copy the entire line into a new line for each file you wish you exclude.
 	 */
 	$excluded_files[] = '/wp-includes/js/jquery/jquery.masonry.min.js';
 	// STOP EDITING

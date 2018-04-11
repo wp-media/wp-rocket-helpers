@@ -12,5 +12,5 @@ To be used with:
 * any setup
 
 Last tested with:
-* WP Rocket 2.8.x
-* WordPress 4.6.x
+* WP Rocket 3.0.x
+* WordPress 4.9.x

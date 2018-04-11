@@ -183,7 +183,7 @@ function minify_compatibility( $url ) {
  */
 function render_admin_notice() {
 
-	printf( '<div class="notice notice-error"><p></p></div>',
+	printf( '<div class="notice notice-error"><p>%s</p></div>',
 		__( '<strong>WP Rocket for DreamPress</strong> requires <strong>WP Rocket</strong> to be active. Please activate WP Rocket before activating this plugin.', 'wp-rocket-for-dreampress' )
 	);
 

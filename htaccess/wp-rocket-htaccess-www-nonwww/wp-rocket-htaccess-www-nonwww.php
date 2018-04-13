@@ -41,11 +41,11 @@ function render_rewrite_rules( $marker ) {
 add_filter( 'before_rocket_htaccess_rules', __NAMESPACE__ . '\render_rewrite_rules' );
 
 /**
- * Updates .htaccess, and regenerates config file.
+ * Updates .htaccess, regenerates WP Rocket config file.
  *
- * @return bool
+ * @author Caspar Hübinger
  */
-function wp_rocket_htaccess_redirect_www_to_nonwww__housekeeping() {
+function flush_wp_rocket() {
 
 	if ( ! function_exists( 'flush_rocket_htaccess' )
 	  || ! function_exists( 'rocket_generate_config_file' ) ) {
@@ -57,23 +57,20 @@ function wp_rocket_htaccess_redirect_www_to_nonwww__housekeeping() {
 
 	// Regenerate WP Rocket config file.
 	rocket_generate_config_file();
-
-	// Return a value for testing.
-	return true;
 }
-register_activation_hook( __FILE__, 'wp_rocket_htaccess_redirect_www_to_nonwww__housekeeping' );
+register_activation_hook( __FILE__, __NAMESPACE__ . '\flush_wp_rocket' );
 
 /**
- * Removes plugin additions, updates .htaccess, and regenerates config file.
+ * Removes customizations, updates .htaccess, regenerates config file.
  *
- * @return bool
+ * @author Caspar Hübinger
  */
-function wp_rocket_htaccess_redirect_www_to_nonwww__deactivate() {
+function deactivate() {
 
-	// We don’t want .htaccess rules added upon deactivation. Remove!
-	remove_filter( 'before_rocket_htaccess_rules', 'wp_rocket_htaccess_redirect_www_to_nonwww' );
+	// Remove all functionality added above.
+	remove_filter( 'before_rocket_htaccess_rules', __NAMESPACE__ . '\render_rewrite_rules' );
 
-	// Flush .htaccess rules and regenerate WP Rocket config file.
-	wp_rocket_htaccess_redirect_www_to_nonwww__housekeeping();
+	// Flush .htaccess rules, and regenerate WP Rocket config file.
+	flush_wp_rocket();
 }
-register_deactivation_hook( __FILE__, 'wp_rocket_htaccess_redirect_www_to_nonwww__deactivate' );
+register_deactivation_hook( __FILE__, __NAMESPACE__ . '\deactivate' );

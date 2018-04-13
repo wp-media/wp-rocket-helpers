@@ -4,16 +4,13 @@ Adds a custom set of sitemap preload intervals in WP Rocket’s Preload settings
 
 📝&#160;&#160;**Manual code edit required before use!**
 
-## Add a custom intervals for sitemap preload
-As an example we have added additional values of 3,4, and 5 second intervals. Edit the example, or add your own applying this scheme:
+## Add a custom interval for sitemap preload
 
-```
-(integer) milliseconds => (string) human-readable label
-```
+Edit `WPROCKETHELPERS_PRELOAD_INTERVAL_IN_SECONDS` to reflect the number of seconds you wish to apply as your preload interval. (No decimals allowed!)
 
 To be used with:
 * any setup
 
 Last tested with:
-* WP Rocket 2.8.x
-* WordPress 4.6.x
+* WP Rocket 3.0.x
+* WordPress 4.9.x

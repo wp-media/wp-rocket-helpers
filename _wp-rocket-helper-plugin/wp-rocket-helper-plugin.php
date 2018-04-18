@@ -18,13 +18,6 @@ namespace WP_Rocket\Helpers\boilerplate;
 // Standard plugin security, keep this line in place.
 defined( 'ABSPATH' ) or die();
 
-
-// BEFORE YOU MOVE ON:
-// Do a file search for `boilerplate` and replace it with your
-// custom subnamespace defined above.
-
-
-
 /**
  * Adds customizations once WP Rocket has loaded.
  * HEADS UP: If you keep the deactivation hook further down this file,

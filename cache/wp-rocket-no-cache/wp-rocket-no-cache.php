@@ -24,36 +24,17 @@ defined( 'ABSPATH' ) or die();
 add_filter( 'do_rocket_generate_caching_files', '__return_false' );
 
 /**
- * Updates .htaccess, regenerates WP Rocket config file.
+ * Cleans entire cache folder on activation.
  *
- * @author Caspar Hübinger
+ * @author Arun Basil Lal
  */
-function flush_wp_rocket() {
+function clean_wp_rocket_cache() {
 
-	if ( ! function_exists( 'flush_rocket_htaccess' )
-	  || ! function_exists( 'rocket_generate_config_file' ) ) {
+	if ( ! function_exists( 'rocket_clean_domain' ) ) {
 		return false;
 	}
 
-	// Update WP Rocket .htaccess rules.
-	flush_rocket_htaccess();
-
-	// Regenerate WP Rocket config file.
-	rocket_generate_config_file();
+	// Purge entire WP Rocket cache.
+	rocket_clean_domain();
 }
-register_activation_hook( __FILE__, __NAMESPACE__ . '\flush_wp_rocket' );
-
-/**
- * Removes customizations, updates .htaccess, regenerates config file.
- *
- * @author Caspar Hübinger
- */
-function deactivate() {
-
-	// Remove all functionality added above.
-	remove_filter( 'do_rocket_generate_caching_files', '__return_false' );
-
-	// Flush .htaccess rules, and regenerate WP Rocket config file.
-	flush_wp_rocket();
-}
-register_deactivation_hook( __FILE__, __NAMESPACE__ . '\deactivate' );
+register_activation_hook( __FILE__, __NAMESPACE__ . '\clean_wp_rocket_cache' );

@@ -6,7 +6,7 @@ WP Rocket is known to be straight-forward and easy to use. However, sometimes a 
 The plugins in this repository provide solutions for some of the more common use cases that still seem too “edge case” to be included as options in WP Rocket’s user interface.
 
 ## 📋 TL;DR
-> - Helper Plugins, like WP Rocket, require PHP 5.3+.
+> - Helper Plugins, like WP Rocket, require PHP 5.4+.
 > - Helper Plugins by design don’t have version numbers, because we don’t maintain them on a regular basis.
 > - Helper Plugins provide a sustainable way to customize WP Rocket’s behaviour, because they’re easier to spot than code snippets hidden in functions.php.
 > - 🚀 **All plugins from this repository require [WP Rocket](https://wp-rocket.me/) to be up and running on your WordPress site.** If you don’t use WP Rocket on your WordPress site, don’t install any of these plugins.

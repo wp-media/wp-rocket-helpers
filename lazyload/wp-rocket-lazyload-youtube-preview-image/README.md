@@ -4,7 +4,7 @@ Customizes the resolution of the YouTube preview image for videos.
 
 📝 **Manual code edit required before use!**
 
-Before you activate the plugin, replace the placeholder value `hqdefault` in line 22 with the resolution keyword you would like to use.
+Before you activate the plugin, replace the placeholder value `hqdefault` in line 23 with the resolution keyword you would like to use.
 
 Documentation:
 * [Choose YouTube Preview Image Resolution](http://docs.wp-rocket.me/article/1062-choose-youtube-preview-image-resolution)

@@ -9,5 +9,5 @@ To be used with:
 * WooCommerce
 
 Last tested with:
-* WP Rocket {3.1.x}
-* WordPress {4.9.x}
+* WP Rocket 3.1.x
+* WordPress 4.9.x

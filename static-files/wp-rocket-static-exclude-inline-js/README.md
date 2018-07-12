@@ -1,21 +1,17 @@
-# {Name from file header}
+# Exclude Inline JS From Combine
 
-{Description from file header.}
+Exclude specified inline JS from WP Rocket JS combine. 
 
-⚠️ **This boilerplate plugin does not provide a downloadable ZIP file on purpose.**
+📝 **Manual code edit required before use!**
 
-{Optional: A warning or hint about required code edits, like:}
-{🚧 **ADVANCED CUSTOMIZATION, HANDLE WITH CARE!**}
-{📝 **Manual code edit required before use!**}
-
-{Optional: Short description of required code edits.}
+Look for line that starts with `$pattern[]` and replace `excludethis` with a unique string in the inline js that you wish to exclude. WP Rocket will search for this string in the inline JS to decide if it should be excluded or not. 
 
 Documentation:
-* [{Docs title here}]({Docs URL here})
+* [Exclude Inline JS From Combine](#)
 
 To be used with:
-* {any setup, or a specific type of setup}
+* any setup, where "Combine JavaScript files" is enabled.
 
 Last tested with:
-* WP Rocket {2.11.x}
-* WordPress {4.9.x}
+* WP Rocket 3.1.x
+* WordPress 4.9.x

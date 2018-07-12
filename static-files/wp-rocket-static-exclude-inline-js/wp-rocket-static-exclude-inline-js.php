@@ -2,7 +2,7 @@
 /**
  * Plugin Name: WP Rocket | Exclude Inline JS From Combine
  * Description: Exclude specified inline JS from WP Rocket JS combine. 
- * Plugin URI:  {GitHub repo URL of this plugin}
+ * Plugin URI:  https://github.com/wp-media/wp-rocket-helpers/tree/master/static-files/wp-rocket-static-exclude-inline-js
  * Author:      WP Rocket Support Team
  * Author URI:  http://wp-rocket.me/
  * License:     GNU General Public License v2 or later

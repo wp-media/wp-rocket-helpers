@@ -3,7 +3,7 @@
 Deactivate the WP Rocket feature that caches WooCommerce Refresh Cart Fragments.
 
 Documentation:
-* [{Docs title here}]({Docs URL here})
+* [Optimize WooCommerce Get Refreshed Fragments](#)
 
 To be used with:
 * WooCommerce

@@ -1,21 +1,12 @@
-# {Name from file header}
+# Custom cURL Timeout For Sitemap Preload Request
 
-{Description from file header.}
+Increase the timeout for cURL from 5 seconds for sitemap preload request.
 
-⚠️ **This boilerplate plugin does not provide a downloadable ZIP file on purpose.**
-
-{Optional: A warning or hint about required code edits, like:}
-{🚧 **ADVANCED CUSTOMIZATION, HANDLE WITH CARE!**}
-{📝 **Manual code edit required before use!**}
-
-{Optional: Short description of required code edits.}
-
-Documentation:
-* [{Docs title here}]({Docs URL here})
+Helps resolve the issue where preload is stuck at zero with `cURL error 28: Operation timed out after 5000 milliseconds with 0 bytes received`.
 
 To be used with:
-* {any setup, or a specific type of setup}
+* any setup that uses sitemap preload. 
 
 Last tested with:
-* WP Rocket {2.11.x}
-* WordPress {4.9.x}
+* WP Rocket 3.1.x
+* WordPress 4.9.x

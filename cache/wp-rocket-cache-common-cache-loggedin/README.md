@@ -1,21 +1,13 @@
-# {Name from file header}
+# WP Rocket | Common Cache For Logged-in Users
 
-{Description from file header.}
-
-⚠️ **This boilerplate plugin does not provide a downloadable ZIP file on purpose.**
-
-{Optional: A warning or hint about required code edits, like:}
-{🚧 **ADVANCED CUSTOMIZATION, HANDLE WITH CARE!**}
-{📝 **Manual code edit required before use!**}
-
-{Optional: Short description of required code edits.}
+Use a common cache for all logged-in users instead of creating a user specific cache. Note: Logged out users will have a different cache. 
 
 Documentation:
-* [{Docs title here}]({Docs URL here})
+* [User Cache](https://docs.wp-rocket.me/article/313-user-cache)
 
 To be used with:
-* {any setup, or a specific type of setup}
+* Any setup where you want all logged in users to use the same cache.
 
 Last tested with:
-* WP Rocket {2.11.x}
-* WordPress {4.9.x}
+* WP Rocket 3.2.x
+* WordPress 4.9.x

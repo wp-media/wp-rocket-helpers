@@ -1,4 +1,4 @@
-# WP Rocket | Set Tabelts As Mobiles
+# WP Rocket | Set Tablets As Mobiles
 
 WP Rocket by default considers tablets as desktops. This helper plugin will set Tablets as mobile devices. Useful if your theme uses `wp_is_mobile` function.
 

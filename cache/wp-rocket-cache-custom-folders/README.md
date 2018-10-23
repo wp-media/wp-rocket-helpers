@@ -3,6 +3,7 @@
 Use custom folder for WP Rocket cache files. 
 
 🚧 **ADVANCED CUSTOMIZATION, HANDLE WITH CARE!**
+
 📝 **Manual code edit required before use!**
 
 Define `CUSTOM_WP_ROCKET_CACHE_ROOT_PATH` and `CUSTOM_WP_ROCKET_CACHE_ROOT_URL` correctly. 

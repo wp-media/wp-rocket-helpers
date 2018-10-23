@@ -1,21 +1,19 @@
-# {Name from file header}
+# WP Rocket | Custom Cache Folders
 
-{Description from file header.}
+Use custom folder for WP Rocket cache files. 
 
-⚠️ **This boilerplate plugin does not provide a downloadable ZIP file on purpose.**
+🚧 **ADVANCED CUSTOMIZATION, HANDLE WITH CARE!**
+📝 **Manual code edit required before use!**
 
-{Optional: A warning or hint about required code edits, like:}
-{🚧 **ADVANCED CUSTOMIZATION, HANDLE WITH CARE!**}
-{📝 **Manual code edit required before use!**}
-
-{Optional: Short description of required code edits.}
+Define `CUSTOM_WP_ROCKET_CACHE_ROOT_PATH` and `CUSTOM_WP_ROCKET_CACHE_ROOT_URL` correctly. 
+Hint: Look for `EDIT HERE` in the file. 
 
 Documentation:
 * [{Docs title here}]({Docs URL here})
 
 To be used with:
-* {any setup, or a specific type of setup}
+* Any setup where you want to use custom folders for WP Rocket cache files. 
 
 Last tested with:
-* WP Rocket {2.11.x}
-* WordPress {4.9.x}
+* WP Rocket 3.2.x
+* WordPress 4.9.x

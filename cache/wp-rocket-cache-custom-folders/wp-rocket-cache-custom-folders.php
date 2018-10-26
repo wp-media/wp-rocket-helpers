@@ -21,7 +21,7 @@ defined( 'ABSPATH' ) or die();
 // Specify your custom cache folder. Do not forget the trailing slash. 
 define( 'CUSTOM_WP_ROCKET_CACHE_ROOT_PATH', WP_CONTENT_DIR . '/your-custom-folder/' );
 // Specify the URL to the custom cache folder. 
-define( 'CUSTOM_WP_ROCKET_CACHE_ROOT_URL', 'http://example.com/wp-content/your-custom-folder/' );
+define( 'CUSTOM_WP_ROCKET_CACHE_ROOT_URL', 'http://your-domain-here.com/wp-content/your-custom-folder/' );
 
 // STOP EDITING
 
@@ -177,14 +177,22 @@ register_activation_hook( __FILE__, __NAMESPACE__ . '\clean_cache_files' );
  */
 function deactivate() {
 	
+	/**
+	 * Remove the custom cache folder.
+	 * 
+	 * Using CUSTOM_WP_ROCKET_CACHE_ROOT_PATH instead of WP_ROCKET_CACHE_ROOT_PATH so that the folders
+	 * will be deleted even if WP Rocket is inactive. WP_ROCKET_CACHE_ROOT_PATH is defined in advanced-cache.php
+	 * and if WP Rocket is deactivated before deactivating this helper, WP_ROCKET_CACHE_ROOT_PATH is no longer available. 
+	 * 
+	 * To put it in other words, this helper will delete the custom cache folder on its deactivation even if WP Rocket is disabled. 
+	 */
+	rocket_rrmdir( CUSTOM_WP_ROCKET_CACHE_ROOT_PATH );
+	
 	if ( ! function_exists( 'rocket_generate_advanced_cache_file' )
 	  || ! function_exists( 'flush_rocket_htaccess' ) ) {
 		
 		return false;
 	}
-	
-	// Remove the custom cache folder.
-	rocket_rrmdir( WP_ROCKET_CACHE_ROOT_PATH );
 	
 	// Remove the customizations in advanced-cache.php. 
 	remove_filter( 'rocket_advanced_cache_file', __NAMESPACE__ . '\modify_advanced_cache_file' );

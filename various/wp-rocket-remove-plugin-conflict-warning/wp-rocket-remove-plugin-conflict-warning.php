@@ -15,4 +15,4 @@
 // Exit if accessed directly
 if ( ! defined( 'ABSPATH' ) ) exit; 
 
-add_filter( 'rocket_plugins_to_deactivate', '__return_false' );
+add_filter( 'rocket_plugins_to_deactivate', '__return_empty_array' );

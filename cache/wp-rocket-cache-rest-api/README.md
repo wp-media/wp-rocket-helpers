@@ -1,4 +1,4 @@
-# WP Rocket | Cache Rest API
+# WP Rocket | Cache WP Rest API
 
 Force WP Rocket to cache WP REST API
 

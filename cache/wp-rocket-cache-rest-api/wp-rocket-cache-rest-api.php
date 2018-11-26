@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: WP Rocket | Cache Rest API
+ * Plugin Name: WP Rocket | Cache WP Rest API
  * Description: Force WP Rocket to cache WP REST API
  * Plugin URI:  https://github.com/wp-media/wp-rocket-helpers/tree/master/cache/wp-rocket-cache-rest-api
  * Author:      WP Rocket Support Team

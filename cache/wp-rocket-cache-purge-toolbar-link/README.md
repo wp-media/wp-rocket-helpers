@@ -6,7 +6,7 @@ You can edit `WPROCKETHELPERS_CACHE_PURGE_TOOLBAR_LINK_CAPACITY` to define the u
 
 Requires:
 * PHP 5.4 or greater
-* WP Rocket 3.0 or greater
+* WP Rocket 3.0 or greater and less than WP Rocket 3.2.1.1. Does not work with WP Rocket 3.2.2 because of [53f90e3](https://github.com/wp-media/wp-rocket/commit/53f90e385b8ed8244ba45f041091e7ea3f372435)
 
 To be used with:
 * any setup where a “Clear cache” link should be available to non-admin users

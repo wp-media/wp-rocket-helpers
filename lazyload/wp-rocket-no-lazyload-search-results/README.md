@@ -1,14 +1,10 @@
-# WP Rocket | No LazyLoad
+# WP Rocket | No LazyLoad On Search Results
 
-Disables LazyLoad for specified page types.
-
-📝&#160;&#160;**Manual code edit required before use!**
-
-Edit or delete the examples in this plugin as you see fit. The example functions currently deactivate LazyLoad for images on single post pages, single product pages, and search result pages. Mix your own!
+Disables LazyLoad on search result pages.
 
 To be used with:
-* any setup where LazyLoad is active, but should not be applied on specified page types
+* any setup where LazyLoad is active, but should not be applied on search result pages.
 
 Last tested with:
-* WP Rocket 2.11.x
-* WordPress 4.9.x
+* WP Rocket 3.2.x
+* WordPress 5.0.x

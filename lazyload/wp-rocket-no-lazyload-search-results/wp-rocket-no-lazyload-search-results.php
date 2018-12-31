@@ -1,7 +1,7 @@
 <?php
 /**
- * Plugin Name: WP Rocket | No LazyLoad for Search Results
- * Description: Disables LazyLoad for search results
+ * Plugin Name: WP Rocket | No LazyLoad On Search Results
+ * Description: Disables LazyLoad on search result pages
  * Plugin URI:  https://github.com/wp-media/wp-rocket-helpers/tree/master/lazyload/wp-rocket-no-lazyload/
  * Author:      WP Rocket Support Team
  * Author URI:  http://wp-rocket.me/

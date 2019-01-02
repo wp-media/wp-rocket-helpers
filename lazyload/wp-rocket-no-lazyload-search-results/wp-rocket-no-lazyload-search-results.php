@@ -25,6 +25,7 @@ function deactivate_on_search_results() {
 
 	// Disable LazyLoad for images on a search results template.
 	if ( is_search() ) {
+		add_filter( 'do_rocket_lazyload', '__return_false' );
 		remove_action( 'wp_footer', 'rocket_lazyload_script', PHP_INT_MAX );
 	}
 }

@@ -1,17 +1,14 @@
-# WP Rocket | Disable Cache Clearing
+# WP Rocket | Disable Cache Clearing On Widget Update
 
-Disables all of WP Rocket’s automatic cache clearing.
+Disables WP Rocket cache clearing when a widget is updated.
 
 🚧&#160;&#160;**ADVANCED CUSTOMIZATION, HANDLE WITH CARE!**
 
-_When you activate this plugin, WP Rocket will cache your pages, but will not clear the cache automtically when you make changes to them!_
-
-Documentation:
-* [Disable All Automatic Cache Clearing](http://docs.wp-rocket.me/article/137-disable-all-automatic-cache-clearing)
+_When you activate this plugin, WP Rocket will no longer clear its cache when you update a widget. Clear WP Rocket cache manually if required._
 
 To be used with:
 * any setup
 
 Last tested with:
-* WP Rocket 2.10.x
-* WordPress 4.8.x
+* WP Rocket 3.2.x
+* WordPress 5.0.x

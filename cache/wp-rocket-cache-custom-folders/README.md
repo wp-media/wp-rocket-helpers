@@ -11,7 +11,7 @@ Define `CUSTOM_WP_ROCKET_CACHE_ROOT_PATH` and `CUSTOM_WP_ROCKET_CACHE_ROOT_URL` 
 Hint: Look for `EDIT HERE` in the file. 
 
 Documentation:
-* [{Docs title here}]({Docs URL here})
+* [Specify a Custom Cache Folder](https://docs.wp-rocket.me/article/1118-specify-a-custom-cache-folder)
 
 To be used with:
 * Any setup where you want to use custom folders for WP Rocket cache files. 

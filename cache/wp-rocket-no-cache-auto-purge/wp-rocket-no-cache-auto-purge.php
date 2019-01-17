@@ -17,7 +17,7 @@ namespace WP_Rocket\Helpers\cache\no_cache_auto_purge;
 defined( 'ABSPATH' ) or die();
 
 /**
- * Remove all of WP Rocket’s cache purging actions.
+ * Remove all of WP Rocket's cache purging actions.
  *
  * @author Caspar Hübinger
  */
@@ -81,7 +81,11 @@ function remove_purge_hooks() {
 	foreach ( $clean_post_hooks as $key => $handle ) {
 		remove_action( $handle, 'rocket_clean_post' );
 	}
-
+	
+	// Prevent cache purge when a widget is updated.
 	remove_filter( 'widget_update_callback'	, 'rocket_widget_update_callback' );
+	
+	// Prevent cache purge when current theme is updated.
+	remove_action( 'upgrader_process_complete', 'rocket_clean_cache_theme_update', 10, 2 ); 
 }
 add_action( 'wp_rocket_loaded', __NAMESPACE__ . '\remove_purge_hooks' );

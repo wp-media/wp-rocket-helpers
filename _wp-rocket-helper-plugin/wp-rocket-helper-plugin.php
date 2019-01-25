@@ -8,7 +8,7 @@
  * License:     GNU General Public License v2 or later
  * License URI: http://www.gnu.org/licenses/gpl-2.0.html
  *
- * Copyright SAS WP MEDIA 2018
+ * Copyright SAS WP MEDIA 2019
  */
 
 // EDIT THIS: Replace `boilerplate` with your custom subnamespace.

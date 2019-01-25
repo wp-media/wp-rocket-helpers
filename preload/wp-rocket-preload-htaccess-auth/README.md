@@ -3,9 +3,11 @@
 Adds the .htaccess username and password to the preload request so that WP Rocket can preload pages that are password protected. 
 
 🚧 **ADVANCED CUSTOMIZATION, HANDLE WITH CARE!**
+
 📝 **Manual code edit required before use!**
 
 Set `WPROCKETHELPERS_HTACCESS_USERNAME` as your .htaccess username and `WPROCKETHELPERS_HTACCESS_PASSWORD` as your .htaccess password. 
+
 Hint: Search for `EDIT_ME` in the source code. 
 
 For preload to work, `wp-cron.php` should be whitelisted from .htaccess authorization as well. Please refer doc for more info. 

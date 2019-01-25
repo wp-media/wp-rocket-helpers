@@ -2,7 +2,7 @@
 /**
  * Plugin Name: WP Rocket | HTACCESS Authorization For Preload
  * Description: Adds the .htaccess username and password to the preload request so that WP Rocket can preload pages that are password protected. 
- * Plugin URI:  https://github.com/wp-media/wp-rocket-helpers/tree/master/preload/wp-rocket-preload-htpasswd-auth
+ * Plugin URI:  https://github.com/wp-media/wp-rocket-helpers/tree/master/preload/wp-rocket-preload-htaccess-auth
  * Author:      WP Rocket Support Team
  * Author URI:  http://wp-rocket.me/
  * License:     GNU General Public License v2 or later

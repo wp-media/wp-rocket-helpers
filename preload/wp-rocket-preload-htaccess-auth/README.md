@@ -13,7 +13,7 @@ Hint: Search for `EDIT_ME` in the source code.
 For preload to work, `wp-cron.php` should be whitelisted from .htaccess authorization as well. Please refer doc for more info. 
 
 Documentation:
-* [{Docs title here}]({Docs URL here})
+* [Preload is slow, or some pages are not preloaded at all](https://docs.wp-rocket.me/article/1065-sitemap-preload-is-slow-or-some-pages-are-not-preloaded-at-all)
 
 To be used with:
 * any setup that uses preload when the website is password protected by .htaccess authorization. 

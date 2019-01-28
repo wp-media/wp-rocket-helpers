@@ -56,3 +56,13 @@ function add_htaccess_authorization_header( $args ) {
 	
 	return $args;
 }
+
+/**
+ * Delete transient that stores preload errors on activation. 
+ *
+ * @author Arun Basil Lal
+ */
+function activation_todo() {
+	delete_transient( 'rocket_preload_errors' );
+}
+register_activation_hook( __FILE__, __NAMESPACE__ . '\activation_todo' );

@@ -29,3 +29,13 @@ function disable_ssl_validation() {
 	add_filter( 'https_local_ssl_verify', '__return_false' );
 }
 add_action( 'wp_rocket_loaded', __NAMESPACE__ . '\disable_ssl_validation' );
+
+/**
+ * Delete transient that stores preload errors on activation. 
+ *
+ * @author Arun Basil Lal
+ */
+function activation_todo() {
+	delete_transient( 'rocket_preload_errors' );
+}
+register_activation_hook( __FILE__, __NAMESPACE__ . '\activation_todo' );

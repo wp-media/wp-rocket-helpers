@@ -58,11 +58,21 @@ function add_htaccess_authorization_header( $args ) {
 }
 
 /**
- * Delete transient that stores preload errors on activation. 
+ * Clears old preload process and makes way for new one. 
  *
  * @author Arun Basil Lal
  */
 function activation_todo() {
+	
+	if ( class_exists( '\WP_Rocket\Preload\Full_Process' ) ) {
+		$preload_process = new \WP_Rocket\Preload\Full_Process();
+		$preload_process->complete();
+	}
+	
+	delete_transient( 'rocket_preload_complete' );
 	delete_transient( 'rocket_preload_errors' );
+	
+	delete_transient( 'doing_cron' );
+	spawn_cron();
 }
 register_activation_hook( __FILE__, __NAMESPACE__ . '\activation_todo' );

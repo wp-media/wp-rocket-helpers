@@ -1,4 +1,4 @@
-# Custom cURL Timeout For Sitemap Preload Request
+# Custom cURL Timeout For Preload Request
 
 Increase the timeout for cURL from 5 seconds for sitemap preload request.
 

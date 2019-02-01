@@ -1,21 +1,13 @@
-# {Name from file header}
+# WP Rocket | CPCSS Debug Helper
 
-{Description from file header.}
-
-⚠️ **This boilerplate plugin does not provide a downloadable ZIP file on purpose.**
-
-{Optional: A warning or hint about required code edits, like:}
-{🚧 **ADVANCED CUSTOMIZATION, HANDLE WITH CARE!**}
-{📝 **Manual code edit required before use!**}
-
-{Optional: Short description of required code edits.}
+A WordPress plugin helping debug in CPCSS.
 
 Documentation:
 * [{Docs title here}]({Docs URL here})
 
 To be used with:
-* {any setup, or a specific type of setup}
+* any setup that where `Optimize CSS delivery` (Critical Path CSS) is enabled in the File Optimization tab of WP Rocket. 
 
 Last tested with:
-* WP Rocket {2.11.x}
-* WordPress {4.9.x}
+* WP Rocket 3.2.x
+* WordPress 5.0.x

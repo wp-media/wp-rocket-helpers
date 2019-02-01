@@ -1,8 +1,8 @@
 <?php
 /**
  * Plugin Name: WP Rocket | CPCSS Debug Helper
- * Plugin URI: https://github.com/wp-media/wp-rocket-helpers/tree/master/static/wp-rocket-static-cpcss-debug-helper/
  * Description: A WordPress plugin helping debug in CPCSS.
+ * Plugin URI: https://github.com/wp-media/wp-rocket-helpers/tree/master/static-files/wp-rocket-static-cpcss-debug-helper/
  * Version: 1.0.0
  * Author: WP Rocket Support Team
  * Author URI: https://wp-rocket.me

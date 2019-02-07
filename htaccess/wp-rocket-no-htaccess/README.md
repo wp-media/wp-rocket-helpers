@@ -3,7 +3,7 @@
 Completely disable the use of .htaccess
 
 Documentation:
-* [{Docs title here}]({Docs URL here})
+* [rocket_disable_htaccess](https://docs.wp-rocket.me/article/1139-rocketdisablehtaccess)
 
 To be used with:
 * any setup where WP Rocket does not have the permissions to write into .htaccess.

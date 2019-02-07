@@ -17,5 +17,5 @@ To be used with:
 * {any setup, or a specific type of setup}
 
 Last tested with:
-* WP Rocket {2.11.x}
-* WordPress {4.9.x}
+* WP Rocket {3.2.x}
+* WordPress {5.0.x}

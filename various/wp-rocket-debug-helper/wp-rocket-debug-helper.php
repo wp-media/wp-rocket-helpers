@@ -57,6 +57,14 @@ function render_formatted_debug_notice() {
 	$html .= PHP_EOL . PHP_EOL;
 	$html .= render_filters();
 	$html .= PHP_EOL;
+	
+	/**
+	 * FUNCTIONS
+	 */
+	$html .= '## Functions' . PHP_EOL;
+	$html .= PHP_EOL;
+	$html .= render_functions();
+	$html .= PHP_EOL;
 
 	/**
 	 * Only on singular views: Cache Options metabox values
@@ -289,4 +297,31 @@ function render_cache_reject( $current_post_id ) {
 function render_note_minify_html() {
 
 	return 'Minify HTML is dynamically disabled, so this debug notice can be displayed.';
+}
+
+/**
+ * Render section: Functions
+ *
+ * @author Arun Basil Lal
+ */
+function render_functions() {
+
+	$html = '';
+
+	$functions = array(
+		'mb_substr_count',
+	);
+
+	foreach ( $functions as $function ) {
+
+		if( ! function_exists( $function ) ) {
+			$html .= '- function ' . $function . ' does not exist';
+		} else {
+			$html .= $function . ' exists';
+		}
+
+		$html .= PHP_EOL;
+	}
+
+	return $html;
 }

@@ -2,7 +2,7 @@
 /**
  * Plugin Name: WP Rocket | Custom cURL Timeout For Preload Requests
  * Description: Increase the timeout for cURL from 5 seconds for preload requests.
- * Plugin URI:  https://github.com/wp-media/wp-rocket-helpers/tree/master/various/wp-rocket-custom-preload-curl-timeout
+ * Plugin URI:  https://github.com/wp-media/wp-rocket-helpers/tree/master/preload/wp-rocket-custom-preload-curl-timeout
  * Author:      WP Rocket Support Team
  * Author URI:  http://wp-rocket.me/
  * License:     GNU General Public License v2 or later

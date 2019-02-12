@@ -2,7 +2,7 @@
 /**
  * Plugin Name: WP Rocket | Custom Sitemap Preload Intervals
  * Description: Applies a custom preload interval on WP Rocket’s sitemap preload feature.
- * Plugin URI:  https://github.com/wp-media/wp-rocket-helpers/tree/master/various/wp-rocket-custom-preload-intervals/
+ * Plugin URI:  https://github.com/wp-media/wp-rocket-helpers/tree/master/preload/wp-rocket-custom-preload-intervals/
  * Author:      WP Rocket Support Team
  * Author URI:  http://wp-rocket.me/
  * License:     GNU General Public License v2 or later

@@ -1,21 +1,13 @@
-# {Name from file header}
+# WP Rocket | Disable LazyLoad on Background Images
 
-{Description from file header.}
-
-⚠️ **This boilerplate plugin does not provide a downloadable ZIP file on purpose.**
-
-{Optional: A warning or hint about required code edits, like:}
-{🚧 **ADVANCED CUSTOMIZATION, HANDLE WITH CARE!**}
-{📝 **Manual code edit required before use!**}
-
-{Optional: Short description of required code edits.}
+Disables WP Rocket LazyLoad on background images. 
 
 Documentation:
 * [{Docs title here}]({Docs URL here})
 
 To be used with:
-* {any setup, or a specific type of setup}
+* any setup where LazyLoad for background images need to be disabled. 
 
 Last tested with:
-* WP Rocket {3.2.x}
-* WordPress {5.0.x}
+* WP Rocket 3.3.x
+* WordPress 5.1.x

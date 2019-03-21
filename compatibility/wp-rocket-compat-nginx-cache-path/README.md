@@ -9,7 +9,7 @@ Make sure to replace the **/var/run/nginx-cache** with the correct absolute path
 **PROVIDING WRONG PATH MIGHT LEAD TO UNEXPECTED BEHAVIOUR**
 
 Documentation:
-* [{Docs title here}]({Docs URL here})
+* [NGINX FastCGI Cache Add-On](https://docs.wp-rocket.me/article/1143-nginx-fastcgi-cache-add-on)
 
 To be used with:
 NGINX environment with NGINX FastCGI cache and WP Rocket **NGINX FastCGI Cache add-on** activated 

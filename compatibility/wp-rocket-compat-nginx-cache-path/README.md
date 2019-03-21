@@ -12,7 +12,7 @@ Documentation:
 * [{Docs title here}]({Docs URL here})
 
 To be used with:
-NGINX environment with NGINX FastCGI cache and WP Rocket **NGINX FastCGI** Cache add-on activated 
+NGINX environment with NGINX FastCGI cache and WP Rocket **NGINX FastCGI Cache add-on** activated 
 
 Last tested with:
 * WP Rocket 3.3

@@ -5,6 +5,7 @@ Changes default NGINX FastCGI /var/run/nginx-cache path to the desired one
 📝 **Manual code edit required before use!**
 
 Make sure to replace the **/var/run/nginx-cache** with the correct absolute path to your NGINX FastCGI cache directory (fastcgi_cache_path)
+
 **PROVIDING WRONG PATH MIGHT LEAD TO UNEXPECTED BEHAVIOUR**
 
 Documentation:

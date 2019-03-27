@@ -171,6 +171,9 @@ function render_constants() {
 		);
 		$html .= PHP_EOL;
 	}
+	
+	$html .= '- constant ABSPATH is:' . ABSPATH ;
+	$html .= PHP_EOL;
 
 	return $html;
 }

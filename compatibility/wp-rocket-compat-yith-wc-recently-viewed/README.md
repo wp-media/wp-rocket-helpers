@@ -1,6 +1,6 @@
 # WP Rocket | YITH WooCommerce Recently Viewed Products Integration
 
-Adds a dedicated cache based on each value of the `woocommerce_recently_viewed` cookie.
+Adds a dedicated cache based on each value of the `yith_wrvp_list_0` cookie.
 
 Documentation:
 * [Making WP Rocket work with WooCommerce recently viewed products widget](http://docs.wp-rocket.me/article/852-making-wp-rocket-work-with-woocommerce-recently-viewed-products-widget)

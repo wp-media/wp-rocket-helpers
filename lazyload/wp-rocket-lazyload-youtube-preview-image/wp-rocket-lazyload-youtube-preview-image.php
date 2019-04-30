@@ -39,4 +39,4 @@ function resolution( $thumbnail_resolution ) {
 
 	return $thumbnail_resolution;
 }
-add_filter( 'rocket_youtube_thumbnail_resolution', __NAMESPACE__ . '\resolution' );
+add_filter( 'rocket_lazyload_youtube_thumbnail_resolution', __NAMESPACE__ . '\resolution' );

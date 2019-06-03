@@ -1,7 +1,7 @@
 <?php
 /**
- * Plugin Name: WP Rocket | No Cache for Admins or IP
- * Description: Disable WP Rocket caching and optimizations for logged-in administrators or by IP.
+ * Plugin Name: WP Rocket | No Cache for Admins
+ * Description: Disable WP Rocket caching and optimizations for logged-in administrators.
  * Plugin URI:  https://github.com/wp-media/wp-rocket-helpers/tree/master/cache/wp-rocket-no-cache-for-admins/
  * Author:      WP Rocket Support Team
  * Author URI:  http://wp-rocket.me/
@@ -50,32 +50,6 @@ function handle_cache_for_admins() {
 	return true;
 }
 add_action( 'init', __NAMESPACE__ . '\handle_cache_for_admins' );
-
-/**
- * Never serve cached pages to this IP
- *
- * @author Sabrina Zeidan
- */
- 
-function handle_cache_for_IP() {
-
-	// Only for this IP (Replace example IP with yours)
-	if (!($_SERVER['REMOTE_ADDR'] == '27.0.232.65')) {
-		return false;
-	}
-
-	//  Only when WP Rocket is active.
-	if ( ! function_exists( 'get_rocket_option' ) ) {
-		return false;
-	}
-
-	// Prevent caching for that IP
-	add_action( 'template_redirect', __NAMESPACE__ . '\donotcache' );
-
-	return true;
-}
-add_action( 'init', __NAMESPACE__ . '\handle_cache_for_IP' );
-
 
 /**
  * Prevent caching and optimization.

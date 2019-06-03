@@ -1,21 +1,13 @@
-# {Name from file header}
+# WP Rocket | Enable SSL Cache
 
-{Description from file header.}
-
-⚠️ **This boilerplate plugin does not provide a downloadable ZIP file on purpose.**
-
-{Optional: A warning or hint about required code edits, like:}
-{🚧 **ADVANCED CUSTOMIZATION, HANDLE WITH CARE!**}
-{📝 **Manual code edit required before use!**}
-
-{Optional: Short description of required code edits.}
+Enables SSL cache so that WP Rocket caches pages with SSL.
 
 Documentation:
 * [{Docs title here}]({Docs URL here})
 
 To be used with:
-* {any setup, or a specific type of setup}
+* Any setup where SSL cache is disabled. Since 3.3.4 SSL cache is enabled by default and the WP Rocket settings UI is removed. If SSL cache was disabled prior to 3.3.4, use this helper to enable it. 
 
 Last tested with:
-* WP Rocket {3.2.x}
-* WordPress {5.0.x}
+* WP Rocket {3.3.x}
+* WordPress {5.2.x}

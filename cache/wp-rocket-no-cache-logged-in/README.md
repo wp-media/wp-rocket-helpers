@@ -1,13 +1,10 @@
-# WP Rocket | Disable Page Caching
+# WP Rocket | Disable Page Caching For Logged-In Users
 
-Disables WP Rocket’s page cache while preserving other optimization features.
-
-Documentation:
-* [Disable page caching](http://docs.wp-rocket.me/article/61-disable-page-caching)
+Disables WP Rocket's page cache for logged-in users (User Cache) while preserving other optimization features.
 
 To be used with:
-* any setup
+* any setup where User Cache is enabled.
 
 Last tested with:
-* WP Rocket 2.9.x
-* WordPress 4.7.x
+* WP Rocket 3.4.x
+* WordPress 5.2.x

@@ -2,7 +2,7 @@
 /**
  * Plugin Name: WP Rocket | Disable Page Caching For Logged-In Users
  * Description: Disables WP Rocket’s page cache for logged-in users (User Cache) while preserving other optimization features.
- * Plugin URI:  https://github.com/wp-media/wp-rocket-helpers/tree/master/cache/wp-rocket-no-cache/
+ * Plugin URI:  https://github.com/wp-media/wp-rocket-helpers/tree/master/cache/wp-rocket-no-cache-logged-in/
  * Author:      WP Rocket Support Team
  * Author URI:  http://wp-rocket.me/
  * License:     GNU General Public License v2 or later
@@ -17,7 +17,7 @@ namespace WP_Rocket\Helpers\cache\no_cache_logged_in;
 defined( 'ABSPATH' ) or die();
 
 /**
- * Disable page caching in WP Rocket.
+ * Disable page caching in WP Rocket for logged-in users.
  *
  * @author Arun Basil Lal
  */

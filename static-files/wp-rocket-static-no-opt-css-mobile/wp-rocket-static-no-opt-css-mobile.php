@@ -38,12 +38,12 @@ function maybe_no_optimized_css() {
 	}
 
 	// Only if “Mobile Cache” is active.
-	if ( '1' !== get_rocket_option( 'cache_mobile' ) ) {
+	if ( 1 !== get_rocket_option( 'cache_mobile' ) ) {
 		return false;
 	}
 
 	// Only if “Separate cache files for mobile devices” is active.
-	if ( '1' !== get_rocket_option( 'do_caching_mobile_files' ) ) {
+	if ( 1 !== get_rocket_option( 'do_caching_mobile_files' ) ) {
 		return false;
 	}
 

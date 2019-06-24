@@ -65,6 +65,14 @@ function render_formatted_debug_notice() {
 	$html .= PHP_EOL;
 	$html .= render_functions();
 	$html .= PHP_EOL;
+	
+	/**
+	 * KNOWN PLUGIN/THEME CONFLCITS
+	 */
+	$html .= '## Known Plugin / Theme Conflicts' . PHP_EOL;
+	$html .= PHP_EOL;
+	$html .= render_known_conflicts();
+	$html .= PHP_EOL;
 
 	/**
 	 * Only on singular views: Cache Options metabox values
@@ -98,10 +106,7 @@ function render_formatted_debug_notice() {
 
 	print $html;
 }
-add_action( 'wp_footer',
-	'\WP_Rocket\Helpers\debug\render_formatted_debug_notice',
-	PHP_INT_MAX
-);
+add_action( 'wp_footer',  __NAMESPACE__ . '\render_formatted_debug_notice', PHP_INT_MAX );
 
 /**
  * Render begin of debug notice
@@ -323,6 +328,42 @@ function render_functions() {
 			$html .= $function . ' exists';
 		}
 
+		$html .= PHP_EOL;
+	}
+
+	return $html;
+}
+
+/**
+ * Render section: Known Plugin / Theme Conflicts
+ *
+ * @author Arun Basil Lal
+ */
+function render_known_conflicts() {
+
+	$html = '';
+
+	$known_plugin_conflicts = array(
+		'geoip-detect/geoip-detect.php',
+		'email-to-download/email-to-download.php',
+		'yet-another-stars-rating/yet-another-stars-rating.php',
+		'ezoic-integration/ezoic-integration.php',
+		'bulk-image-alt-text-with-yoast/bulk-image-alt-text-with-yoast.php',
+		'wp-facebook-open-graph-protocol/wp-facebook-ogp.php',
+		'password-protected/password-protected.php',
+		'wp-social-seo-booster/wpsocial-seo-booster.php',
+	);
+
+	foreach ( $known_plugin_conflicts as $plugin ) {
+
+		if( is_plugin_active( $plugin ) ) {
+			$html .= '- plugin ' . $plugin . ' is active.';
+			$html .= PHP_EOL;
+		}
+	}
+	
+	if ( strcmp( $html, '' ) === 0 ) {
+		$html = '- No known conflicts found.';
 		$html .= PHP_EOL;
 	}
 

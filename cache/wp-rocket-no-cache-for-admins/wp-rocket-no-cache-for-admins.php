@@ -58,9 +58,14 @@ add_action( 'init', __NAMESPACE__ . '\handle_cache_for_admins' );
  */
 function donotcache() {
 
-	define( 'DONOTCACHEPAGE', true );
-	define( 'DONOTROCKETOPTIMIZE', true );
-
+	if ( ! defined( 'DONOTCACHEPAGE' ) ) {
+		define( 'DONOTCACHEPAGE', true );
+	}
+	
+	if ( ! defined( 'DONOTROCKETOPTIMIZE' ) ) {
+		define( 'DONOTROCKETOPTIMIZE', true );
+	}
+	
 	return true;
 }
 

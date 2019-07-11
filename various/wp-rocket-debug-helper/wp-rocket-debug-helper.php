@@ -352,6 +352,7 @@ function render_known_conflicts() {
 		'wp-facebook-open-graph-protocol/wp-facebook-ogp.php',
 		'password-protected/password-protected.php',
 		'wp-social-seo-booster/wpsocial-seo-booster.php',
+		'cookie-law-info/cookie-law-info.php'
 	);
 
 	foreach ( $known_plugin_conflicts as $plugin ) {

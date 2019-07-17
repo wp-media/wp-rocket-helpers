@@ -97,6 +97,14 @@ function render_formatted_debug_notice() {
 		$html .= render_metabox( $current_post_id );
 		$html .= PHP_EOL;
 	}
+	
+	/**
+	 * MISCELLANEOUS CHECKS
+	 */
+	$html .= '## Miscellaneous' . PHP_EOL;
+	$html .= PHP_EOL;
+	$html .= render_miscellaneous();
+	$html .= PHP_EOL;
 
 	/**
 	 * END
@@ -366,6 +374,25 @@ function render_known_conflicts() {
 	if ( strcmp( $html, '' ) === 0 ) {
 		$html = '- No known conflicts found.';
 		$html .= PHP_EOL;
+	}
+
+	return $html;
+}
+
+/**
+ * Render section: Miscellaneous Checks
+ *
+ * @author Arun Basil Lal
+ */
+function render_miscellaneous() {
+
+	$html = '';
+	
+	// Check for SSL Cache
+	if ( 1 === (int) get_rocket_option( 'cache_ssl' ) ) {
+		$html = '- SSL Cache is enabled.';
+	} else {
+		$html = '- SSL Cache is disabled. If site uses https, enable using helper.';
 	}
 
 	return $html;

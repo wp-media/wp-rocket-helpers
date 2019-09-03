@@ -2,7 +2,7 @@
 /**
  * Plugin Name: WP Rocket | Ignore Query Strings
  * Description: Define query strings that should use the same set of cache.
- * Plugin URI:  https://github.com/wp-media/wp-rocket-helpers/static/wp-rocket-static-ignore-query-strings
+ * Plugin URI:  https://github.com/wp-media/wp-rocket-helpers/cache/wp-rocket-cache-ignore-query-strings
  * Author:      WP Rocket Support Team
  * Author URI:  http://wp-rocket.me/
  * License:     GNU General Public License v2 or later
@@ -11,40 +11,24 @@
  * Copyright SAS WP MEDIA 2019
  */
 // Namespaces must be declared before any other declaration.
-namespace WP_Rocket\Helpers\static_files\ignore_query_strings;
+namespace WP_Rocket\Helpers\cache\ignore_query_strings;
 
 // Standard plugin security, keep this line in place.
 defined( 'ABSPATH' ) or die();
 
 /**
  * Add new parameters or remove existing ones.
- * You can add new parameter by copying existing line and changing its name in brackets.
- * To remove existing parameters, please comment desired parameter like it's done with 'new_query_string'.
+ * You can add new parameter by editing or copying existing line and changing its name in brackets (new_query_string).
+ * To prevent WP Rocket from caching specific parameter, uncomment 29th line of code and change value (utm_source) to the desired one.
+ * If you want WP Rocket stop serving cache for more parameters, simply copy the 30th line and change the value.  
  *
  * @author Piotr Bąk
  */
 function define_ignored_parameters( array $params ) {
 	
-	$params = [
-		'utm_source'      => 1,
-		'utm_medium'      => 1,
-		'utm_campaign'    => 1,
-		'utm_expid'       => 1,
-		'utm_term'        => 1,
-		'utm_content'     => 1,
-		'fb_action_ids'   => 1,
-		'fb_action_types' => 1,
-		'fb_source'       => 1,
-		'fbclid'          => 1,
-		'gclid'           => 1,
-		'age-verified'    => 1,
-		'ao_noptimize'    => 1,
-		'usqp'            => 1,
-		'cn-reloaded'     => 1,
-		'_ga'             => 1,
-//		'new_query_string'	=> 1,	
-	];
-	
+	$params['new_query_string'] = 1;
+	//unset ( $params['utm_source'] );
+
 	return $params;
 	
 }
@@ -58,13 +42,9 @@ add_filter( 'rocket_cache_ignored_parameters', __NAMESPACE__ . '\define_ignored_
  */
 function flush_wp_rocket() {
 
-	if ( ! function_exists( 'flush_rocket_htaccess' )
-	  || ! function_exists( 'rocket_generate_config_file' ) ) {
+	if ( ! function_exists( 'rocket_generate_config_file' ) ) {
 		return false;
 	}
-
-	// Update WP Rocket .htaccess rules.
-	flush_rocket_htaccess();
 
 	// Regenerate WP Rocket config file.
 	rocket_generate_config_file();

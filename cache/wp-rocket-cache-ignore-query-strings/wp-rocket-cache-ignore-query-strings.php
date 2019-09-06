@@ -19,7 +19,7 @@ defined( 'ABSPATH' ) or die();
 /**
  * Add new parameters or remove existing ones.
  * You can add new parameter by editing or copying existing line and changing its name in brackets (new_query_string).
- * To prevent WP Rocket from caching specific parameter, uncomment 29th line of code and change value (utm_source) to the desired one.
+ * To prevent WP Rocket from caching specific parameter, uncomment 30th line of code and change value (utm_source) to the desired one.
  * If you want WP Rocket stop serving cache for more parameters, simply copy the 30th line and change the value.  
  *
  * @author Piotr Bąk

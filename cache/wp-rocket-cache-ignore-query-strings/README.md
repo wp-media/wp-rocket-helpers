@@ -8,7 +8,7 @@ You can add new parameter by editing or copying existing line and changing its n
 To prevent WP Rocket from caching specific parameter, uncomment 30th line of code and change value (utm_source) to the desired one.
 If you want WP Rocket stop serving cache for more parameters, simply copy the 30th line and change the value.  
 
-Documentation:
+Documentation: [Customize Query String Caching](https://docs.wp-rocket.me/article/1281-customize-query-string-caching)
 
 To be used with:
 Any setup

@@ -24,4 +24,4 @@ defined( 'ABSPATH' ) or die();
  * @author Vasilis Manthos
  */
  
-add_filter( 'rocket_use_native_lazyload', __return_true );
+add_filter( 'rocket_use_native_lazyload', '__return_true' );

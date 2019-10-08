@@ -2,7 +2,7 @@
 /**
  * Plugin Name: WP Rocket | Remove GZIP (mod_deflate) rules
  * Description: Removes WP Rocket’s GZIP rules from .htaccess
- * Plugin URI:  
+ * Plugin URI:  https://github.com/wp-media/wp-rocket-helpers/tree/master/htaccess/wp-rocket-htaccess-remove-gzip
  * Author:      WP Rocket Support Team
  * Author URI:  http://wp-rocket.me/
  * License:     GNU General Public License v2 or later

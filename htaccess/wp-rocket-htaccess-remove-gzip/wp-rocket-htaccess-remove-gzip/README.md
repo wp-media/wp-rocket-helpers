@@ -1,10 +1,13 @@
 # WP Rocket | Remove GZIP (mod_deflate) rules
 ---
 
-Removes WP Rocket’s GZIP rules from .htaccess
+Removes WP Rocket’s GZIP rules from .htaccess.
 
+**Reference**
 
-You can install and activate this plugin as it is, however, you probably won’t have to keep all of .htaccess WP Rocket’s .htaccess rules removed, but only one or two. Follow the [documentation](https://docs.wp-rocket.me/article/110-resolve-500-internal-server-error) to find out which ones.
+The rules removed are those in the **ModDeflate** section of the following doc:
+https://docs.wp-rocket.me/article/110-resolve-500-internal-server-error#reference-htaccess-rules
+
 
 Last tested with:
 * WP Rocket 3.4.0.3

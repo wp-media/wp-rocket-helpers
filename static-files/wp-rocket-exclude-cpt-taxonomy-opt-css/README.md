@@ -15,3 +15,10 @@ If you want to exclude only a Taxonomy, please comment out the following line, l
 ```
 //add_filter( 'rocket_cpcss_excluded_post_types',  __NAMESPACE__ . '\wp_rocket_exclude_CPCSS_CPT');
 ```
+
+To be used with:
+* any setup that uses `Optimize CSS delivery`.
+
+Last tested with:
+* WP Rocket 3.4.x
+* WordPress 5.2.x

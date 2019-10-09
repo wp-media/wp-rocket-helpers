@@ -8,7 +8,7 @@ Documentation:
 * [Chrome Native Lazy Load](https://docs.wp-rocket.me/article/1292-chrome-native-lazyload)
 
 To be used with:
-* any setup where lazyload is enabled and you wish to use native lazyload of browser instead of WP Rocket's lazyload. 
+* any setup where lazyload is enabled and you wish to use native lazyload of browser instead of WP Rocket's lazyload. Needs WP Rocket 3.4 or newer. 
 
 Last tested with:
 * WP Rocket 3.4.x

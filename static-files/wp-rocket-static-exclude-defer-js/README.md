@@ -11,5 +11,5 @@ To be used with:
 * any setup where “Load JS files deferred” is enabled
 
 Last tested with:
-* WP Rocket 2.10.x
-* WordPress 4.7.x
+* WP Rocket 3.4.x
+* WordPress 5.2.x

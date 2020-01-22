@@ -23,9 +23,12 @@ defined( 'ABSPATH' ) or die();
  */
 function clone_config( $config_files_path ) {
 
+	// EDIT THIS. ADD ON EXTRA LINE PER DOMAIN
+	
 	$extra_url[] = 'another-url.com';
-	$extra_url[] = 'and-another-url.com';
-		
+	
+	// STOP EDITING
+	
 	foreach($extra_url as $url) {
 
 		$sanitized_url =  preg_replace('#^https?://#', '', untrailingslashit( $url )).'.php' ;

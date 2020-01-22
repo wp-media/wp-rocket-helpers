@@ -52,14 +52,11 @@ add_filter( 'rocket_config_files_path', __NAMESPACE__ . '\clone_config' );
  */
  
 function flush_wp_rocket() {
-	if ( ! function_exists( 'flush_rocket_htaccess' )
-	  || ! function_exists( 'rocket_generate_config_file' )
+	if ( ! function_exists( 'rocket_generate_config_file' )
 	  || ! function_exists( 'rocket_delete_config_file' ) ) {
 		return false;
 	}
 	
-	// Update WP Rocket .htaccess rules.
-	flush_rocket_htaccess();
 
 	// Regenerate WP Rocket config file.
 	rocket_generate_config_file();

@@ -1,4 +1,4 @@
-# WP Rocket | Remove GZIP (mod_deflate) rules
+# WP Rocket | Remove expires (mod_expires) rules
 
 Removes WP Rocket’s expires rules from .htaccess.
 

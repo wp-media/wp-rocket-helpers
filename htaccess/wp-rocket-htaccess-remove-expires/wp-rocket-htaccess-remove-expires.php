@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: WP Rocket | Remove expires headers .htacces Rules
+ * Plugin Name: WP Rocket | Remove expires headers
  * Description: Removes Rocket’s expire headers rules from .htaccess.
  * Author:      WP Rocket Support Team
  * Author URI:  http://wp-rocket.me/
@@ -33,6 +33,7 @@ function flush_wp_rocket() {
 
 	// Update WP Rocket .htaccess rules.
 	flush_rocket_htaccess();
+}
 
 register_activation_hook( __FILE__, __NAMESPACE__ . '\flush_wp_rocket' );
 
@@ -44,7 +45,7 @@ register_activation_hook( __FILE__, __NAMESPACE__ . '\flush_wp_rocket' );
 function deactivate() {
 
 	// Remove all functionality added above.
-	remove_filter('rocket_htaccess_mod_rewrite', '__return_false');
+	remove_filter('rocket_htaccess_mod_expires', '__return_false');
 
 	// Flush .htaccess rules, and regenerate WP Rocket config file.
 	flush_wp_rocket();

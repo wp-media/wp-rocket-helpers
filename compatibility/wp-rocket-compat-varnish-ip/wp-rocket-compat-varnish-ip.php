@@ -16,77 +16,20 @@ namespace WP_Rocket\Helpers\compat\varnish_ip;
 // Standard plugin security, keep this line in place.
 defined( 'ABSPATH' ) or die();
 
-
-//// REPLACE 123.456.78 WITH YOUR CUSTOM VARNISH IP:
-
-define( 'WPROCKETHELPERS_CUSTOM_VARNISH_IP', '123.456.78' );
-
-//// STOP EDITING ////
-
-
 /**
- * Pass custom IP if constant value has been customized.
+ * Return custom Varnish IP
  *
- * @author Caspar Hübinger
+ * @author Arun Basil Lal
  *
- * @return string
+ * @return array
  */
-function maybe_set_custom_varnish_ip() {
+function set_custom_varnish_ip() {
 
-	$custom_ip = (string) WPROCKETHELPERS_CUSTOM_VARNISH_IP;
-
-	// The rocket_varnish_ip filter takes an empty string by default.
-	$ip = '09809b7612ff8b312f61b3f47b5845e4' === md5( $custom_ip ) ? '' : $custom_ip;
-
-	return $ip;
+	$ips = array( 
+		'127.0.0.1',	// Enter your custom Varnish IP here
+		// '13.1.2.3',	// Add each new IP as a new line
+	);
+	
+	return $ips;
 }
-add_action( 'rocket_varnish_ip', __NAMESPACE__ . '\maybe_set_custom_varnish_ip' );
-
-/**
- * Updates .htaccess, regenerates WP Rocket config file.
- *
- * @author Caspar Hübinger
- */
-function flush_wp_rocket() {
-
-	if ( ! function_exists( 'flush_rocket_htaccess' )
-	  || ! function_exists( 'rocket_generate_config_file' ) ) {
-		return false;
-	}
-
-	// Update WP Rocket .htaccess rules.
-	flush_rocket_htaccess();
-
-	// Regenerate WP Rocket config file.
-	rocket_generate_config_file();
-}
-
-/**
- * Add customizations, updates .htaccess, regenerates config file.
- *
- * @author Caspar Hübinger
- */
-function activate() {
-
-	// Add customizations upon activation.
-	add_action( 'rocket_varnish_ip', __NAMESPACE__ . '\maybe_set_custom_varnish_ip' );
-
-	// Flush .htaccess rules, and regenerate WP Rocket config file.
-	flush_wp_rocket();
-}
-register_activation_hook( __FILE__, __NAMESPACE__ . '\activate' );
-
-/**
- * Removes customizations, updates .htaccess, regenerates config file.
- *
- * @author Caspar Hübinger
- */
-function deactivate() {
-
-	// Remove customizations upon deactivation.
-	remove_action( 'rocket_varnish_ip', __NAMESPACE__ . '\maybe_set_custom_varnish_ip' );
-
-	// Flush .htaccess rules, and regenerate WP Rocket config file.
-	flush_wp_rocket();
-}
-register_deactivation_hook( __FILE__, __NAMESPACE__ . '\deactivate' );
+add_filter( 'rocket_varnish_ip', __NAMESPACE__ . '\set_custom_varnish_ip' );

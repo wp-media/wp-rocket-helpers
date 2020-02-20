@@ -21,14 +21,13 @@ defined( 'ABSPATH' ) or die();
  *
  * @author Arun Basil Lal
  *
+ * @param (array) $ips Array containing custom Varnish IP's
  * @return array
  */
-function set_custom_varnish_ip() {
+function set_custom_varnish_ip( $ips ) {
 
-	$ips = array( 
-		'127.0.0.1',	// Enter your custom Varnish IP here
-		// '13.1.2.3',	// Add each new IP as a new line
-	);
+	$ips[] = '127.0.0.1';	// Enter your custom Varnish IP here
+	// $ips[] = '13.1.2.3';	// Add each new IP as a new line
 	
 	return $ips;
 }

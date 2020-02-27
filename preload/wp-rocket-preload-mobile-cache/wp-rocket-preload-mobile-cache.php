@@ -19,12 +19,9 @@ defined( 'ABSPATH' ) or die();
 
 
 /**
- * Change the value of the display attibute WP Rocket sets for the "Combine Google fonts" feature
+ * Change the user-agent that's used for proeloading to a mobile one.
  *
- * @link filter: https://github.com/wp-media/wp-rocket/blob/7ff6b932752c910ef9b8ea73433bc58fad72535b/inc/classes/preload/class-full-process.php#L60
- * @link filter: https://github.com/wp-media/wp-rocket/blob/7ff6b932752c910ef9b8ea73433bc58fad72535b/inc/classes/preload/class-full-process.php#L60
- * @link user agent: https://www.whatismybrowser.com/guides/the-latest-user-agent/chrome
- * 
+ * @param array $args Array holding the request arguments.
  * @author Vasilis Manthos
  */
  

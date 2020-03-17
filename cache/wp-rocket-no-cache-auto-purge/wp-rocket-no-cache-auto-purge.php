@@ -29,9 +29,9 @@ function remove_purge_hooks() {
 		'switch_theme',
 		// When a user is added
 		'user_register',
-		// When a user is updated
+		// When a user is updated - keeping this for backward compatibility for WP Rocket prior to 3.5
 		'profile_update',
-		// When a user is deleted
+		// When a user is deleted - keeping this for backward compatibility for WP Rocket prior to 3.5
 		'deleted_user',
 		// When a custom menu is updated
 		'wp_update_nav_menu',
@@ -89,3 +89,18 @@ function remove_purge_hooks() {
 	remove_action( 'upgrader_process_complete', 'rocket_clean_cache_theme_update', 10, 2 ); 
 }
 add_action( 'wp_rocket_loaded', __NAMESPACE__ . '\remove_purge_hooks' );
+
+/**
+ * Disable user cache purging for WP Rocket 3.5 or later.
+ *
+ * @author Vasilis Manthos
+ */
+function wp_rocket_disable_user_cache_purging(){
+	
+	$container = apply_filters( 'rocket_container', '');
+	$container->get('event_manager')->remove_callback( 'profile_update', [ $container->get('purge_actions_subscriber'), 'purge_user_cache'] );
+	$container->get('event_manager')->remove_callback( 'delete_user', [ $container->get('purge_actions_subscriber'), 'purge_user_cache'] );
+
+}
+
+add_action( 'wp_rocket_loaded', __NAMESPACE__ . '\wp_rocket_disable_user_cache_purging' );

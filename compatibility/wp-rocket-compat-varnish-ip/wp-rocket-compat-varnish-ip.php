@@ -26,7 +26,10 @@ defined( 'ABSPATH' ) or die();
  */
 function set_custom_varnish_ip( $ips ) {
 
-	$ips = [];
+	if ( ! is_array( $ips ) ) {
+        	$ips = (array) $ips;
+    	}
+
 	$ips[] = '127.0.0.1';	// Enter your custom Varnish IP here
 	// $ips[] = '13.1.2.3';	// Add each new IP as a new line
 	

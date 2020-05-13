@@ -8,7 +8,7 @@
  * License:     GNU General Public License v2 or later
  * License URI: http://www.gnu.org/licenses/gpl-2.0.html
  *
- * Copyright SAS WP MEDIA 2018
+ * Copyright SAS WP MEDIA 2020
  */
 
 namespace WP_Rocket\Helpers\cache\no_cache_auto_purge;
@@ -29,9 +29,9 @@ function remove_purge_hooks() {
 		'switch_theme',
 		// When a user is added
 		'user_register',
-		// When a user is updated - keeping this for backward compatibility for WP Rocket prior to 3.5
+		// When a user is updated
 		'profile_update',
-		// When a user is deleted - keeping this for backward compatibility for WP Rocket prior to 3.5
+		// When a user is deleted
 		'deleted_user',
 		// When a custom menu is updated
 		'wp_update_nav_menu',
@@ -45,11 +45,11 @@ function remove_purge_hooks() {
 		'update_option_tag_base',
 		// When permalink structure is update
 		'permalink_structure_changed',
-		// When a term is created
+		// When a term is created (before WP Rocket 3.5.5)
 		'create_term',
-		// When a term is updated
+		// When a term is updated (before WP Rocket 3.5.5)
 		'edited_terms',
-		// When a term is deleted
+		// When a term is deleted (before WP Rocket 3.5.5)
 		'delete_term',
 		// When a link (post type) is added
 		'add_link',
@@ -104,3 +104,19 @@ function wp_rocket_disable_user_cache_purging(){
 }
 
 add_action( 'wp_rocket_loaded', __NAMESPACE__ . '\wp_rocket_disable_user_cache_purging' );
+
+
+/**
+ * Disable cache clearing when term is created/updated/deleted for WP Rocket 3.5.5 or later.
+ *
+ * @author Piotr Bak
+ */
+ function wp_rocket_disable_term_cache_purging(){
+	
+	$container = apply_filters( 'rocket_container', '');
+	$container->get('event_manager')->remove_callback( 'create_term' , [ $container->get('purge_actions_subscriber'), 'maybe_purge_cache_on_term_change'] );
+	$container->get('event_manager')->remove_callback( 'edit_term' , [ $container->get('purge_actions_subscriber'), 'maybe_purge_cache_on_term_change'] );
+	$container->get('event_manager')->remove_callback( 'pre_delete_term' , [ $container->get('purge_actions_subscriber'), 'maybe_purge_cache_on_term_change'] );
+
+}
+add_action( 'wp_rocket_loaded', __NAMESPACE__ . '\wp_rocket_disable_term_cache_purging' );

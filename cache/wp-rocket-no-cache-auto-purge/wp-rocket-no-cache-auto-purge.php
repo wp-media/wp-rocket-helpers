@@ -100,15 +100,15 @@ add_action( 'wp_rocket_loaded', __NAMESPACE__ . '\remove_purge_hooks' );
 function wp_rocket_disable_user_cache_purging(){
 	
 	$container = apply_filters( 'rocket_container', '');
-		//After profile is updated (User cache only)
+	// After profile is updated (User cache only)
 	$container->get('event_manager')->remove_callback( 'profile_update', [ $container->get('purge_actions_subscriber'), 'purge_user_cache'] );
-		//After user is deleted (User cache only)
+	// After user is deleted (User cache only)
 	$container->get('event_manager')->remove_callback( 'delete_user', [ $container->get('purge_actions_subscriber'), 'purge_user_cache'] );
-		//After term is created
+	// After term is created
 	$container->get('event_manager')->remove_callback( 'create_term' , [ $container->get('purge_actions_subscriber'), 'maybe_purge_cache_on_term_change'] );
-		//After term is edited
+	// After term is edited
 	$container->get('event_manager')->remove_callback( 'edit_term' , [ $container->get('purge_actions_subscriber'), 'maybe_purge_cache_on_term_change'] );
-		//After term is removed
+	// After term is removed
 	$container->get('event_manager')->remove_callback( 'delete_term' , [ $container->get('purge_actions_subscriber'), 'maybe_purge_cache_on_term_change'] );
 
 }

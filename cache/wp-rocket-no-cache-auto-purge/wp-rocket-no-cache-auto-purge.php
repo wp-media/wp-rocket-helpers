@@ -91,32 +91,26 @@ function remove_purge_hooks() {
 add_action( 'wp_rocket_loaded', __NAMESPACE__ . '\remove_purge_hooks' );
 
 /**
+ * Disable cache clearing when term is created/updated/deleted for WP Rocket 3.5.5 or later.
  * Disable user cache purging for WP Rocket 3.5 or later.
  *
- * @author Vasilis Manthos
+ *	@author Vasilis Manthos
+ * 	@author Piotr Bak
  */
 function wp_rocket_disable_user_cache_purging(){
 	
 	$container = apply_filters( 'rocket_container', '');
+		//After profile is updated (User cache only)
 	$container->get('event_manager')->remove_callback( 'profile_update', [ $container->get('purge_actions_subscriber'), 'purge_user_cache'] );
+		//After user is deleted (User cache only)
 	$container->get('event_manager')->remove_callback( 'delete_user', [ $container->get('purge_actions_subscriber'), 'purge_user_cache'] );
+		//After term is created
+	$container->get('event_manager')->remove_callback( 'create_term' , [ $container->get('purge_actions_subscriber'), 'maybe_purge_cache_on_term_change'] );
+		//After term is edited
+	$container->get('event_manager')->remove_callback( 'edit_term' , [ $container->get('purge_actions_subscriber'), 'maybe_purge_cache_on_term_change'] );
+		//After term is removed
+	$container->get('event_manager')->remove_callback( 'delete_term' , [ $container->get('purge_actions_subscriber'), 'maybe_purge_cache_on_term_change'] );
 
 }
 
 add_action( 'wp_rocket_loaded', __NAMESPACE__ . '\wp_rocket_disable_user_cache_purging' );
-
-
-/**
- * Disable cache clearing when term is created/updated/deleted for WP Rocket 3.5.5 or later.
- *
- * @author Piotr Bak
- */
- function wp_rocket_disable_term_cache_purging(){
-	
-	$container = apply_filters( 'rocket_container', '');
-	$container->get('event_manager')->remove_callback( 'create_term' , [ $container->get('purge_actions_subscriber'), 'maybe_purge_cache_on_term_change'] );
-	$container->get('event_manager')->remove_callback( 'edit_term' , [ $container->get('purge_actions_subscriber'), 'maybe_purge_cache_on_term_change'] );
-	$container->get('event_manager')->remove_callback( 'pre_delete_term' , [ $container->get('purge_actions_subscriber'), 'maybe_purge_cache_on_term_change'] );
-
-}
-add_action( 'wp_rocket_loaded', __NAMESPACE__ . '\wp_rocket_disable_term_cache_purging' );

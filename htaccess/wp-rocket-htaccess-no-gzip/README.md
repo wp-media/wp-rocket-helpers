@@ -9,5 +9,5 @@ To be used with:
 * any setup where problems with GZIP-related .htaccess rules have occurred
 
 Last tested with:
-* WP Rocket 2.9.x
-* WordPress 4.7.x
+* WP Rocket 3.6
+* WordPress 5.4.x

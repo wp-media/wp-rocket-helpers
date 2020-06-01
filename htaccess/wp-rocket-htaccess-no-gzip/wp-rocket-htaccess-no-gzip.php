@@ -22,6 +22,7 @@ defined( 'ABSPATH' ) or die();
  * @link http://docs.wp-rocket.me/article/52-fix-for-weird-characters-displaying-on-your-web-page
  */
 add_filter( 'rocket_force_gzip_htaccess_rules', '__return_false' );
+add_filter('rocket_htaccess_compressed_assets', '__return_false');
 
 
 /**
@@ -53,6 +54,8 @@ function deactivate() {
 
 	// Remove all functionality added above.
 	remove_filter( 'rocket_force_gzip_htaccess_rules', '__return_false' );
+	remove_filter('rocket_htaccess_compressed_assets', '__return_false');
+
 
 	// Flush .htaccess rules, and regenerate WP Rocket config file.
 	flush_wp_rocket();

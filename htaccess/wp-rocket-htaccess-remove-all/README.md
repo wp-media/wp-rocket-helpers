@@ -13,5 +13,5 @@ To be used with:
 * any Apache setup where an error 500 appears, or where WP Rocket’s .htaccess rules can cause issues in the individual environment
 
 Last tested with:
-* WP Rocket 2.11.x
-* WordPress 4.9.x
+* WP Rocket 3.6
+* WordPress 5.4.x

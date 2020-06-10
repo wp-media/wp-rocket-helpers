@@ -1,6 +1,6 @@
 # WP Rocket | Desktop version of Critical CSS on Mobile
 
-Makes sure that Desktop version of Critical CSS is beign used on mobiles when Separate Cache for Mobile Devices is enabled.
+Makes sure that Desktop version of Critical CSS is being used on mobiles when Separate Cache for Mobile Devices is enabled.
 
 To be used with:
 * any setup where _Mobile Cache_ and _Separate cache files for mobile devices_ are enabled

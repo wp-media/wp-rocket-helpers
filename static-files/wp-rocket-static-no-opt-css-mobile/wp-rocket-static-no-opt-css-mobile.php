@@ -54,7 +54,6 @@ function maybe_no_optimized_css() {
 
 	// Disable Optimize CSS delivery.
 	add_filter( 'pre_get_rocket_option_async_css', '__return_zero' );
-	add_filter( 'pre_get_rocket_option_async_css_mobile', '__return_zero' ):
 
 	return true;
 }

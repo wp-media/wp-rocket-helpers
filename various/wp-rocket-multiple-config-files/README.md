@@ -4,7 +4,7 @@ Useful for cases where there are multiple URLs sharing the same filebase and mul
 
 📝  Manual code edit required before use!
 
-Replace the example provided in line 28, **$extra_url[]**, with the real URLs for which you need to generate the config files.
+Replace the example provided in line 27, **$extra_url[]**, with the real URLs for which you need to generate the config files.
 You can also add new URL as needed, one per line: 
 
 	$extra_url[] = 'another-url.com';

@@ -25,8 +25,6 @@ add_filter('rocket_htaccess_files_match', '__return_false');
 add_filter('rocket_htaccess_mod_expires', '__return_false');
 add_filter('rocket_htaccess_mod_deflate', '__return_false');
 add_filter('rocket_htaccess_mod_rewrite', '__return_false');
-add_filter('rocket_htaccess_compressed_assets', '__return_false');
-
 
 /**
  * Updates .htaccess, regenerates WP Rocket config file.
@@ -63,7 +61,6 @@ function deactivate() {
 	remove_filter('rocket_htaccess_mod_expires', '__return_false');
 	remove_filter('rocket_htaccess_mod_deflate', '__return_false');
 	remove_filter('rocket_htaccess_mod_rewrite', '__return_false');
-	remove_filter('rocket_htaccess_compressed_assets', '__return_false');
 
 	// Flush .htaccess rules, and regenerate WP Rocket config file.
 	flush_wp_rocket();

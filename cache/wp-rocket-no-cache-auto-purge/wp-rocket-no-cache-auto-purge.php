@@ -114,3 +114,24 @@ function wp_rocket_disable_user_cache_purging(){
 }
 
 add_action( 'wp_rocket_loaded', __NAMESPACE__ . '\wp_rocket_disable_user_cache_purging' );
+
+// Prent cache clearing when Elementor is used
+function wp_rocket_disable_elementor_cache_clearing(){
+
+		add_action( 'wp_loaded', function() {
+		$container = apply_filters( 'rocket_container', '');
+		$container->get('event_manager')->remove_callback( 'added_post_meta', [ $container->get('elementor_subscriber'), 'maybe_clear_cache'], 10, 3 );
+		$container->get('event_manager')->remove_callback( 'deleted_post_meta', [ $container->get('elementor_subscriber'), 'maybe_clear_cache'], 10, 3 );
+		$container->get('event_manager')->remove_callback( 'elementor/core/files/clear_cache', [ $container->get('elementor_subscriber'), 'clear_cache'] );
+		$container->get('event_manager')->remove_callback( 'update_option__elementor_global_css', [ $container->get('elementor_subscriber'), 'clear_cache'] );
+		$container->get('event_manager')->remove_callback( 'delete_option__elementor_global_css', [ $container->get('elementor_subscriber'), 'clear_cache'] );
+		} );
+}
+
+add_action( 'wp_rocket_loaded',  __NAMESPACE__  . '\wp_rocket_disable_elementor_cache_clearing' );
+
+// Prent cache clearing when Avada is used
+add_action( 'wp', function(){ 
+	remove_action( 'avada_clear_dynamic_css_cache', 'rocket_clean_domain' );
+	remove_action( 'fusion_cache_reset_after', 'rocket_avada_clear_cache_fusion_patcher' );
+});

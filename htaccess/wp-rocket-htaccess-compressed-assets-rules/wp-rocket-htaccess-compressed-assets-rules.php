@@ -20,9 +20,9 @@ defined( 'ABSPATH' ) or die();
  *
  * @return string         Block of Compressed Assets htaccess rules
  */
-function rocket_add_compressed_assets_rules() {
+function rocket_add_compressed_assets_rules( $marker ) {
 
-	$rules = <<<HTACCESS
+$customHeaders = <<<HTACCESS
 <IfModule mod_headers.c>
     RewriteCond %{HTTP:Accept-Encoding} gzip
     RewriteCond %{REQUEST_FILENAME}\.gz -f
@@ -47,10 +47,13 @@ function rocket_add_compressed_assets_rules() {
     # Serve correct encoding type
     AddEncoding gzip .gz
 </IfModule>
-
 HTACCESS;
 
-	return $rules;
+	// Prepend custom headers to WP Rocket block.
+	$marker = $customHeaders . $marker;
+	$marker .= PHP_EOL;
+
+	return $marker;
 }
 
 // Write compressed assets rewrite rules to the very top of the .htaccess

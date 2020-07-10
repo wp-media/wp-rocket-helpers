@@ -1,4 +1,4 @@
-# WP Rocket | Disable Page Caching For Specific Pages
+# WP Rocket | Disable Page Caching For Specific Pages or Posts
 
 Disables WP Rocket’s page cache file generation on specific pages or posts while preserving other optimization features.
 

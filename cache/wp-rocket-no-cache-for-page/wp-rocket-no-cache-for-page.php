@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: WP Rocket | Disable Page Caching For Specific Pages
+ * Plugin Name: WP Rocket | Disable Page Caching For Specific Pages or Posts
  * Description: Disables WP Rocket’s page cache file generation on specific pages while preserving other optimization features.
  * Plugin URI:  https://github.com/wp-media/wp-rocket-helpers/tree/master/cache/wp-rocket-no-cache-for-page/
  * Author:      WP Rocket Support Team
@@ -17,25 +17,24 @@ namespace WP_Rocket\Helpers\cache\no_cache_for_page;
 defined( 'ABSPATH' ) or die();
 
 /**
- * Disable cache file generation on specific pages
+ * Disable cache file generation on specific pages or posts
  * 
  * @author Arun Basil Lal
  */
 function no_cache_for_page( $filter ) {
 	
-	// EDIT THIS:
-	
 	/**
-	 * Change the ID (2 in this example) to the page ID you want to exclude.
-	 * For multiple ID's add all of them to the array as a comma seperated list. eg: array( 2, 4, 8 )
+	 * EDIT THIS: Change the ID's (1,2 in this example) to the page or post ID's you want to exclude.
 	 **/
-	if ( function_exists( 'is_page' ) && ! is_page( array( 2 ) ) ) {
-		return $filter;
-	}
+	$excluded_ids = array( 1,2 );
 	
 	// STOP EDITING
+
+	if ( ( function_exists( 'is_page' ) && is_page( $excluded_ids ) ) || ( function_exists( 'is_single' ) && is_single( $excluded_ids ) ) ) {
+		return false;
+	}
 	
-	return false;
+	return $filter;
 }
 add_filter( 'do_rocket_generate_caching_files', __NAMESPACE__ . '\no_cache_for_page' );
 

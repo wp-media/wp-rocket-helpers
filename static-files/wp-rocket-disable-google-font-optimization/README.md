@@ -1,13 +1,13 @@
-# WP Rocket | Enable SSL Cache
+# WP Rocket | Disable Google Font Optimization
 
-Enables SSL cache so that WP Rocket caches pages with SSL.
+Disable Google Font Optimization in WP Rocket. To re-enable the option, visit Tools tab of WP Rocket. 
 
 Documentation:
 * [{Docs title here}]({Docs URL here})
 
 To be used with:
-* Any setup where SSL cache is disabled. Since 3.3.4 SSL cache is enabled by default and the WP Rocket settings UI is removed. If SSL cache was disabled prior to 3.3.4, use this helper to enable it. 
+* Any setup where Google Font Optimization is causing conflicts and needs to be disabled. Since 3.7 Google Font Optimization is enabled by default and there is no option in WP Rocket UI to disable this feature. If Google Font Optimization was disabled prior to 3.7 or after using this helper plugin, it can be enabled via the "Tools" tab of WP Rocket. 
 
 Last tested with:
-* WP Rocket {3.3.x}
-* WordPress {5.2.x}
+* WP Rocket {3.7.x}
+* WordPress {5.5.x}

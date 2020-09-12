@@ -36,7 +36,9 @@ function define_urls(){
  *
  */
 function clone_config( $config_files_path ) {
-
+	
+	global $is_IIS, $is_iis7;
+	
 	if ( ! is_array( $config_files_path ) ) {
         $config_files_path = (array) $config_files_path;
     	}
@@ -48,6 +50,11 @@ function clone_config( $config_files_path ) {
 		$sanitized_url =  preg_replace('#^https?://#', '', untrailingslashit( $url )).'.php' ;
 
 		$mirror_config_file 	= WP_ROCKET_CONFIG_PATH . $sanitized_url;	
+		
+		if( $is_IIS || $is_iis7 ) {
+			$mirror_config_file = str_replace( "/", "\\", $mirror_config_file);
+		}
+		$config_files_path[] = $mirror_config_file;
 		
 		$config_files_path[] = $mirror_config_file;
 		

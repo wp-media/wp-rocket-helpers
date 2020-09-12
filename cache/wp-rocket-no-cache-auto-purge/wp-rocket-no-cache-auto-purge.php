@@ -86,7 +86,10 @@ function remove_purge_hooks() {
 	remove_filter( 'widget_update_callback'	, 'rocket_widget_update_callback' );
 	
 	// Prevent cache purge when current theme is updated.
-	remove_action( 'upgrader_process_complete', 'rocket_clean_cache_theme_update', 10, 2 ); 
+	remove_action( 'upgrader_process_complete', 'rocket_clean_cache_theme_update', 10, 2 );
+	
+	// Prevent cache purge when post status is changed from "published" to "draft".
+	remove_action( 'pre_post_update', 'rocket_clean_post_cache_on_status_change', 10, 2 );
 }
 add_action( 'wp_rocket_loaded', __NAMESPACE__ . '\remove_purge_hooks' );
 
@@ -115,7 +118,7 @@ function wp_rocket_disable_user_cache_purging(){
 
 add_action( 'wp_rocket_loaded', __NAMESPACE__ . '\wp_rocket_disable_user_cache_purging' );
 
-// Prent cache clearing when Elementor is used
+// Prent cache clearing when Elementor is used.
 function wp_rocket_disable_elementor_cache_clearing(){
 
 		add_action( 'wp_loaded', function() {
@@ -130,8 +133,20 @@ function wp_rocket_disable_elementor_cache_clearing(){
 
 add_action( 'wp_rocket_loaded',  __NAMESPACE__  . '\wp_rocket_disable_elementor_cache_clearing' );
 
-// Prent cache clearing when Avada is used
+// Prent cache clearing when Avada is used.
 add_action( 'wp', function(){ 
 	remove_action( 'avada_clear_dynamic_css_cache', 'rocket_clean_domain' );
 	remove_action( 'fusion_cache_reset_after', 'rocket_avada_clear_cache_fusion_patcher' );
 });
+
+/**
+ * Disable cache clearing after saving a WooCoommerce product variation.
+ *
+ *	@author Vasilis Manthos
+ */
+function wp_rocket_disable_woocommerce_variation_cache_clear(){
+	$container = apply_filters( 'rocket_container', '');
+	$container->get('event_manager')->remove_callback( 'woocommerce_save_product_variation', [ $container->get('woocommerce_subscriber'), 'clean_cache_after_woocommerce_save_product_variation'] );
+}
+
+add_action( 'wp_rocket_loaded', __NAMESPACE__ . '\wp_rocket_disable_woocommerce_variation_cache_clear' );

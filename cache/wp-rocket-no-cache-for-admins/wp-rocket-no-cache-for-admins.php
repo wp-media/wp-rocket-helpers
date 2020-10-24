@@ -16,13 +16,14 @@ namespace WP_Rocket\Helpers\cache\no_cache_for_admins;
 // Standard plugin security, keep this line in place.
 defined( 'ABSPATH' ) or die();
 
+
+
 /**
  * Never serve cached pages to logged-in administrators.
  *
- * @author Caspar Hübinger
+ * @author Vasilis Manthos
  */
 function handle_cache_for_admins() {
-
 	// Only for admins.
 	if ( ! current_user_can( 'administrator' ) ) {
 		return false;
@@ -38,14 +39,25 @@ function handle_cache_for_admins() {
 		return false;
 	}
 
+	// Display admin notice when cache for all logged-in users is active.
+	if( class_exists( 'WP_Rocket\Buffer\Config' ) ) { 
+
+	$config_dir_path = '';
+	$config = new \WP_Rocket\Buffer\Config( $config_dir_path );
+
+		if ( $config->get_config( 'common_cache_logged_users' ) ) {
+			add_action( 'admin_notices', __NAMESPACE__ . '\maybe_render_admin_notice' );
+		}
+	}
+	
 	// Display admin notice when deprecated cache for all logged-in users is active.
 	if ( get_rocket_option( 'common_cache_logged_users' ) ) {
 		add_action( 'admin_notices', __NAMESPACE__ . '\maybe_render_admin_notice' );
 		return false;
 	}
-
+	
 	// Finally: prevent caching for administrators.
-	add_action( 'template_redirect', __NAMESPACE__ . '\donotcache' );
+	add_action( 'template_redirect', __NAMESPACE__ . '\donotcache', 1 );
 
 	return true;
 }
@@ -60,10 +72,12 @@ function donotcache() {
 
 	if ( ! defined( 'DONOTCACHEPAGE' ) ) {
 		define( 'DONOTCACHEPAGE', true );
+		//error_log( date('[ Y-m-d H:i:s ] ', $_SERVER['REQUEST_TIME'] ) ."donotcache\n", 3, ABSPATH . "/no_admin_cache.log" );
 	}
 	
 	if ( ! defined( 'DONOTROCKETOPTIMIZE' ) ) {
 		define( 'DONOTROCKETOPTIMIZE', true );
+		//error_log( date('[ Y-m-d H:i:s ] ', $_SERVER['REQUEST_TIME'] ) ."donotoptimize\n", 3, ABSPATH . "/no_admin_cache.log" );
 	}
 	
 	return true;
@@ -75,8 +89,9 @@ function donotcache() {
  * @author Caspar Hübinger
  */
 function maybe_render_admin_notice() {
-
+	//error_log( date('[ Y-m-d H:i:s ] ', $_SERVER['REQUEST_TIME'] ) ."maybe_render_admin_notice\n", 3, ABSPATH . "/no_admin_cache.log" );
 	if ( ! maybe_is_admin_on_settings_page() ) {
+		//error_log( date('[ Y-m-d H:i:s ] ', $_SERVER['REQUEST_TIME'] ) ."Returned in line ". __LINE__ . "\n", 3, ABSPATH . "/no_admin_cache.log" );
 		return false;
 	}
 
@@ -99,16 +114,19 @@ function maybe_is_admin_on_settings_page() {
 
 	// Only to be used in admin_notices filter.
 	if ( 'admin_notices' !== current_filter() ) {
+		//error_log( date('[ Y-m-d H:i:s ] ', $_SERVER['REQUEST_TIME'] ) ."Returned in line ". __LINE__ . "\n", 3, ABSPATH . "/no_admin_cache.log" );
 		return false;
 	}
 
 	// Only if WP Rocket is active.
 	if ( ! function_exists( 'get_rocket_option' ) ) {
+		//error_log( date('[ Y-m-d H:i:s ] ', $_SERVER['REQUEST_TIME'] ) ."Returned in line ". __LINE__ . "\n", 3, ABSPATH . "/no_admin_cache.log" );
 		return false;
 	}
 
 	// Only for WP Rocket administrators.
 	if ( ! current_user_can( apply_filters( 'rocket_capacity', 'manage_options' ) ) ) {
+		//error_log( date('[ Y-m-d H:i:s ] ', $_SERVER['REQUEST_TIME'] ) ."Returned in line ". __LINE__ . "\n", 3, ABSPATH . "/no_admin_cache.log" );
 		return false;
 	}
 
@@ -119,6 +137,7 @@ function maybe_is_admin_on_settings_page() {
 
 	// Only on WP Rocket settings page.
 	if ( $wp_rocket_screen_id !== $current_screen->base ) {
+		//error_log( date('[ Y-m-d H:i:s ] ', $_SERVER['REQUEST_TIME'] ) ."Returned in line ". __LINE__ . "\n", 3, ABSPATH . "/no_admin_cache.log" );
 		return false;
 	}
 

@@ -8,7 +8,7 @@
  * License:     GNU General Public License v2 or later
  * License URI: http://www.gnu.org/licenses/gpl-2.0.html
  *
- * Copyright SAS WP MEDIA 2018
+ * Copyright SAS WP MEDIA 2020
  */
 
 namespace WP_Rocket\Helpers\toolbar;
@@ -22,6 +22,6 @@ defined( 'ABSPATH' ) or die();
  * @author Caspar Hübinger
  */
 function remove_menu() {
-	remove_action( 'admin_bar_menu', 'rocket_admin_bar', PHP_INT_MAX );
+	remove_action( 'admin_bar_menu', 'rocket_admin_bar', PHP_INT_MAX - 10 );
 }
 add_action( 'wp_rocket_loaded', __NAMESPACE__ . '\remove_menu' );

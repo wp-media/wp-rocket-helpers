@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: WP Rocket | Add WebP Target Attribute
- * Description: Extends the attributes where WP Rocket does the WebP remplacement
+ * Description: Extends the attributes where WP Rocket does the WebP replacement
  * Author:      WP Rocket Support Team
  * Author URI:  http://wp-rocket.me/
  * License:     GNU General Public License v2 or later
@@ -19,7 +19,7 @@ defined( 'ABSPATH' ) or die();
 
 
 /**
- * Extends the attributes where WP Rocket does the WebP remplacement.
+ * Extends the attributes where WP Rocket does the WebP replacement.
  *
  * @param array $attributes Array holding the list of attributes to target
  * @author Adame Dahmani

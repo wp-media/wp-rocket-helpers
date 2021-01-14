@@ -1,4 +1,4 @@
-# WP Rocket | Exclude Files from Async CSS
+# WP Rocket | Exclude GeneratePress/WooCommerce Files from Async CSS
 
 Exclude GeneratePress/WooCommerce CSS files from asynchronous loading - Optimize CSS Delivery.
 

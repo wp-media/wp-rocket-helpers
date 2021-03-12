@@ -8,7 +8,7 @@
  * License:     GNU General Public License v2 or later
  * License URI: http://www.gnu.org/licenses/gpl-2.0.html
  *
- * Copyright SAS WP MEDIA 2018
+ * Copyright SAS WP MEDIA 2021
  */
 
 namespace WP_Rocket\Helpers\compat\wc_recently_viewed_products_widget;
@@ -17,18 +17,24 @@ namespace WP_Rocket\Helpers\compat\wc_recently_viewed_products_widget;
 defined( 'ABSPATH' ) or die();
 
 /**
- * Returns the cookie ID used by Recently Viewed Products built-in widget.
+ * Return the cookie name set by the WooCommerce Recently Viewed Products built-in widget.
  *
- * @author Piotr Bąk
+ * @author Vasilis Manthos
+ *
+ * @param  array $cookies List of cookies.
+ * @return array          List of cookies with the WooCommerce Recently Viewed Products cookie appended.
  */
-function cache_dynamic_cookie( array $dynamic_cookies ) {
-
-	$dynamic_cookies[] = 'woocommerce_recently_viewed';
-
-	return $dynamic_cookies;
+function WC_recently_viewed_products_cookie( $cookies ) {
+	$cookies[] = 'woocommerce_recently_viewed';
+	return $cookies;
 }
-// Add cookie ID to cookkies for dynamic caches.
-add_filter( 'rocket_cache_dynamic_cookies', __NAMESPACE__ . '\cache_dynamic_cookie' );
+
+
+// Add cookie name to dynamic caches.
+add_filter( 'rocket_cache_dynamic_cookies', __NAMESPACE__ . '\WC_recently_viewed_products_cookie' );// Add cookie ID to cookkies for dynamic caches.
+
+// Add cookie name to mandatory caches.
+add_filter( 'rocket_cache_mandatory_cookies', __NAMESPACE__ . '\WC_recently_viewed_products_cookie' );
 
 // Remove .htaccess-based rewrites, since we need to detect the cookie
 add_filter( 'rocket_htaccess_mod_rewrite', '__return_false' );
@@ -56,13 +62,14 @@ function flush_wp_rocket() {
 /**
  * Add customizations, updates .htaccess, regenerates config file.
  *
- * @author Caspar Hübinger
+ * @author Vasilis Manthos
  */
 function activate() {
 
 	// Add customizations upon activation.
 	add_filter( 'rocket_htaccess_mod_rewrite', '__return_false' );
-	add_filter( 'rocket_cache_dynamic_cookies', __NAMESPACE__ . '\cache_dynamic_cookie' );
+	add_filter( 'rocket_cache_dynamic_cookies', __NAMESPACE__ . '\WC_recently_viewed_products_cookie' );
+	add_filter( 'rocket_cache_mandatory_cookies_cookies', __NAMESPACE__ . '\WC_recently_viewed_products_cookie' );
 
 	// Flush .htaccess rules, and regenerate WP Rocket config file.
 	flush_wp_rocket();
@@ -72,13 +79,14 @@ register_activation_hook( __FILE__, __NAMESPACE__ . '\activate' );
 /**
  * Removes customizations, updates .htaccess, regenerates config file.
  *
- * @author Caspar Hübinger
+ * @author Vasilis Manthos
  */
 function deactivate() {
 
 	// Remove customizations upon deactivation.
 	remove_filter( 'rocket_htaccess_mod_rewrite', '__return_false' );
-	remove_filter( 'rocket_cache_dynamic_cookies', __NAMESPACE__ . '\cache_dynamic_cookie' );
+	remove_filter( 'rocket_cache_dynamic_cookies', __NAMESPACE__ . '\WC_recently_viewed_products_cookie' );
+	remove_filter( 'rocket_cache_mandatory_cookies', __NAMESPACE__ . '\WC_recently_viewed_products_cookie' );
 
 	// Flush .htaccess rules, and regenerate WP Rocket config file.
 	flush_wp_rocket();

@@ -7,7 +7,7 @@ Excludes all CSS files in the uploads/elementor/css by elementor from CPCSS.
 📝&#160;&#160;**Can be adapted to exclude dynamic css files generated in a folder**
 
 Documentation:
-* [Exclude files from async CSS](https://docs.wp-rocket.me/article/1499-exclude-uploaded-elementors-css-from-cpcss)
+* [Exclude files from async CSS](https://docs.wp-rocket.me/article/1499-excludeuploadedelementorcssfromoptimizecssdelivery)
 
 To be used with:
 * Any setup where files from Elementor added to uploads/elementor/css folder are affecting the site either causing it to have broken layout or causing a FOUC.

@@ -3,6 +3,7 @@
 Excludes all CSS files in the uploads/elementor/css by elementor from CPCSS.
 
 📝&#160;&#160;**No manual edit is required**
+
 📝&#160;&#160;**Can be adapted to exclude dynamic css files generated in a folder**
 
 Documentation:

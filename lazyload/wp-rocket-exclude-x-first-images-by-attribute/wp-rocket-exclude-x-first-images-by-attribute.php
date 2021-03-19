@@ -24,7 +24,7 @@ define( 'COUNT', 2);
 
 // STOP EDITING
 /**
- * Disable LazyLoad on single post views.
+ * Exclude X first images from Lazy Load by attribute.
  *
  * @author Adame Dahmani
  * @param  string $html HTML contents.

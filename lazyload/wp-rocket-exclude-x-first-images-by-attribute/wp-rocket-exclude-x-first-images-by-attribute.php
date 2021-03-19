@@ -10,14 +10,19 @@
  *
  * Copyright SAS WP MEDIA 2018
  */
-
 namespace WP_Rocket\Helpers\lazyload\exclude_by_attribute;
-
 // Standard plugin security, keep this line in place.
 defined( 'ABSPATH' ) or die();
 
 // EDIT ANY OF THE FOLLOWING AS NEEDED
 
+// change class="ct-image to attribute of your choosing
+define( 'PATTERN', 'class="ct-image');
+
+// change 2 to the how many images need to be skipped from the lazy load
+define( 'COUNT', 2);
+
+// STOP EDITING
 /**
  * Disable LazyLoad on single post views.
  *
@@ -25,13 +30,8 @@ defined( 'ABSPATH' ) or die();
  * @param  string $html HTML contents.
  * 
  */
-
-// Change width="350" to any unique attribute you want to target
-// Change 3 to the number of times you want to apply the exclusion
-
 function exclude_from_lazyload_by_attribute( $html ){
-	$html = preg_replace( '/width="350"/i', 'data-no-lazy="" width="350"', $html, 3 );
+	$html = preg_replace( '/'. PATTERN .'/i', 'data-no-lazy="" '. PATTERN, $html, COUNT );
     return $html;
 }
-
 add_filter( 'rocket_buffer', __NAMESPACE__ . '\exclude_from_lazyload_by_attribute' , 17 );

@@ -34,3 +34,16 @@ function disable_google_font_optimization() {
 	rocket_clean_domain();
 }
 register_activation_hook( __FILE__, __NAMESPACE__ . '\disable_google_font_optimization' );
+
+/**
+ * Clear WP Rocket's cache.
+ *
+ * @author Vasilis Manthos
+ */
+function clear_cache(){
+	if( function_exists( 'rocket_clean_domain' ) ){
+		rocket_clean_domain();
+	}
+}
+
+register_deactivation_hook( __FILE__, __NAMESPACE__ . '\clear_cache' );

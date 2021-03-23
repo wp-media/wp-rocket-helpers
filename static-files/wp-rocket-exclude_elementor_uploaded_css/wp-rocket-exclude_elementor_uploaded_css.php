@@ -15,7 +15,11 @@ namespace WP_Rocket\Helpers\static_files\exclude\exclude_elementor_uploaded_css;
 // Standard plugin security, keep this line in place.
 defined( 'ABSPATH' ) or die();
 
-
+/**
+ * Exclude CSS uploaded files by Elementor from the Optimize CSS Delivery feature
+ *
+ * @author Jorge Martinez
+ */
 function get_elementor_uploaded_css(){
     $css_files = array();
     $uploads_dir = wp_upload_dir( null, false);

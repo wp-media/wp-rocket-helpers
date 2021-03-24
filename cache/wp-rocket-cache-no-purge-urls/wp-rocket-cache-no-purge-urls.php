@@ -26,16 +26,12 @@ defined( 'ABSPATH' ) or die();
 function disable_cache_clearing_files( $urls ){
 		
 		$exluded_urls = [		
-			'https://example.com/shop/index-httpspage',		
-			'https://example.com/shop/index-https.html_gzip',		
-			'https://example.com/shop/index-https.html',				
-			'/shop/index-httpspage',		
-			'/shop/index-https.html_gzip',		
-			'/shop/index-https.html',				
+			'https://example.com/shop/index-httpspage',	  // Replace the URL on this line.	
+			'https://example.com/shop/index-https.html_gzip', // Remove this line or replace the URL on this line.	
+			'https://example.com/shop/index-https.html',	  // Remove this line or replace the URL on this line.	Duplicate the line for more URLs to exclude.				
 		];
 		$urls = array_diff( $urls, $exluded_urls);
 		
 		return $urls;
 	}
-
-	add_filter( 'rocket_post_purge_urls', __NAMESPACE__ . '\disable_cache_clearing_files');
+add_filter( 'rocket_post_purge_urls', __NAMESPACE__ . '\disable_cache_clearing_files');

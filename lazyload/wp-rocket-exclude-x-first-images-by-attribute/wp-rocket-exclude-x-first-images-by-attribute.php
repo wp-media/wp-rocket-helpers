@@ -17,21 +17,21 @@ defined( 'ABSPATH' ) or die();
 // EDIT ANY OF THE FOLLOWING AS NEEDED
 
 // change class="ct-image to attribute of your choosing
-define( 'PATTERN', 'class="ct-image');
+$pattern = 'class="ct-image';
 
 // change 2 to the how many images need to be skipped from the lazy load
-define( 'COUNT', 2);
+$count = 2;
 
 // STOP EDITING
 /**
- * Exclude X first images from Lazy Load by attribute.
+ * Disable LazyLoad on single post views.
  *
  * @author Adame Dahmani
  * @param  string $html HTML contents.
  * 
  */
-function exclude_from_lazyload_by_attribute( $html ){
-	$html = preg_replace( '/'. PATTERN .'/i', 'data-no-lazy="" '. PATTERN, $html, COUNT );
-    return $html;
-}
-add_filter( 'rocket_buffer', __NAMESPACE__ . '\exclude_from_lazyload_by_attribute' , 17 );
+
+add_filter( 'rocket_buffer', function ( $html ) use ($pattern, $count) {
+	$html = preg_replace( '/'. $pattern .'/i', 'data-no-lazy="" '. $pattern, $html, $count );
+	return $html;
+} , 17 );

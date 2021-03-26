@@ -41,8 +41,6 @@ function flush_wp_rocket() {
 	// Update WP Rocket .htaccess rules.
 	flush_rocket_htaccess();
 
-	// Regenerate WP Rocket config file.
-	rocket_generate_config_file();
 }
 register_activation_hook( __FILE__, __NAMESPACE__ . '\flush_wp_rocket' );
 

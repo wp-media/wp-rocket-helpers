@@ -4,7 +4,7 @@ Disables all of WP Rocket’s automatic cache clearing.
 
 🚧&#160;&#160;**ADVANCED CUSTOMIZATION, HANDLE WITH CARE!**
 
-_When you activate this plugin, WP Rocket will cache your pages, but will not clear the cache automtically when you make changes to them!_
+_When you activate this plugin, WP Rocket will cache your pages, but will not clear the cache automatically when you make changes to them!_
 
 Documentation:
 * [Disable All Automatic Cache Clearing](http://docs.wp-rocket.me/article/137-disable-all-automatic-cache-clearing)

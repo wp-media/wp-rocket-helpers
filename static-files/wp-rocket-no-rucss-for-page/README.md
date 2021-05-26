@@ -1,4 +1,5 @@
 WP Rocket | Disable Remove Unused CSS For Specific Pages or Posts
+
 Disables Remove Unused CSS for Specific pages or posts
 
 🚧  ADVANCED CUSTOMIZATION, HANDLE WITH CARE!

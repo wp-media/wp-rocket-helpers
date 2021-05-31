@@ -1,4 +1,4 @@
-# WP Rocket | Disable Cache and Optimizations on specific pages 
+# WP Rocket | Disable Cache and Optimizations on specific pages using slugs
 
 Using slugs, disable WP Rocket’s page cache and optimizations for specific URLs.
 

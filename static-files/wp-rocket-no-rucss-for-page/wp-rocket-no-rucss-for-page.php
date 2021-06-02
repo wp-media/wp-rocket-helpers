@@ -42,18 +42,24 @@ add_filter( 'pre_get_rocket_option_remove_unused_css', __NAMESPACE__ . '\no_rucs
  */
 function no_rucss_for_url( $filter ) {
 	global $wp;
+	$untrailed = array();
 	$url       = untrailingslashit( home_url( add_query_arg( [], $wp->request ) ) );
 	$excluded_urls = [
-		/*Insert URLs to exclude here one per line and using a comma at the end. See examples below:
+		/*Insert URLs to exclude here one per line, enclosed by quotation marks and add comma at the end. See examples below:
 	      "https://example.org/",
 		  "https://example.org/page/",
 		*/
-
+		
 		/*Stop adding exclusions here*/
 	];
-	if ( in_array( $url, $excluded_urls) ) {
+	
+	foreach ($excluded_urls as $excluded){
+		$untrailed[] = untrailingslashit($excluded);
+	}
+	if ( in_array( $url, $untrailed) ) {
 		return false;
 	}
+	
 	return $filter;
 }
 add_filter( 'pre_get_rocket_option_remove_unused_css', __NAMESPACE__ . '\no_rucss_for_url' );

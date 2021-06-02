@@ -18,7 +18,7 @@ namespace WP_Rocket\Helpers\wproptions\deactivate_options_under_some_conditions;
 defined( 'ABSPATH' ) or die();
  
  
-function deactivate_options_on_custom_post_type() {
+function deactivate_options() {
  
 	// a) Based on any condition, in this case when is a Product single.
 	// you can use any condition here, for other custom post types, specific pages, etc.
@@ -30,7 +30,7 @@ function deactivate_options_on_custom_post_type() {
 		// here is the full list of all available filters: https://snippi.com/s/d9c2h4g
 	}
 }
-add_action( 'wp', __NAMESPACE__ . '\deactivate_options_under_some_conditions' );
+add_action( 'wp', __NAMESPACE__ . '\deactivate_options' );
 
 
 /**

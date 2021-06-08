@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: WP Rocket | Conditionally toggle options
- * Description: Disable WP Rocket options based on specific conditions 
+ * Description: Toggle WP Rocket options based on specific conditions 
  * Plugin URI:  https://github.com/wp-media/wp-rocket-helpers/tree/master/various/wp-rocket-conditionally-toggle-options/
  * Author:      WP Rocket Support Team
  * Author URI:  http://wp-rocket.me/

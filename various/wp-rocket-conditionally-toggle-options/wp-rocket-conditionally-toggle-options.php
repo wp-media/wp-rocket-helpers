@@ -1,8 +1,8 @@
 <?php
 /**
- * Plugin Name: WP Rocket | Conditionally disable options
+ * Plugin Name: WP Rocket | Conditionally toggle options
  * Description: Disable WP Rocket options based on specific conditions 
- * Plugin URI:  https://github.com/wp-media/wp-rocket-helpers/tree/master/various/wp-rocket-conditionally-disable-options/
+ * Plugin URI:  https://github.com/wp-media/wp-rocket-helpers/tree/master/various/wp-rocket-conditionally-toggle-options/
  * Author:      WP Rocket Support Team
  * Author URI:  http://wp-rocket.me/
  * License:     GNU General Public License v2 or later
@@ -12,7 +12,7 @@
  */
 
  
-namespace WP_Rocket\Helpers\wproptions\deactivate_options_under_some_conditions;
+namespace WP_Rocket\Helpers\wproptions\toggle_options_under_some_conditions;
  
 // Standard plugin security, keep this line in place.
 defined( 'ABSPATH' ) or die();
@@ -27,7 +27,7 @@ function deactivate_options() {
 		// b) deactivate one option in WP Rocket 
 		add_filter( 'pre_get_rocket_option_delay_js', '__return_zero' );
 		
-		// here is the full list of all available filters: https://snippi.com/s/d9c2h4g
+		// here is the full list of all available filters: https://docs.wp-rocket.me/article/1564-list-of-pre-get-rocket-option-filters
 	}
 }
 add_action( 'wp', __NAMESPACE__ . '\deactivate_options' );

@@ -2,6 +2,7 @@
 /**
  * Plugin Name: WP Rocket | Image Dimensions for <picture> and external images
  * Description: Disables / Enables Add Missing Image Dimensions for <picture> and external images
+ * Plugin URI:  https://github.com/wp-media/wp-rocket-helpers/tree/master/various/wp-rocket-media-image-dimensions-picture-external-images
  * Author:      WP Rocket Support Team
  * Author URI:  http://wp-rocket.me/
  * License:     GNU General Public License v2 or later

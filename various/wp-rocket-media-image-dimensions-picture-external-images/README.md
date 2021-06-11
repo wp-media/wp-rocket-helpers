@@ -1,6 +1,6 @@
-# WP Rocket | Image Dimensions for <picture> and external images
+# WP Rocket | Image Dimensions for \<picture\> and external images
 
-Disables / Enables Add Missing Image Dimensions for <picture> and external images
+Disables / Enables Add Missing Image Dimensions for \<picture\> and external images
 
 📝&#160;&#160;**Manual code edit required before use!**
 

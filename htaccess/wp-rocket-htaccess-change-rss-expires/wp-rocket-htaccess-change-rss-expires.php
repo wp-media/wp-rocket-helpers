@@ -2,6 +2,7 @@
 /**
  * Plugin Name: WP Rocket | Change RSS Expires
  * Description: Disables the browser caching for RSS
+ * Plugin URI:  https://github.com/wp-media/wp-rocket-helpers/tree/master/htaccess/wp-rocket-htaccess-change-rss-expires
  * Author:      WP Rocket Support Team
  * Author URI:  http://wp-rocket.me/
  * License:     GNU General Public License v2 or later

@@ -61,8 +61,7 @@ register_activation_hook( __FILE__, __NAMESPACE__ . '\flush_wp_rocket' );
 function deactivate() {
 
 	// Remove all functionality added above. Please remove the correct filter.
-	// remove_filter( 'before_rocket_htaccess_rules', __NAMESPACE__ . '\render_rewrite_rules' );
-	remove_filter( 'after_rocket_htaccess_rules', __NAMESPACE__ . '\render_rewrite_rules' );
+	remove_filter( 'rocket_htaccess_mod_expires', __NAMESPACE__ . '\rocket_change_rss_expires' );
 
 	// Flush .htaccess rules, and regenerate WP Rocket config file.
 	flush_wp_rocket();

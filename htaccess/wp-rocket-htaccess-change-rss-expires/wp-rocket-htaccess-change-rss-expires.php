@@ -31,7 +31,7 @@ function rocket_change_rss_expires( $rules ){
 	}
 	return $rules;
 }
-add_filter( 'rocket_htaccess_mod_expires', __NAMESPACE__ '\rocket_change_rss_expires' );
+add_filter( 'rocket_htaccess_mod_expires', __NAMESPACE__ .'\rocket_change_rss_expires' );
 
 /**
  * Updates .htaccess, regenerates WP Rocket config file.

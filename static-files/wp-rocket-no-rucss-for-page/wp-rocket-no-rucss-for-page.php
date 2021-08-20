@@ -28,7 +28,7 @@ function no_rucss_for_page( $filter ) {
 	//Only edit the ids above
 
 
-	if ( ( function_exists( 'is_page' ) && is_page( $excluded_ids ) ) || ( function_exists( 'is_single' ) && is_single( $excluded_ids ) ) ) {
+	if ( ( function_exists( 'is_page' ) && is_page( $excluded_ids ) ) || ( function_exists( 'is_singular' ) && is_singular( $excluded_ids ) ) ) {
 		return false;
 	}
 	return $filter;

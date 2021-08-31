@@ -1,6 +1,6 @@
 # WP Rocket | Exclude JS scripts from Delay JS only at some URLs
 
-This helper will allow you to exclude JavaScript files from Delay JS only on specific pages, instead of excluding them globally.
+This helper will allow you to exclude JavaScript files from Delay JS only on specific urls, instead of excluding them globally.
 
 📝&#160;&#160;**Manual editing required before use**
 

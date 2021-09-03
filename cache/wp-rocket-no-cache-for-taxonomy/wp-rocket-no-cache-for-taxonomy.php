@@ -1,7 +1,7 @@
 <?php
 /**
  * Editted from "WP Rocket | Disable Page Caching For Specific Pages or Posts" by NguyenKhang.me
- * Plugin Name: WP Rocket | Disable Taxonomy Caching For Specific Taxonomy
+ * Plugin Name: WP Rocket | Disable Taxonomy Caching
  * Description: Disables WP Rocket’s taxonomy cache file generation on specific taxonomy while preserving other optimization features.
  * Plugin URI:  https://github.com/wp-media/wp-rocket-helpers/tree/master/cache/wp-rocket-no-cache-for-taxonomy/
  * License:     GNU General Public License v2 or later

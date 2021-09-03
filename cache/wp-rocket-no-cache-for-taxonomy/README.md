@@ -1,10 +1,10 @@
-# WP Rocket | Disable Page Caching For Specific Taxonomy
+#  WP Rocket | Disable Taxonomy Caching
 
 Disables WP Rocket’s taxonomy cache file generation on specific taxonomy while preserving other optimization features.
 
 📝 **Manual code edit required before use!**
 
-Search for `EDIT THIS` and add the page or post ID's you want to exclude to the array as detailed in the inline comment.
+Search for `EDIT THIS` and add the taxonomy name you want to exclude to the variable value as detailed in the inline comment.
 
 To be used with:
 * any setup

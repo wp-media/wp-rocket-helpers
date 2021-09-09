@@ -24,4 +24,4 @@ defined( 'ABSPATH' ) or die();
 
 /** Enable setting image dimensions for external images.
  */
-//apply_filters( 'rocket_specify_image_dimensions_for_distant', '__return_true' );//If you want to use this feature remove the "//" at the beginning of the line.
+//add_filter( 'rocket_specify_image_dimensions_for_distant', '__return_true' );//If you want to use this feature remove the "//" at the beginning of the line.

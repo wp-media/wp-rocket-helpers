@@ -27,7 +27,7 @@ defined( 'ABSPATH' ) or die();
 function define_ignored_parameters( array $params ) {
 	
 	$params['new_query_string'] = 1;
-	//unset ( $params['utm_source'] );
+	//unset ( $params['https://staging-rgfbe.kinsta.cloud/wp-content/javascript/schemaFunctions.min.js?ver=1631784916'] );
 
 	return $params;
 	

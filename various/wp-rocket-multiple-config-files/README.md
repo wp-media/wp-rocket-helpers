@@ -11,3 +11,5 @@ You can also add new URL as needed, one per line:
 	$extra_url[] = 'and-another-url.com';
 	$extra_url[] = 'and-yet-another-url.com';
 
+Documentation:
+* [Multiple configuration files for WP Rocket](https://docs.wp-rocket.me/article/1649-multiple-configuration-files-for-wp-rocket)

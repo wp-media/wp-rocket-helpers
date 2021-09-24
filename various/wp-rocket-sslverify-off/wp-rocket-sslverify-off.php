@@ -11,7 +11,6 @@
  * Copyright SAS WP MEDIA 2019
  */
 
-// EDIT THIS: Replace `boilerplate` with your custom subnamespace.
 // Namespaces must be declared before any other declaration.
 namespace WP_Rocket\Helpers\preload\wp_rocket_sslverify_off;
 

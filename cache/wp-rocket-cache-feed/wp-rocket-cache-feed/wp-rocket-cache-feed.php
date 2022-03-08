@@ -77,5 +77,6 @@ function wp_rocket_cache_feed_deactivate() {
 	remove_filter( 'rocket_cache_reject_uri', 'wp_rocket_cache_feed' );
 	rocket_generate_config_file();
 	flush_rocket_htaccess();
+	rocket_clean_home_feeds();
 }
 register_deactivation_hook( __FILE__, 'wp_rocket_cache_feed_deactivate' );

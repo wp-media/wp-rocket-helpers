@@ -32,7 +32,7 @@ if ( ! function_exists( 'is_wp_rocket_active' ) ) {
  * @return string Updated array of URLs
  */
 function wp_rocket_cache_feed( $uri ) {
-	$feed = '/(.+/)?' . $GLOBALS['wp_rewrite']->feed_base . '/?.+/?';
+	$feed = '/(?:.+/)?' . $GLOBALS['wp_rewrite']->feed_base . '(?:/(?:.+/?)?)?$';
 	if ( in_array( $feed, $uri ) ) {
 		$uri = array_flip( $uri );
 		unset( $uri[ $feed ] );

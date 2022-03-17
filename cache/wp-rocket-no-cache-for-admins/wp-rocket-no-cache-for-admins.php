@@ -42,7 +42,7 @@ function handle_cache_for_admins() {
 	// Display admin notice when cache for all logged-in users is active.
 	if( class_exists( 'WP_Rocket\Buffer\Config' ) ) { 
 
-	$config_dir_path = '';
+	$config_dir_path = array();
 	$config = new \WP_Rocket\Buffer\Config( $config_dir_path );
 
 		if ( $config->get_config( 'common_cache_logged_users' ) ) {

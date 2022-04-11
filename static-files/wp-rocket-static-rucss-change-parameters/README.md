@@ -11,8 +11,8 @@ Change:
 
 
 Documentation:
-* [High CPU usage](https://docs.wp-rocket.me/article/1691-customize-remove-unused-css-parameters)
-* [Change Remove Unused CSS Parameters](https://docs.wp-rocket.me/article/48-high-cpu-usage#remove-unused-css)
+* [Change Remove Unused CSS Parameters](https://docs.wp-rocket.me/article/1691-customize-remove-unused-css-parameters)
+* [High CPU usage](https://docs.wp-rocket.me/article/48-high-cpu-usage#remove-unused-css)
 
 To be used with:
 * Any setup where “Remove Unused CSS” is enabled and it causes high CPU usage

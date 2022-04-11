@@ -22,7 +22,6 @@ defined( 'ABSPATH' ) or die();
  *  Change the processing batch value.
  *  A lower value can help the server to work on fewer requests at a time
  */     
-
 function rucss_batch_size( $rucss_batch_size ) {   
     
      // change this value, default is 100 urls:

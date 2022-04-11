@@ -5,13 +5,14 @@ Change the number of URLs per batch, and the CRON interval of Remove Unused CSS 
 📝&#160;&#160;**Manual code edit required before use!**
 
 Change: 
-- Line 26, to set the batch size. It is the number of URLs that will be processed on each run.
-- Line 46, to set the desired cron interval in seconds. It is the pause that will be applied between batches processing. 
+- Line 26, to set the batch size. It is the number of URLs that will be processed on each run. 100 is the default, so setting a lower value can help the server to work on fewer requests at a time.
 
-Setting higher values in these variables, should result in reducing the CPU usage.
+- Line 46, to set the desired cron interval in seconds. It is the pause that will be applied between batches processing. By setting a higher value (default is 60 seconds), the server will have more time to rest between processing batches.
+
 
 Documentation:
-* [High CPU usage](https://docs.wp-rocket.me/article/48-high-cpu-usage#remove-unused-css)
+* [High CPU usage](https://docs.wp-rocket.me/article/1691-customize-remove-unused-css-parameters)
+* [Change Remove Unused CSS Parameters](https://docs.wp-rocket.me/article/48-high-cpu-usage#remove-unused-css)
 
 To be used with:
 * Any setup where “Remove Unused CSS” is enabled and it causes high CPU usage

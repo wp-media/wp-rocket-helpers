@@ -1,6 +1,6 @@
-# WP Rocket | WP Rocket - RUCSS Debugger
+# WP Rocket | RUCSS Debugger
 
-A debugging tool for Remove Unused CSS. 
+A debugging tool for Remove Unused CSS
 It creates a menu entry at WordPress Admin Dashboard > Tools > RUCSS Debugger
 
 Documentation:
@@ -11,4 +11,4 @@ To be used with:
 
 Last tested with:
 * WP Rocket 3.11.x
-* WordPress 5-9.x
+* WordPress 5.9.x

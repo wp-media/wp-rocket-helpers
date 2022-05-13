@@ -15,12 +15,12 @@ defined( 'ABSPATH' ) || exit;
 add_action( 'admin_menu', 'rockettheburger_add_admin_menu' );
 
 function rockettheburger_add_admin_menu() {
-	add_management_page( 'RUCSS Debugger', 'RUCSS Debugger', 'install_plugins', 'wprocketrucssdebuger', 'wprocketrucssdebuger_admin_page' );
+    add_management_page( 'RUCSS Debugger', 'RUCSS Debugger', 'install_plugins', 'wprocketrucssdebuger', 'wprocketrucssdebuger_admin_page' );
 }
 
 
 function wprocketrucssdebuger_admin_page() {
-	
+    
     if( ! function_exists('rocket_clean_domain')) {
         
         echo 'WP Rocket not detected';
@@ -191,7 +191,7 @@ function wprocketrucssdebuger_admin_page() {
     $completedcount = $wpdb->get_var("SELECT COUNT(*) FROM $wpdb->wpr_rucss_used_css WHERE status = 'completed'");
     $failedcount = $wpdb->get_var("SELECT COUNT(*) FROM $wpdb->wpr_rucss_used_css WHERE status = 'failed'");
     $pendingcount = $wpdb->get_var("SELECT COUNT(*) FROM $wpdb->wpr_rucss_used_css WHERE status = 'pending'");
-    $rows = $wpdb->get_results( "SELECT * FROM ".$wpdb->prefix."wpr_rucss_used_css ORDER BY job_id $search LIMIT $rows_per_page offset $pg " );
+    $rows = $wpdb->get_results( "SELECT * FROM ".$wpdb->prefix."wpr_rucss_used_css $search  ORDER BY job_id LIMIT $rows_per_page offset $pg " );
     
     if($totalrows != 0 ) {
         $percentaje = intval($completedcount/$totalrows*100);

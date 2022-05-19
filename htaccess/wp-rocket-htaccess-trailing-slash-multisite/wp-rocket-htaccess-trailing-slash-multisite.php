@@ -21,6 +21,7 @@ function render_rewrite_rules( $marker ) {
 	
 	$redirection  = '# Add trailing slash' . PHP_EOL;
 	$redirection  .= 'RewriteCond %{REQUEST_URI} /+[^\.]+$' . PHP_EOL;
+	$redirection  .= 'RewriteCond %{REQUEST_METHOD} GET' . PHP_EOL; 
 	$redirection  .= 'RewriteRule ^(.+[^/])$ https://%{HTTP_HOST}/$1/ [R=301,L]' . PHP_EOL;
 	
 	

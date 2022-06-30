@@ -12,6 +12,7 @@
 // Exit if accessed directly.
 defined( 'ABSPATH' ) || exit;
 
+
 add_action( 'admin_menu', 'rockettheburger_add_admin_menu' );
 
 function rockettheburger_add_admin_menu() {
@@ -28,7 +29,7 @@ function wprocketrucssdebuger_admin_page() {
         die;
     }
 
-    $current_url="http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+    $actual_version = WP_ROCKET_VERSION;
     
     echo '<style>
     .completed{background:#090;color:#FFF}
@@ -82,7 +83,7 @@ function wprocketrucssdebuger_admin_page() {
         <p>
         The URL will be preloaded and the used CSS will be regenerated.<br>Please <a href='tools.php?page=wprocketrucssdebuger'>go back</a> to wait for the used css status until is <strong>completed</strong>. </p>";
         echo '<hr>';
-        echo "<p>If the job is taking too long, you can <a href='tools.php?page=action-scheduler&status=pending' target='_blank'>check the Pending Jobs in Action Scheduler &rsaquo;</a> and run the <strong>rocket_rucss_pending_jobs_cron</strong></p>";
+        echo "<p>If the job is taking too long, you can install WP Crontrol and run the <strong>rocket_rucss_pending_jobs_cron</strong></p>";
         echo '<hr>';
     
         }
@@ -146,7 +147,16 @@ function wprocketrucssdebuger_admin_page() {
     $rows = $wpdb->get_results( "SELECT * FROM ".$wpdb->prefix."wpr_rucss_used_css WHERE job_id = $jobid");
     foreach ( $rows as $row )  { 
         echo "<h1 class='wp-heading-inline'>[<a href='tools.php?page=wprocketrucssdebuger'>&lsaquo; back</a>] RUCSS Debugger -  CSS view</h1>";
-        echo "<table border='1' cellspacing='1' cellpadding='4'><tr><td>url</td><td><a target='_blank' href='".$row->url."'>".$row->url."</a></td></tr>";	
+        echo "<table border='1' cellspacing='1' cellpadding='4'><tr><td>url</td>";
+        echo "<td><a target='_blank' href='".$row->url."'>".$row->url."</a></td></tr>";	
+        
+        if ( version_compare( $actual_version, '3.11.4' )  >= 0 ) {
+        
+         $link = get_site_url().'/wp-content/cache/used-css/'.get_current_blog_id().'/'.$row->hash[0].'/'.$row->hash[1].'/'.$row->hash[2].'/'.substr($row->hash, 3).'.css.gz';
+            
+            echo "<tr><td>hash</td><td><a target='_blank' href='".$link."'>".$row->hash."</a></td></tr>";
+        } 
+                        
         echo "<tr><td>unprocessedcss</td><td> ".$row->unprocessedcss."</td></tr>";	
         echo "<tr><td>retries</td><td> ".$row->retries."</td></tr>";	
         echo "<tr><td>is_mobile</td><td> ".$row->is_mobile."</td></tr>";	
@@ -156,8 +166,21 @@ function wprocketrucssdebuger_admin_page() {
         echo "<tr><td>modified</td><td>".$row->modified."</td></tr>";	
         echo "<tr><td>last_accessed</td><td>".$row->last_accessed."</td></tr></table>";	
         
-        echo "<h2>Used CSS</h2>";
-        echo "<textarea cols='120' rows='50'>".$row->css."</textarea>";
+        if ( version_compare( $actual_version, '3.11.4' )  >= 0 ) {
+            
+            echo "<h2>Used CSS</h2>";
+            $file_contents = file_get_contents(ABSPATH.'/wp-content/cache/used-css/'.get_current_blog_id().'/'.$row->hash[0].'/'.$row->hash[1].'/'.$row->hash[2].'/'.substr($row->hash, 3).'.css.gz');
+            
+            $css = gzdecode( $file_contents );	
+            echo "<textarea cols='120' rows='50'>$css</textarea>";
+            
+        } else {
+            
+            echo "<h2>Used CSS</h2>";
+            echo "<textarea cols='120' rows='50'>".$row->css."</textarea>";
+
+        }
+
         
         }
     
@@ -189,6 +212,7 @@ function wprocketrucssdebuger_admin_page() {
     // DB queries and calculations
     $totalrows = $wpdb->get_var("SELECT COUNT(*) FROM $wpdb->wpr_rucss_used_css");
     $completedcount = $wpdb->get_var("SELECT COUNT(*) FROM $wpdb->wpr_rucss_used_css WHERE status = 'completed'");
+    $inprogresscount = $wpdb->get_var("SELECT COUNT(*) FROM $wpdb->wpr_rucss_used_css WHERE status = 'in-progress'");
     $failedcount = $wpdb->get_var("SELECT COUNT(*) FROM $wpdb->wpr_rucss_used_css WHERE status = 'failed'");
     $pendingcount = $wpdb->get_var("SELECT COUNT(*) FROM $wpdb->wpr_rucss_used_css WHERE status = 'pending'");
     $rows = $wpdb->get_results( "SELECT * FROM ".$wpdb->prefix."wpr_rucss_used_css $search  ORDER BY job_id LIMIT $rows_per_page offset $pg " );
@@ -202,7 +226,7 @@ function wprocketrucssdebuger_admin_page() {
     echo "<h1 class='wp-heading-inline'><a href='tools.php?page=wprocketrucssdebuger'>RUCSS Debugger</a> -  contents of $wpdb->prefix wpr_rucss_used_css</h1>";
     
     echo '<hr>';
-    echo " <a href='tools.php?page=action-scheduler&status=pending' target='_blank'>View rocket_rucss_pending_jobs_cron in Action Scheduler</a><br><br>";
+    echo " <a href='".get_site_url()."/wp-cron.php?doing_wp_cron' target='_blank'>Run WP-Cron</a><br><br>";
     echo " <a href='tools.php?page=wprocketrucssdebuger&truncate_pending_usedcss'  onclick=\"return confirm('Are you sure?')\">Clear PENDING</a> | ";
     echo " <a href='tools.php?page=wprocketrucssdebuger&truncate_failed_usedcss'  onclick=\"return confirm('Are you sure?')\">Clear FAILED</a> | ";
     echo " <a class='failed' href='tools.php?page=wprocketrucssdebuger&truncate_usedcss' onclick=\"return confirm('Are you sure?')\"><strong>Truncate wpr_rucss_used_css</strong></a>";
@@ -213,6 +237,7 @@ function wprocketrucssdebuger_admin_page() {
     
     echo '<p><span class="complete">'.$completedcount.' Completed</span> - ';
     echo '<span class="pending">'.$pendingcount.' Pending - ';
+    echo '<span class="in-progress">'.$inprogresscount.' In-Progress - ';
     echo '<span class="failed">'.$failedcount.' Failed </p>';
     
     
@@ -265,6 +290,7 @@ function wprocketrucssdebuger_admin_page() {
     <td>#</td>
     <td>url</td>
     <td>css</td>
+    <td>hash (> 3.11.4) </td>
     <td>unprocessed css</td>
     <td>retries</td>
     <td>is_mobile</td>
@@ -282,7 +308,17 @@ function wprocketrucssdebuger_admin_page() {
     
     echo "<td class='".$row->status."'>".$i."</td>";
     echo "<td><a target='_blank' href='".$row->url."'>".$row->url."</a></td>";
-    echo "<td><a target='_blank' href='tools.php?page=wprocketrucssdebuger&view=".$row->job_id."'>view css</a></td>";
+    
+    if ( version_compare( $actual_version, '3.11.4' )  >= 0 ) {
+
+    echo "<td></td>";    
+    echo "<td><a target='_blank' href='tools.php?page=wprocketrucssdebuger&view=".$row->job_id."'>".$row->hash."</a></td>";
+
+    } else {
+    echo "<td><a target='_blank' href='tools.php?page=wprocketrucssdebuger&view=".$row->job_id."'>view css</a></td>";    
+    echo "<td></td>";
+    }
+    
     echo "<td>".$row->unprocessedcss."</td>";
     echo "<td align='center'>".$row->retries."</td>";
     echo "<td align='center'>".$row->is_mobile."</td>";
@@ -306,5 +342,4 @@ function wprocketrucssdebuger_admin_page() {
     
     echo '</div></div>';
 }
-
 

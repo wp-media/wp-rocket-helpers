@@ -46,6 +46,8 @@ function wp_rocket_cache_feed_maybe_deactivate() {
 }
 add_action( 'admin_init', 'wp_rocket_cache_feed_maybe_deactivate' );
 
+
+
 /**
  * Run when plugin is activated
  *
@@ -57,6 +59,7 @@ function wp_rocket_cache_feed_activate() {
 		return;
 	}
 
+    add_filter( 'rocket_sitemap_preload_list', 'wp_rocket_preload_feeds' );
 	add_filter( 'rocket_cache_reject_uri', 'wp_rocket_cache_feed' );
 	rocket_generate_config_file();
 	flush_rocket_htaccess();

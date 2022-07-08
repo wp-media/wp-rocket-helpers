@@ -57,3 +57,14 @@ function wp_rocket_cache_feed_notice() {
 		unset( $_GET['activate'] );
 	}
 }
+
+/**
+ * Added feed urls to the preload.
+ *
+ * @param string[] $urls urls to add to the preload.
+ * @return string[]
+ */
+function wp_rocket_preload_feeds($urls) {
+    $feeds = feed_links();
+    return array_merge($urls, $feeds);
+}

@@ -65,6 +65,7 @@ function wp_rocket_cache_feed_notice() {
  * @return string[]
  */
 function wp_rocket_preload_feeds($urls) {
-    $feeds = feed_links();
-    return array_merge($urls, $feeds);
+    $feed_url = get_feed_link();
+    $urls []= $feed_url;
+    return $urls;
 }

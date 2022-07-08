@@ -59,12 +59,13 @@ function wp_rocket_cache_feed_activate() {
 		return;
 	}
 
-    add_filter( 'rocket_sitemap_preload_list', 'wp_rocket_preload_feeds' );
 	add_filter( 'rocket_cache_reject_uri', 'wp_rocket_cache_feed' );
 	rocket_generate_config_file();
 	flush_rocket_htaccess();
 }
 register_activation_hook( __FILE__, 'wp_rocket_cache_feed_activate' );
+
+add_filter( 'rocket_preload_load_custom_urls', 'wp_rocket_preload_feeds' );
 
 /**
  * Run when plugin is deactivated

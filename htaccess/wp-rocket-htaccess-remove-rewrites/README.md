@@ -9,5 +9,5 @@ To be used with:
 * any Apache setup where `mod_rewrite` is not supported, or WP Rocket’s rewrite rules causes issues in the individual environment
 
 Last tested with:
-* WP Rocket 2.11.x
-* WordPress 4.9.x
+* WP Rocket 3.11.x
+* WordPress 6.x

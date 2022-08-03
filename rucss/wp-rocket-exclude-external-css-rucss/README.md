@@ -6,7 +6,7 @@ By default, Remove Unused CSS will remove *every* CSS file from the HTML styles 
 In some cases, you might need to preserve CSS files, and you can use this helper to achieve it.
 
 Documentation:
-* https://docs.wp-rocket.me/article/1694-prevent-inline-styles-from-being-removed-by-remove-unused-css
+* https://docs.wp-rocket.me/article/1714-prevent-css-files-from-being-removed-by-remove-unused-css
 
 How to use it: 
 * Copy the path of the CSS file you want to preserve, for example: `/wp-content/plugins/plugin-name/css/my-specific-file.css`

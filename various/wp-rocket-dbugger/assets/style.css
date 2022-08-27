@@ -1,0 +1,121 @@
+.completed {
+	background: #090;
+	color: #FFF
+}
+
+.enabled {
+	background: #090;
+	color: #FFF;
+	text-transform: uppercase;
+	display: inline-block;
+	padding: 10px;
+	border-radius: 10px;
+}
+
+.disabled {
+	background: #C00;
+	color: #FFF;
+	text-transform: uppercase;
+	display: inline-block;
+	padding: 10px;
+	border-radius: 10px;
+}
+
+
+.pending {
+	color: #F80
+}
+
+.in-progress {
+	color: #009
+}
+
+.failed {
+	color: #900
+}
+
+.progress {
+	color: #900;
+}
+
+.progress.completed {
+	color: #090
+}
+
+.complete {
+	color: #090;
+}
+
+tr {
+	background-color: #FFF;
+}
+
+.pagination a {
+	display: inline-block;
+	padding: 6px;
+	background-color: #DDD;
+	color: #333;
+	text-decoration: none
+}
+
+.pagination a.current {
+	background-color: #999;
+	color: #FFF;
+}
+
+.menu {
+	margin: 20px 0;
+}
+
+iframe.debugger {
+	background-color: #FFF;
+	margin: 40px 0;
+	border: 2px solid #CCC;
+}
+
+form.debugger {
+	padding: 20px;
+	background-color: #FFF;
+	font-size: 140%;
+	font-weight: bold;
+	display: inline-block;
+	margin: 20px 0;
+	border: 2px solid #CCC;
+}
+
+table.debugger {
+	background-color: #FFF;
+	font-size: 140%;
+	margin: 20px 0;
+}
+
+table.debugger tr.header {
+	background-color: #CCC;
+}
+
+table.debugger td {
+	padding: 10px;
+}
+
+table.debugger input {
+	padding: 10px;
+	margin-left: 20px;
+}
+
+
+.message {
+	display: block;
+	background: #fff;
+	border: 1px solid #c3c4c7;
+	border-left: 4px solid #00a32a;
+	box-shadow: 0 1px 1px rgb(0 0 0 / 4%);
+	margin: 20px 0;
+	padding: 1px 12px
+}
+
+.button-secondary.danger {
+	color: #FFF !important;
+	border-color: #C00 !important;
+	background-color: #C00 !important;
+}
+

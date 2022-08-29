@@ -25,7 +25,7 @@ defined( 'ABSPATH' ) or die();
 function preload_batch_size( $value ) {     
       
      // change this value, default is 100 urls:
-     $value = 35; 
+     $value = 30; 
    
      return $value;
  }
@@ -42,7 +42,7 @@ add_filter( 'rocket_preload_cache_pending_jobs_cron_rows_count', __NAMESPACE__ .
  function preload_cron_interval( $interval ) {   
      
      // change this value, default is 60 seconds:
-     $interval = 120; 
+     $interval = 120;
      
      return $interval;
  }

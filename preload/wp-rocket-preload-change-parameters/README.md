@@ -6,7 +6,7 @@ Reduce the CPU usage by changing the default Preload parameters (batch size, int
 📝&#160;&#160;**Manual code edit required before use!**
 
 Change: 
--  1) BATCH SIZE: Line 28. Is the number of URLs that will be processed on each run. 100 is the default, this helper sets it to 35 URLs. Setting a lower value can help the server to work on fewer requests at a time.
+-  1) BATCH SIZE: Line 28. Is the number of URLs that will be processed on each run. 45 is the default, this helper sets it to 30 URLs. Setting a lower value can help the server to work on fewer requests at a time.
 
 -  2) CRON INTERVAL: Line 45. Set the desired cron interval in seconds. It is the pause that will be applied between batches processing. By setting a higher value (default is 60 seconds), the server will have more time to rest between processing batches. The helper sets the value to 120 seconds.
 

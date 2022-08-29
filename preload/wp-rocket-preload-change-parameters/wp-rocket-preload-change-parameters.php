@@ -53,8 +53,7 @@ add_filter( 'rocket_preload_pending_jobs_cron_interval', __NAMESPACE__ .'\preloa
 
 /**
  *  3) DELAY BETWEEN REQUESTS:
- *  This is the delay between requests made to the same URL.
- *  for example, for Separate cache files for mobile devices.
+ *  This is the delay between requests. A higher delay will reduce the CPU usage.
  *  Default is 0.5 seconds (500000 microseconds)
  */
  function preload_requests_delay( $delay_between ) {   

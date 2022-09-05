@@ -59,7 +59,7 @@ add_filter( 'rocket_preload_pending_jobs_cron_interval', __NAMESPACE__ .'\preloa
  function preload_requests_delay( $delay_between ) {   
      
      // Edit this value, change the number of seconds
-     $seconds = 1;
+     $seconds = 0.6;
      // finish editing
      
      // All done, don't change this part. 

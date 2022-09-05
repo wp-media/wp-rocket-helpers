@@ -10,7 +10,7 @@ Change:
 
 -  2) CRON INTERVAL: Line 45. Set the desired cron interval in seconds. It is the pause that will be applied between batches processing. By setting a higher value (default is 60 seconds), the server will have more time to rest between processing batches. The helper sets the value to 120 seconds.
 
--  3) DELAY BETWEEN REQUESTS: Line 63. This is the pause between each request. A higher delay will reduce the CPU usage. Default is 0.5 seconds (500000 microseconds) the helper sets it to 1 second. You can use a value in seconds.
+-  3) DELAY BETWEEN REQUESTS: Line 63. This is the pause between each request. A higher delay will reduce the CPU usage. Default is 0.5 seconds (500000 microseconds) the helper sets it to 0.6 seconds. You can use a value in seconds.
 
 Documentation:
 * [Change Preload Parameters](https://docs.wp-rocket.me/article/1715-customize-preload-parameters)

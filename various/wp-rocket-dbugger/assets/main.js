@@ -9,7 +9,7 @@
                 doingCronStatus.innerText = ': ✔';
             console.log(`Cron: Success..`);
             } else {
-                doingCronStatus.innerText = `: Status ${response.status}`;
+                doingCronStatus.innerText = ` Status: ${response.status}`;
                 console.warn(`Cron failed to run. Status: ${response.status}`);
             }
         } catch (error) {

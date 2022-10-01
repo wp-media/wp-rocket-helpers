@@ -19,12 +19,12 @@ defined( 'ABSPATH' ) or die();
 
 /**
  *  1) BATCH SIZE
- *  Change the number of URLs to preload on each batch, 100 is the default.
+ *  Change the number of URLs to preload on each batch, 45 is the default.
  *  A lower value can help the server to work on fewer requests at a time
  */     
 function preload_batch_size( $value ) {     
       
-     // change this value, default is 100 urls:
+     // change this value, default is 45 urls:
      $value = 30; 
    
      return $value;

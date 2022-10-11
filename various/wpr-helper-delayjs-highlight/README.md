@@ -1,7 +1,7 @@
 # WP Rocket | DELAY JS HIGHLIGHT
 
 
-This helper plugin will remove type="rocketlazyloadscript" in [Elementor Pro](https://elementor.com/help/code-highlight-pro) and [Gutenberg](https://www.pair.com/support/kb/gutenberg-editor-formatting-code-in-wordpress-posts/) code highlighter when WP Rocket Delay JavaScript execution is enabled.
+This helper plugin will remove type="rocketlazyloadscript" nested in ```<pre></pre>``` when WP Rocket Delay JavaScript execution is enabled.
 
 [GitHub related issue #5496](https://github.com/wp-media/wp-rocket/issues/5496)
 

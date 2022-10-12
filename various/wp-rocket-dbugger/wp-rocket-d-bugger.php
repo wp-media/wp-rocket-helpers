@@ -21,7 +21,7 @@ function rockettoolset_add_admin_menu() {
 }
 
 
-if( $_GET['page'] == 'wprockettoolset' ) {
+if ( !empty( $_GET['page'] ) && $_GET['page'] == 'wprockettoolset' ) {
     add_action( 'admin_enqueue_scripts',  __NAMESPACE__ .'\enqueue_admin_assets' );
 }
 
@@ -55,7 +55,7 @@ if (isset($options['wpr_rocket_debug_log_status']) && $options['wpr_rocket_debug
 //RUCSS
 function wprockettoolset_admin_page() {
 
-    $mode = $_GET['mode'];
+    $mode = empty( $_GET['mode'] ) ? '' : $_GET['mode'];
     
    
     echo '<div class="wrap"><div id="wpbody" role="main"><div id="wpbody-content">';

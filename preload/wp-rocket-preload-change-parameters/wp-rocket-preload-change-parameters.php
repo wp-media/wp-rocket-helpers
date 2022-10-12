@@ -24,7 +24,7 @@ defined( 'ABSPATH' ) or die();
  */     
 function preload_batch_size( $value ) {     
       
-     // change this value, default is 100 urls:
+     // change this value, default is 45 urls:
      $value = 30; 
    
      return $value;

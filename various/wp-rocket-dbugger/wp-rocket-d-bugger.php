@@ -21,55 +21,85 @@ function rockettoolset_add_admin_menu() {
 }
 
 
-if ( !empty( $_GET['page'] ) && $_GET['page'] == 'wprockettoolset' ) {
-    add_action( 'admin_enqueue_scripts',  __NAMESPACE__ .'\enqueue_admin_assets' );
-}
-
-function enqueue_admin_assets(){
-    wp_enqueue_script( 'prism-js', plugins_url('assets/prism.js', __FILE__ ) , '1.0.0', false );
-    wp_enqueue_style( 'prism-css', plugins_url('assets/prism.css', __FILE__ ) , '1.0.0', false);
-    wp_enqueue_style( 'plugin-css', plugins_url('assets/style.css', __FILE__ ) , '1.0.0', false);
-}
-
-
-add_action('admin_init',  __NAMESPACE__ .'\wpr_rocket_debug_log_register_settings');
-function wpr_rocket_debug_log_register_settings(){
-    register_setting('wpr_rocket_debug_log_settings', 'wpr_rocket_debug_log_settings', 'wpr_rocket_debug_log_settings_validate');   
-}
-
-
-function wpr_rocket_debug_log_settings_validate($args){
-    //$args will contain the values posted in your settings form,
-    return $args;
-}
-
-$options = get_option( 'wpr_rocket_debug_log_settings' ); 
-if (isset($options['wpr_rocket_debug_log_status']) && $options['wpr_rocket_debug_log_status'] != '' ) {   
-    
-    define('WP_ROCKET_DEBUG', true);
-    
-  }
-
-
 
 //RUCSS
 function wprockettoolset_admin_page() {
 
-    $mode = empty( $_GET['mode'] ) ? '' : $_GET['mode'];
-    
-   
-    echo '<div class="wrap"><div id="wpbody" role="main"><div id="wpbody-content">';
-    
-    echo '<h1 class="wp-heading-inline">WPR D-bugger</h1>';
-    include('inc/menu.php'); 
-    include('inc/globals.php'); 
-    
-    if($mode == 'rucss' || $mode == '') { include('inc/rucss.php'); }
-    if($mode == 'preload') { include('inc/preload.php'); }
-    if($mode == 'debug') { include('inc/debug-log.php'); }
-    if($mode == 'configs') { include('inc/configs.php'); }
-    if($mode == 'phpinfo') { include('inc/phpinfo.php'); }
+  include('inc/globals.php'); 
+  include('inc/functions.php'); 
 
-    echo '</div></div></div>';
+  $mode = empty( $_GET['mode'] ) ? '' : $_GET['mode'];
+   
+  echo '<div class="wrap"><div id="wpbody" role="main"><div id="wpbody-content">';
+  echo '<h1 class="wp-heading-inline">WPR D-bugger <span class="dbugger-version">'.$wpr_dbugger_version.'</span></h1>';
+    
+  include('inc/menu.php'); 
+
+    
+  if($mode == 'rucss' || $mode == '') { include('tests/rucss.php'); }
+  if($mode == 'preload') { include('tests/preload.php'); }
+  if($mode == 'logs') { include('tests/logs.php'); }
+  if($mode == 'configs') { include('tests/configs.php'); }
+  if($mode == 'phpinfo') { include('tests/phpinfo.php'); }
+  if($mode == 'readme') { include('inc/testslist.php'); }
+
+  echo '</div></div></div>';
 
  }
+ 
+ 
+ 
+ // enqueue styles on needed pages
+if ( !empty( $_GET['page'] ) && $_GET['page'] == 'wprockettoolset' ) {
+
+   add_action( 'admin_enqueue_scripts',  __NAMESPACE__ .'\enqueue_admin_assets' );
+ }
+ 
+ function enqueue_admin_assets(){
+   wp_enqueue_script( 'prism-js', plugins_url('assets/prism.js', __FILE__ ) , '1.0.0', false );
+   wp_enqueue_style( 'prism-css', plugins_url('assets/prism.css', __FILE__ ) , '1.0.0', false);
+   wp_enqueue_style( 'plugin-css', plugins_url('assets/style.css', __FILE__ ) , '1.0.0', false);
+ }
+ 
+ 
+ add_action('admin_init',  __NAMESPACE__ .'\wpr_rocket_debug_log_register_settings');
+ function wpr_rocket_debug_log_register_settings(){
+     register_setting('wpr_rocket_debug_log_settings', 'wpr_rocket_debug_log_settings', 'wpr_rocket_debug_log_settings_validate');   
+ }
+ 
+ 
+ // validate the options
+ function wpr_rocket_debug_log_settings_validate($args){
+     //$args will contain the values posted in your settings form,
+     return $args;
+ }
+ 
+ //LOGS
+ 
+ // first, lets see what is enabled
+ $options = get_option( 'wpr_rocket_debug_log_settings' ); 
+
+ //RUCSS
+
+// RUCSS 
+ if (isset($options['wpr_rocket_debug_log_status']) && $options['wpr_rocket_debug_log_status']['rucss'] != '' ) {   
+     define('WP_ROCKET_DEBUG', true); 
+   }
+   
+
+// CRON   
+if (isset($options['wpr_rocket_debug_log_status']) && $options['wpr_rocket_debug_log_status']['cron'] != '' ) {
+  
+      add_action( 'init', function (){
+        if ( ! defined('DOING_CRON') || ! DOING_CRON ) {
+            return;
+        }
+      error_log( "\n" . date('[Y-m-d H:i:s', $_SERVER['REQUEST_TIME']) . "] Cron: " . $_SERVER['HTTP_USER_AGENT'],  3, ABSPATH . "/wp-content/wpr-logs/01-cron.txt" );
+    
+        } );
+    
+    }
+ 
+
+ 
+ 

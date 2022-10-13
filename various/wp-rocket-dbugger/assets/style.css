@@ -3,22 +3,17 @@
 	color: #FFF
 }
 
-.enabled {
+.status {
 	background: #090;
 	color: #FFF;
 	text-transform: uppercase;
 	display: inline-block;
-	padding: 10px;
+	padding: 6px;
 	border-radius: 10px;
 }
 
-.disabled {
+.status.disabled {
 	background: #C00;
-	color: #FFF;
-	text-transform: uppercase;
-	display: inline-block;
-	padding: 10px;
-	border-radius: 10px;
 }
 
 
@@ -87,6 +82,7 @@ table.debugger {
 	background-color: #FFF;
 	font-size: 140%;
 	margin: 20px 0;
+	width: 100%;
 }
 
 table.debugger tr.header {
@@ -119,3 +115,17 @@ table.debugger input {
 	background-color: #C00 !important;
 }
 
+.grid-container {
+	display: grid;
+	grid-template-columns: auto auto;
+}
+
+pre.logviewer {
+	max-height: 600px;
+	overflow: scroll;
+}
+
+.dbugger-version {
+	color: #999;
+	font-size: 12px;
+}

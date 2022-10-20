@@ -161,13 +161,41 @@ $search = 'WHERE url LIKE "%'.$search_string.'%" OR job_id LIKE "%'.$search_stri
  $search = '';
 }
 
+
+// filter
+if( isset($_GET['filterstatus'])) {
+	$status_string = $_GET['filterstatus'];
+	$status = "WHERE status = '$status_string'";
+	} else {
+	 $status = '';
+}
+
+// sort
+if( isset($_GET['sort'])) {
+	$sort_string = $_GET['sort'];
+	$sort = "ORDER BY $sort_string";
+	} else {
+	 $sort = 'ORDER BY job_id';
+}
+
+if( isset($_GET['order'])) {
+	$order = $_GET['order'];
+		if ($order == 'desc') { $asc = 'asc'; $arr = '&uarr;';} else { $asc = 'desc'; $arr = '&darr;';}
+	} else {
+		$order = 'asc'; $asc = 'desc'; $arr = '&uarr;';
+	}
+
+
+
 // DB queries and calculations
 $totalrows = $wpdb->get_var("SELECT COUNT(*) FROM $wpdb->wpr_rucss_used_css");
 $completedcount = $wpdb->get_var("SELECT COUNT(*) FROM $wpdb->wpr_rucss_used_css WHERE status = 'completed'");
 $inprogresscount = $wpdb->get_var("SELECT COUNT(*) FROM $wpdb->wpr_rucss_used_css WHERE status = 'in-progress'");
 $failedcount = $wpdb->get_var("SELECT COUNT(*) FROM $wpdb->wpr_rucss_used_css WHERE status = 'failed'");
 $pendingcount = $wpdb->get_var("SELECT COUNT(*) FROM $wpdb->wpr_rucss_used_css WHERE status = 'pending'");
-$rows = $wpdb->get_results( "SELECT * FROM ".$wpdb->prefix."wpr_rucss_used_css $search  ORDER BY job_id LIMIT $rows_per_page offset $pg " );
+$rows = $wpdb->get_results( "SELECT * FROM ".$wpdb->prefix."wpr_rucss_used_css $search $status $sort $order LIMIT $rows_per_page offset $pg " );
+
+count($rows);
 
 if($totalrows != 0 ) {
 	$percentaje = intval($completedcount/$totalrows*100);
@@ -186,10 +214,11 @@ echo " <a  class='button-secondary danger' class='failed' href='tools.php?page=w
 // Percentaje calculations
 echo '<p>'.$percentaje.'% completed - ' . $completedcount . ' of '.  $totalrows. ' urls<br>';
 
-echo '<p><span class="complete">'.$completedcount.' Completed</span> - ';
-echo '<span class="pending">'.$pendingcount.' Pending - ';
-echo '<span class="in-progress">'.$inprogresscount.' In-Progress - ';
-echo '<span class="failed">'.$failedcount.' Failed </p>';
+echo '<p><span><a href="tools.php?page=wprockettoolset&mode=rucss"> All ('.$totalrows.')</a></span> - ';
+echo '<span class="complete"><a href="tools.php?page=wprockettoolset&mode=rucss&filterstatus=completed">'.$completedcount.' Completed</a></span> - ';
+echo '<span class="pending"><a href="tools.php?page=wprockettoolset&mode=rucss&filterstatus=pending">'.$pendingcount.' Pending</a> - ';
+echo '<span class="in-progress"><a href="tools.php?page=wprockettoolset&mode=rucss&filterstatus=in-progress">'.$inprogresscount.' In-Progress</a> - ';
+echo '<span class="failed"><a href="tools.php?page=wprockettoolset&mode=rucss&filterstatus=failed">'.$failedcount.' Failed</a></p>';
 
 
 // SEARCH form
@@ -238,13 +267,13 @@ $i = $numerator;
 echo  "<table border='1' cellspacing='4' cellpadding='4'>";
 echo "<tr>
 
-<td>#</td>
-<td>url</td>
+<td><a href='tools.php?page=wprockettoolset&mode=rucss&sort=id&order=".$asc."'>#</a></td>
+<td><a href='tools.php?page=wprockettoolset&mode=rucss&sort=url&order=".$asc."'>url</a></td>
 <td>hash</td>
 <td>unprocessed css</td>
 <td>retries</td>
 <td>is_mobile</td>
-<td>job_id</td>
+<td><a href='tools.php?page=wprockettoolset&mode=rucss&sort=job_id&order=".$asc."'>job_id</a></td>
 <td>queue_name</td>
 <td>status</td>
 <td>modified</td>
@@ -252,12 +281,18 @@ echo "<tr>
 <td>Used CSS</td>
 
 </tr>";
+
+
 foreach ( $rows as $row )  { 
+	
  
 echo "<tr>";
 
-echo "<td class='".$row->status."'>".$i."</td>";
-echo "<td><a target='_blank' href='".$row->url."'>".$row->url."</a></td>";
+echo "<td class='".$row->status."'>".$row->id."</td>";
+
+if( $row->url == home_url() ) { $is_home = 1; $home_tag ="<span class='is-home'>homepage</span>"; } else { $is_home = 0; $home_tag ="";}
+
+echo "<td><a target='_blank' href='".$row->url."'>".$row->url."</a> ".$home_tag." </td>";
 
 if ( version_compare( $actual_version, '3.11.4' )  >= 0 ) {
 
@@ -268,7 +303,6 @@ echo "<td><a target='_blank' href='tools.php?page=wprockettoolset&mode=rucss&vie
 }
 
 // check if the current page is the home
-if( $row->url == home_url() ) { $is_home = 1; } else { $is_home = 0; }
 
 echo "<td>".$row->unprocessedcss."</td>";
 echo "<td align='center'>".$row->retries."</td>";

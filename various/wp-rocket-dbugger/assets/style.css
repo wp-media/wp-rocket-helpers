@@ -3,6 +3,13 @@
 	color: #FFF
 }
 
+.is-home {
+	background: #FC0;
+	color: #000;
+	padding: 2px;
+	font-size: 80%;
+	border-radius: 4px;
+}
 .status {
 	background: #090;
 	color: #FFF;
@@ -17,19 +24,19 @@
 }
 
 
-.pending {
+.pending, .pending a {
 	color: #F80
 }
 
-.in-progress {
+.in-progress, .in-progress a {
 	color: #009
 }
 
-.failed {
+.failed, .failed a {
 	color: #900
 }
 
-.progress {
+.progress, .progress a {
 	color: #900;
 }
 
@@ -37,7 +44,7 @@
 	color: #090
 }
 
-.complete {
+.complete, .complete a {
 	color: #090;
 }
 

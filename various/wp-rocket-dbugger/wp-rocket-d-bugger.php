@@ -94,7 +94,7 @@ if (isset($options['wpr_rocket_debug_log_status']) && $options['wpr_rocket_debug
         if ( ! defined('DOING_CRON') || ! DOING_CRON ) {
             return;
         }
-      error_log( "\n" . date('[Y-m-d H:i:s', $_SERVER['REQUEST_TIME']) . "] Cron: " . $_SERVER['HTTP_USER_AGENT'],  3, ABSPATH . "/wp-content/wpr-logs/01-cron.txt" );
+      error_log( "\n" . date('[Y-m-d H:i:s', $_SERVER['REQUEST_TIME']) . "] Cron: " . print_r(($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : 'Triggered by the server', true),  3, ABSPATH . "/wp-content/wpr-logs/01-cron.txt" );
     
         } );
     

@@ -3,7 +3,7 @@
 	color: #FFF
 }
 
-.is-home {
+.highlighted {
 	background: #FC0;
 	color: #000;
 	padding: 2px;
@@ -54,14 +54,18 @@ tr {
 
 .pagination a {
 	display: inline-block;
-	padding: 6px;
+	padding: 8px;
+	line-height: 6px;
 	background-color: #DDD;
 	color: #333;
-	text-decoration: none
+	text-decoration: none;
+	border-radius: 4px;
+	margin-right: 4px;
 }
 
+
 .pagination a.current {
-	background-color: #999;
+	background-color: #333;
 	color: #FFF;
 }
 
@@ -116,6 +120,11 @@ table.debugger input {
 	padding: 1px 12px
 }
 
+.message.warning {
+	border-left: 8px solid #F90;
+	font-weight: bold;
+}
+
 .button-secondary.danger {
 	color: #FFF !important;
 	border-color: #C00 !important;
@@ -135,4 +144,12 @@ pre.logviewer {
 .dbugger-version {
 	color: #999;
 	font-size: 12px;
+}
+
+.fileviewer {
+	background: #CCC;
+	width: 100%;
+	border: 2px solid #666;
+	border-radius: 2px;
+	height:600px;
 }

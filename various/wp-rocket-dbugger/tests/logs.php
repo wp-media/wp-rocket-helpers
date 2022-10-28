@@ -49,7 +49,7 @@ if (isset($_GET['clear_file'])) {
 
                     <?php
                         $logs = [
-                            'rucss' => 'WP_ROCKET_DEBUGs',
+                            'wprocketdebug' => 'WP_ROCKET_DEBUG',
                             'cron' => '01-CRON periodicity',
                             'fullcacheclear' => '02-Full cache clear',
                             'partialcacheclear' => '03-Partial cache clear',

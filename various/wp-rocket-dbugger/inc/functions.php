@@ -48,13 +48,13 @@ function do_the_preload($url)
  * @param string $option_name the name of the log option to check
  *
  * @return 'enabled' or 'disabled'
-  */
+    */
 function get_wpr_rocket_debug_log_status($option_name)
 {
     $options = get_option('wpr_rocket_debug_log_settings');
 
     if (isset($options['wpr_rocket_debug_log_status']) && (isset($options['wpr_rocket_debug_log_status'] [$option_name]))
-        && $options['wpr_rocket_debug_log_status'][$option_name] != '') {
+                && $options['wpr_rocket_debug_log_status'][$option_name] != '') {
         return 'enabled';
     } else {
         return 'disabled';
@@ -72,9 +72,9 @@ function get_wpr_rocket_debug_log_status($option_name)
 function logs_add_checkbox($log_name, $log_display_name)
 {
     echo '<tr>
-    <td style="text-align:center;"><span class="status '.get_wpr_rocket_debug_log_status($log_name).'"></span></td>
-    <td>'.$log_display_name.'</td>
-    <td><input name="wpr_rocket_debug_log_settings[wpr_rocket_debug_log_status]['.$log_name.']" type="checkbox" id="wpr_rocket_debug_log_status" value="1"';
+        <td style="text-align:center;"><span class="status '.get_wpr_rocket_debug_log_status($log_name).'"></span></td>
+        <td>'.$log_display_name.'</td>
+        <td><input name="wpr_rocket_debug_log_settings[wpr_rocket_debug_log_status]['.$log_name.']" type="checkbox" id="wpr_rocket_debug_log_status" value="1"';
     if (get_wpr_rocket_debug_log_status($log_name) == 'enabled') {
         echo ' checked="checked"';
     }
@@ -109,12 +109,12 @@ function logs_get_logs($logs_file_dir, $logs_file_url, $file_extension)
         echo "<td>".gmdate("H:i:s m-d-Y", $file->getMTime())."</td>";
         echo "<td>".wpr_rocket_debug_human_filesize($file->getSize())."</td>";
         echo "<td>
-    
-    <a href='?page=wprockettoolset&mode=logs&view_file=".$logs_file_url."".$file->getFilename()."'>View</a> | 
-    <a target='_blank' href='".$logs_file_url."".$file->getFilename()."'>New tab</a> |
-    <a onclick=\"return confirm('Are you sure?')\" href='tools.php?page=wprockettoolset&mode=logs&action=delete&clear_file=".$file->getFilename()."'>Delete</a>
-    
-    </td>";
+        
+        <a href='?page=wprockettoolset&mode=logs&view_file=".$logs_file_url."".$file->getFilename()."'>View</a> | 
+        <a target='_blank' href='".$logs_file_url."".$file->getFilename()."'>New tab</a> |
+        <a onclick=\"return confirm('Are you sure?')\" href='tools.php?page=wprockettoolset&mode=logs&action=delete&clear_file=".$file->getFilename()."'>Delete</a>
+        
+        </td>";
         echo "</tr>";
     }
 }
@@ -132,6 +132,11 @@ function show_arr($col, $sort, $order)
     }
 }
 
+/**
+ * Returns a readable stack of the functions history based on getTraceAsString
+ * https://www.php.net/manual/en/exception.gettraceasstring.php
+ * @return void string
+ */
 function generateCallTrace()
 {
     $e = new Exception();
@@ -139,8 +144,8 @@ function generateCallTrace()
     // reverse array to make steps line up chronologically
     $trace = array_reverse($trace);
     array_shift($trace); // remove {main}
-    array_pop($trace); // remove call to this method
-    $length = count($trace);
+        array_pop($trace); // remove call to this method
+        $length = count($trace);
     $result = array();
 
     for ($i = 0; $i < $length; $i++) {
@@ -150,12 +155,57 @@ function generateCallTrace()
     return "" . implode("\n", $result);
 }
 
+
+/**
+ * This function finds a string inside a file
+ *
+ * @param string $string_to_find the string to find, for example wp_footer();
+ * @param string $file_to_check the path to the file.
+ *
+ * @return void  string "disabled" or "enabled"
+ */
+function file_needler($string_to_find, $file_to_check)
+{
+    $handle = fopen($file_to_check, 'r');
+    $valid = 'disabled'; // init as disabled
+    while (($buffer = fgets($handle)) !== false) {
+        if (strpos($buffer, $string_to_find) !== false) {
+            $valid = 'enabled';
+            break; // Once you find the string, you should break out the loop.
+        }
+    }
+    fclose($handle);
+    return $valid;
+}
+
+/**
+ * Gets the hosting provider of the current domain
+ *
+ * @return void String
+ */
+function get_hosting_provider()
+{
+    $url = get_site_url();
+    $url = preg_replace('#^https?://#i', '', $url);
+    $ip_info = 'https://ipwhois.app/json/'.$url;
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $ip_info);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    $result = curl_exec($ch);
+    curl_close($ch);
+
+    $org = strtolower(json_decode($result)->org);
+    return $org;
+}
+
+
+
 //LOGS
  // first, lets see what is enabled
  $options = get_option('wpr_rocket_debug_log_settings');
 
 // RUCSS
- if (get_wpr_rocket_debug_log_status('cron') == 'enabled') {
+ if (get_wpr_rocket_debug_log_status('wprocketdebug') == 'enabled') {
      define('WP_ROCKET_DEBUG', true);
  }
 

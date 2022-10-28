@@ -153,3 +153,38 @@ pre.logviewer {
 	border-radius: 2px;
 	height:600px;
 }
+
+ul.needler .col {
+	float: left;
+	display: inline-block;
+	margin-right: 10px;
+}
+ul.needler span {
+	width: 10px;
+	height: 10px;
+	border-radius: 0;
+}
+
+ul.needler li {
+	margin: 0px;
+	height: 20px;
+	vertical-align: middle;
+	background-color: #FFF;
+	padding: 10px;
+	border-bottom: 2px solid #CCC;
+}
+.button-secondary.deactivate {
+	font-size: 10px;
+	padding: 0 4px;
+	min-height: auto;
+	color: #fff;
+	background: #999;
+	border: #ccc;
+	vertical-align: middle;
+}
+
+.button-secondary.deactivate:hover {
+	background: #C00;
+	border: #C00;
+	color: #FFF;
+}

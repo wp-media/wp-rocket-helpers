@@ -14,16 +14,19 @@
 } else {
     echo 'secondary';
 }?>">Logs</a>
+
+    <a href="tools.php?page=wprockettoolset&mode=checks" class="button-<?php if ($mode == 'checks') {
+    echo 'primary';
+} else {
+    echo 'secondary';
+}?>">Checks</a>
+
     <a href="tools.php?page=wprockettoolset&mode=configs" class="button-<?php if ($mode == 'configs') {
     echo 'primary';
 } else {
     echo 'secondary';
 }?>">Config Files</a>
-    <a href="tools.php?page=wprockettoolset&mode=server" class="button-<?php if ($mode == 'phpinfo') {
-    echo 'primary';
-} else {
-    echo 'secondary';
-}?>">phpinfo()</a>
+
     <a href="<?php echo get_site_url();?>/wp-cron.php?doing_wp_cron" target="_blank" class="button-secondary" id="doing-cron-button">Run WP-Cron <span id="doing-cron-status"> </span></a>
     <script src="<?php echo esc_url(plugins_url('../assets/main.js', __FILE__))?>"></script>
 

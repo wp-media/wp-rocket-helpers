@@ -27,12 +27,18 @@ function rockettoolset_add_admin_menu()
 
 function wprockettoolset_admin_page()
 {
-    include('inc/globals.php');
-
     $mode = empty($_GET['mode']) ? '' : $_GET['mode'];
 
+    include('inc/globals.php');
+
+
     echo '<div class="wrap"><div id="wpbody" role="main"><div id="wpbody-content">';
-    echo '<h1 class="wp-heading-inline">WPR D-bugger <span class="dbugger-version">'.$wpr_dbugger_version.'</span></h1>';
+    echo '<h1 class="wp-heading-inline">WPR D-bugger <span class="dbugger-version">'.$wpr_dbugger_version.'</span> <a href="tools.php?page=wprockettoolset&mode=deactivate" class="button-secondary deactivate" onclick="return confirm(\'Are you sure?\')">Deactivate</a>
+
+   </h1>';
+
+
+
 
     include('inc/menu.php');
 
@@ -49,12 +55,17 @@ function wprockettoolset_admin_page()
     if ($mode == 'configs') {
         include('tests/configs.php');
     }
-    if ($mode == 'server') {
-        include('tests/phpinfo.php');
+    if ($mode == 'checks') {
+        include('tests/checks.php');
     }
     if ($mode == 'readme') {
         include('inc/testslist.php');
     }
+
+    if ($mode == 'deactivate') {
+        include('inc/deactivate.php');
+    }
+
 
     echo '</div></div></div>';
 }

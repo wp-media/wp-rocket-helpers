@@ -33,7 +33,7 @@ function define_ignored_parameters( array $params ) {
 	
 }
 // Filter rocket_cache_ignored_parameters parameters
-add_filter( 'rocket_cache_ignored_parameters', __NAMESPACE__ . '\define_ignored_parameters' );
+add_filter( 'rocket_cache_ignored_parameters', __NAMESPACE__ . '\define_ignored_parameters', 999 );
 
 /**
  * Updates .htaccess, regenerates WP Rocket config file.

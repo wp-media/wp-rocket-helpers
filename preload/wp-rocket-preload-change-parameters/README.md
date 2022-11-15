@@ -20,5 +20,5 @@ To be used with:
 * Any setup where “Preload” is enabled and it causes high CPU usage
 
 Last tested with:
-* WP Rocket 3.12
+* WP Rocket 3.12.3
 * WordPress 6.x

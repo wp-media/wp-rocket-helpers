@@ -67,7 +67,7 @@ function deactivate()
 {
 
 	// Remove all functionality added above. Please remove the correct filter.
-	remove_filter('rocket_htaccess_mod_expires', __NAMESPACE__ . '\rocket_change_rss_expires');
+	remove_filter('rocket_htaccess_mod_expires', __NAMESPACE__ . '\rocket_change_expires');
 
 	// Flush .htaccess rules, and regenerate WP Rocket config file.
 	flush_wp_rocket();

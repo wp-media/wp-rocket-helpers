@@ -155,6 +155,24 @@ function wp_rocket_disable_woocommerce_variation_cache_clear(){
 
 add_action( 'wp_rocket_loaded', __NAMESPACE__ . '\wp_rocket_disable_woocommerce_variation_cache_clear' );
 
+
+/**
+ * Disable cache clearing after updating dynamic lists.
+ *
+ *	@author Ahmed Saeed
+ */
+ function wp_rocket_disable_rocket_after_save_dynamic_lists(){
+	 
+	$container = apply_filters( 'rocket_container', [] );
+	if ( ! empty( $container ) ) {
+		remove_action( 'rocket_after_save_dynamic_lists', [ $container->get( 'purge_actions_subscriber' ), 'purge_cache' ] );
+	}
+
+ }
+ 
+ add_action( 'wp_rocket_loaded', __NAMESPACE__ . '\wp_rocket_disable_rocket_after_save_dynamic_lists' );
+ 
+ 
 /**
  * Maybe render admin notice.
  *

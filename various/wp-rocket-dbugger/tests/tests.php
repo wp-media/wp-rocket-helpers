@@ -1,4 +1,4 @@
-<h1>Checks</h1>
+<h1>Tests</h1>
 
 
 <hr />

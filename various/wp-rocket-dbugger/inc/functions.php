@@ -89,10 +89,11 @@ function logs_add_checkbox($log_name, $log_display_name)
  * @param string $logs_file_dir The dir where the logs will be created
  * @param string $logs_file_url The URL where the logs will be linked to
  * @param string $file_extension the file extension to scan inside the $logs_file_dir folder
+ * @param string $type the current view inside the logs tab
  *
  * @return void  HTML response
  */
-function logs_get_logs($logs_file_dir, $logs_file_url, $file_extension)
+function logs_get_logs($logs_file_dir, $logs_file_url, $file_extension, $type)
 {
     $files = new GlobIterator($logs_file_dir.$file_extension);
 
@@ -110,9 +111,10 @@ function logs_get_logs($logs_file_dir, $logs_file_url, $file_extension)
         echo "<td>".wpr_rocket_debug_human_filesize($file->getSize())."</td>";
         echo "<td>
         
-        <a href='?page=wprockettoolset&mode=logs&view_file=".$logs_file_url."".$file->getFilename()."'>View</a> | 
-        <a target='_blank' href='".$logs_file_url."".$file->getFilename()."'>New tab</a> |
-        <a onclick=\"return confirm('Are you sure?')\" href='tools.php?page=wprockettoolset&mode=logs&action=delete&clear_file=".$file->getFilename()."'>Delete</a>
+        <a class='button-secondary' title='Load file in viewer' href='?page=wprockettoolset&mode=logs&view_file=".$logs_file_url."".$file->getFilename()."'><span class='dashicons dashicons-visibility'></span></a>
+        <a class='button-secondary' title='Open file in new tab' target='_blank' href='".$logs_file_url."".$file->getFilename()."'><span class='dashicons dashicons-external'></span></a>
+        <a class='button-secondary' title='download file' target='_blank' href='".site_url()."/downloader/?url=".$logs_file_url."".$file->getFilename()."'><span class='dashicons dashicons-download'></span></a>
+        <a class='button-secondary' title='Delete file' onclick=\"return confirm('Are you sure?')\" href='tools.php?page=wprockettoolset&mode=logs&action=delete&clear_file=".$file->getFilename()."&type=".$type."'><span class='dashicons dashicons-trash'></span></a>
         
         </td>";
         echo "</tr>";
@@ -199,6 +201,34 @@ function get_hosting_provider()
 }
 
 
+function dbugger_template_redirect()
+{
+    if ($_SERVER['SCRIPT_URL']=='/downloader/') {
+        $filename = str_replace('url=', '', $_SERVER['QUERY_STRING']);
+        $site_url = site_url();
+        $site_url = preg_replace('#^https?://#i', '', $site_url);
+        header("Content-type: application/x-msdownload", true, 200);
+        header("Content-Disposition: attachment; filename=".$site_url."-".basename($filename));
+        header("Pragma: no-cache");
+        header("Expires: 0");
+        header('Content-Length: ' . filesize($filename));
+        flush();
+        readfile($filename);
+
+        exit();
+    }
+}
+
+add_action('template_redirect', 'dbugger_template_redirect');
+
+function wprdbugger_enable_debug_mode()
+{
+    error_reporting(E_ALL);
+    ini_set('display_errors', 0);
+    ini_set('log_errors', 1);
+    $log_path =  ABSPATH . '/wp-content/wpr-logs/debug.txt';
+    ini_set('error_log', $log_path);
+}
 
 //LOGS
  // first, lets see what is enabled
@@ -207,7 +237,14 @@ function get_hosting_provider()
 // RUCSS
  if (get_wpr_rocket_debug_log_status('wprocketdebug') == 'enabled') {
      define('WP_ROCKET_DEBUG', true);
+     
+     
  }
+
+// WP_DEBUG
+     add_action('template_redirect', 'wprdbugger_enable_debug_mode');
+
+
 
 
 // CRON
@@ -232,8 +269,17 @@ if (get_wpr_rocket_debug_log_status('partialcacheclear') == 'enabled') {
     function log_partialcacheclear($post, $purge_url, $lang)
     {
         error_log("\n====================================================================\n[" . date('Y-m-d H:i:s', $_SERVER['REQUEST_TIME']) . "]\n#CALLSTACK#####\n" . print_r(generateCallTrace(), true), 3, ABSPATH . "/wp-content/wpr-logs/03-partial-cache-clear.txt");
-        error_log("\n\n#POST####\n" . print_r($post, true), 3, ABSPATH . "/wp-content/wpr-logs/03-partial-cache-clear.txt");
+        error_log("\n\n#POST####\n ID: " . print_r($post->ID, true), 3, ABSPATH . "/wp-content/wpr-logs/03-partial-cache-clear.txt");
+        error_log("\n URL: " . print_r(get_permalink($post->ID), true), 3, ABSPATH . "/wp-content/wpr-logs/03-partial-cache-clear.txt");
+        error_log("\n Post_type: " . print_r($post->post_type, true), 3, ABSPATH . "/wp-content/wpr-logs/03-partial-cache-clear.txt");
         error_log("\n\n#PURGED_URLS#####\n" . print_r($purge_url, true), 3, ABSPATH . "/wp-content/wpr-logs/03-partial-cache-clear.txt");
     }
     add_action('before_rocket_clean_post', 'log_partialcacheclear', 1000, 3);
 }
+
+add_filter( 'rocket_buffer', function($html){
+     preg_match( '@WP Rocket/(Homepage_Preload_After_Purge_Cache|Homepage\sPreload|Preload){1}@i', $_SERVER['HTTP_USER_AGENT'] ) ?
+         $html .= '<!-- Cached by Preload -->':
+     $html .= '<!-- Cached by ' . $_SERVER['HTTP_USER_AGENT'] . ' -->';
+      return $html;
+  }, PHP_INT_MAX );

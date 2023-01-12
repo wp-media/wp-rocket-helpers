@@ -3,6 +3,8 @@
 // PRELOAD debugging tools
 
 
+
+
 //REBUILD cache
 if (isset($_GET['rebuild_cache'])) {
     $rebuild_cache = $_GET['rebuild_cache'];
@@ -15,7 +17,44 @@ if (isset($_GET['rebuild_cache'])) {
     echo '<hr>';
     echo '<div class="message"><p>Cache for <strong>'.$rebuild_cache.'</strong> rebuilt</p></div>';
     echo '<a href="tools.php?page=wprockettoolset&mode=preload" class="button-secondary">&lsaquo; go back</a>';
-} else {
+    
+} //RESET IN-PROGRESS to PENDING
+
+elseif (isset($_GET['reset_inprogress'])) {
+
+    global $wpdb;
+    
+    $wpdb->query( "UPDATE $wpdb->wpr_rocket_cache SET status = 'pending' WHERE status = 'in-progress' " );
+
+    echo "<h1 class='wp-heading-inline'>PRELOAD - Jobs reset</h1>";
+    echo '<hr>';
+    echo '<div class="message"><p><strong>in-progress</strong> jobs set back to <strong>pending</strong></p></div>';
+    echo '<a href="tools.php?page=wprockettoolset&mode=preload" class="button-secondary">&lsaquo; go back</a>';
+} 
+
+// DELETE URL FROM CACHE TABLE
+elseif (isset($_GET['remove_from_table'])) {
+    
+    // clear entry from the DB
+    global $wpdb;
+    
+    $url_to_delete = $_GET['remove_from_table_url'];
+    $post_id_to_clear = url_to_postid($url_to_delete);  
+    rocket_clean_post($post_id_to_clear);
+    
+    $id_to_delete = $_GET['remove_from_table'];
+    echo $id_to_delete;
+    $wpdb->delete($wpdb->prefix."wpr_rocket_cache", array( 'id' => $id_to_delete ));
+    echo "<h1 class='wp-heading-inline'>PRELOAD - URL removed</h1>";
+    echo '<hr>';
+    echo '<div class="message"><p><strong>URL Deleted</strong> URL from the database, and our Cache for that URL cleared too!. If you need to re-add it, just visit it in a browser.</p></div>';
+    echo '<a href="tools.php?page=wprockettoolset&mode=preload" class="button-secondary">&lsaquo; go back</a>';
+    
+    // also, lets clear the post cache:
+
+
+}
+else {
 
 // TABLE VIEW
     global $wpdb;
@@ -129,6 +168,10 @@ if (isset($_GET['rebuild_cache'])) {
     }
     echo '<hr>';
 
+echo '<hr>';
+echo " <a class='button-secondary' href='tools.php?page=wprockettoolset&mode=preload&reset_inprogress'  onclick=\"return confirm('Are you sure?')\">Reset in-progress to pending</a>  ";
+echo " <a class='button-secondary danger' href='tools.php?page=wprockettoolset&mode=preload&truncate'  onclick=\"return confirm('Are you sure?')\">Truncate cache table</a>  ";
+
 
     // Percentaje calculations
     echo '<p>'.$percentaje.'% completed - ' . $completedcount . ' of '.  $totalrows. ' urls<br>';
@@ -207,6 +250,8 @@ if (isset($_GET['rebuild_cache'])) {
 <td><a href='tools.php?page=wprockettoolset&mode=preload&sort=modified&order=".$asc.$search_query.$status_query."'>modified ".show_arr('modified', $sort_string, $order)." </a></td>
 <td><a href='tools.php?page=wprockettoolset&mode=preload&sort=last_accessed&order=".$asc.$search_query.$status_query."'>last_accessed ".show_arr('last_accessed', $sort_string, $order)." </a></td>
 <td>rebuild</td>
+<td>delete</td>
+
 
 </tr>";
 
@@ -227,8 +272,8 @@ if (isset($_GET['rebuild_cache'])) {
         echo "<td align='center' class='".$row->status."'>".$row->status."</td>";
         echo "<td align='center'>".$row->modified."</td>";
         echo "<td align='center'>".$row->last_accessed."</td>";
-
-        echo "<td align='center'><a href='tools.php?page=wprockettoolset&mode=preload&rebuild_cache=".$row->url."'>Rebuild Cache</a></td>";
+        echo "<td align='center'><a href='tools.php?page=wprockettoolset&mode=preload&rebuild_cache=".$row->url."'>Regenerate</a></td>";
+        echo "<td align='center'><a onclick=\"return confirm('This will remove this URL from the wpr_rocket_cache table. if you need to re-add it, just visit the same URL in a browser. Ok to proceed?')\" href='tools.php?page=wprockettoolset&mode=preload&remove_from_table=".$row->id."&remove_from_table_url=".$row->url."'>Delete</a></td>";
         echo "</tr>";
 
         $i ++;

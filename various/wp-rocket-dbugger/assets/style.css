@@ -7,9 +7,23 @@
 	background: #FC0;
 	color: #000;
 	padding: 2px;
-	font-size: 80%;
 	border-radius: 4px;
 }
+
+span.config {
+	background: #0cF;
+	color: #000;
+	padding: 2px;
+	border-radius: 4px;
+}
+
+span.found {
+	background: #FCC;
+	color: #000;
+	padding: 2px;
+	border-radius: 4px;
+}
+
 .status {
 	background: #090;
 	color: #FFF;
@@ -82,7 +96,6 @@ iframe.debugger {
 form.debugger {
 	padding: 20px;
 	background-color: #FFF;
-	font-size: 140%;
 	font-weight: bold;
 	display: inline-block;
 	margin: 20px 0;
@@ -91,7 +104,6 @@ form.debugger {
 
 table.debugger {
 	background-color: #FFF;
-	font-size: 140%;
 	margin: 20px 0;
 	width: 100%;
 }
@@ -101,14 +113,18 @@ table.debugger tr.header {
 }
 
 table.debugger td {
-	padding: 10px;
+	padding: 6px;
 }
 
 table.debugger input {
-	padding: 10px;
+	padding: 6px;
 	margin-left: 20px;
 }
 
+table.debugger .log {
+	margin-left: 20px;
+	background: #EEE;
+}
 
 .message {
 	display: block;
@@ -134,6 +150,20 @@ table.debugger input {
 .grid-container {
 	display: grid;
 	grid-template-columns: auto auto;
+	column-gap: 10px;
+	row-gap: 15px;
+}
+
+.two-cols {
+	grid-column: 1 / span 2;
+}
+
+pre[class*="language-" ],
+code[class*="language-"] {
+	white-space: normal;
+	overflow: auto;
+	word-break: break-word;
+	white-space: pre-wrap;
 }
 
 pre.logviewer {
@@ -154,18 +184,27 @@ pre.logviewer {
 	height:600px;
 }
 
-ul.needler .col {
+.fileviewer.large {
+	height:800px;
+}
+
+a.newtab {
+	display: inline-block;
+	text-align: right;
+}
+
+ol.needler .col {
 	float: left;
 	display: inline-block;
 	margin-right: 10px;
 }
-ul.needler span {
-	width: 10px;
-	height: 10px;
-	border-radius: 0;
+ol.needler span {
+	width: 6px;
+	height: 6px;
+	border-radius: 6;
 }
 
-ul.needler li {
+ol.needler li {
 	margin: 0px;
 	height: 20px;
 	vertical-align: middle;
@@ -187,4 +226,8 @@ ul.needler li {
 	background: #C00;
 	border: #C00;
 	color: #FFF;
+}
+
+.button-secondary .dashicons {
+	vertical-align: middle !important;
 }

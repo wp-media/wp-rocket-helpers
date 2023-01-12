@@ -103,6 +103,8 @@ elseif (isset($_GET['view'])) {
             echo "<tr><td>hash</td><td><a target='_blank' href='".$link."'>".$row->hash."</a></td></tr>";
         }
 
+        echo "<tr><td>error_code</td><td> ".$row->error_code."</td></tr>";
+        echo "<tr><td>error_message</td><td> ".$row->error_message."</td></tr>";
         echo "<tr><td>unprocessedcss</td><td> ".$row->unprocessedcss."</td></tr>";
         echo "<tr><td>retries</td><td> ".$row->retries."</td></tr>";
         echo "<tr><td>is_mobile</td><td> ".$row->is_mobile."</td></tr>";
@@ -309,6 +311,9 @@ if (isset($_GET['s'])) {
 <td><a href='tools.php?page=wprockettoolset&mode=rucss&sort=id&order=".$asc.$search_query.$status_query."'>id ".show_arr('id', $sort_string, $order)." </a></td>
 <td><a href='tools.php?page=wprockettoolset&mode=rucss&sort=url&order=".$asc.$search_query.$status_query."'>url ".show_arr('url', $sort_string, $order)."</a></td>
 <td>hash</td>
+<td><a href='tools.php?page=wprockettoolset&mode=rucss&sort=error_code&order=".$asc.$search_query.$status_query."'>error_code ".show_arr('error_code', $sort_string, $order)."</a></td>
+<td><a href='tools.php?page=wprockettoolset&mode=rucss&sort=error_message&order=".$asc.$search_query.$status_query."'>error_message ".show_arr('error_message', $sort_string, $order)."</a></td>
+
 <td>unprocessed css</td>
 <td><a href='tools.php?page=wprockettoolset&mode=rucss&sort=retries&order=".$asc.$search_query.$status_query."'>retries ".show_arr('retries', $sort_string, $order)."</a></td>
 <td>is_mobile</td>
@@ -345,6 +350,9 @@ if (isset($_GET['s'])) {
         }
 
         // check if the current page is the home
+
+        echo "<td>".$row->error_code."</td>";
+        echo "<td>".$row->error_message."</td>";
 
         echo "<td>".$row->unprocessedcss."</td>";
         echo "<td align='center'>".$row->retries."</td>";

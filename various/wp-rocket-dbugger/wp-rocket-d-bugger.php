@@ -33,9 +33,9 @@ function wprockettoolset_admin_page()
 
 
     echo '<div class="wrap"><div id="wpbody" role="main"><div id="wpbody-content">';
-    echo '<h1 class="wp-heading-inline">WPR D-bugger <span class="dbugger-version">'.$wpr_dbugger_version.'</span> <a href="tools.php?page=wprockettoolset&mode=deactivate" class="button-secondary deactivate" onclick="return confirm(\'Are you sure?\')">Deactivate</a>
+    echo '<h1 class="wp-heading-inline">WPR D-bugger <span class="dbugger-version">'.$wpr_dbugger_version.' - WPR '.$actual_version.' - '.ini_get('memory_limit').' - PHP'.phpversion().' - </span><a href="tools.php?page=wprockettoolset&mode=deactivate" class="button-secondary deactivate" onclick="return confirm(\'Are you sure?\')">Deactivate</a>
 
-   </h1>';
+    </h1>';
 
 
 
@@ -52,20 +52,25 @@ function wprockettoolset_admin_page()
     if ($mode == 'logs') {
         include('tests/logs.php');
     }
+
     if ($mode == 'configs') {
         include('tests/configs.php');
     }
-    if ($mode == 'checks') {
-        include('tests/checks.php');
+
+    if ($mode == 'tests') {
+        include('tests/tests.php');
     }
-    if ($mode == 'readme') {
-        include('inc/testslist.php');
+    if ($mode == 'database') {
+        include('tests/database.php');
     }
 
     if ($mode == 'deactivate') {
         include('inc/deactivate.php');
     }
 
+    if ($mode == 'filemanager') {
+        include('tests/checks/filemanager.php');
+    }
 
     echo '</div></div></div>';
 }

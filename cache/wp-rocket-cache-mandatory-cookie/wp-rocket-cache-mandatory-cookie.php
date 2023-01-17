@@ -18,7 +18,7 @@ defined( 'ABSPATH' ) or die();
 
 
 /**
- * Define cookie ID for dynamic caches.
+ * Define cookie name for mandatory cookie.
  *
  * @author Caspar Hübinger
  */

@@ -237,8 +237,6 @@ function wprdbugger_enable_debug_mode()
 // RUCSS
  if (get_wpr_rocket_debug_log_status('wprocketdebug') == 'enabled') {
      define('WP_ROCKET_DEBUG', true);
-     
-     
  }
 
 // WP_DEBUG
@@ -283,3 +281,16 @@ add_filter( 'rocket_buffer', function($html){
      $html .= '<!-- Cached by ' . $_SERVER['HTTP_USER_AGENT'] . ' -->';
       return $html;
   }, PHP_INT_MAX );
+
+if (get_wpr_rocket_debug_log_status('wprd-page-debugger-html') == 'enabled' || get_wpr_rocket_debug_log_status('wprd-page-debugger-file') == 'enabled') {
+    add_action( 'wp_footer',  function() {
+            include('page-debugger.php');
+            $pageDebugger = new PageDebugger();
+            if (get_wpr_rocket_debug_log_status('wprd-page-debugger-html') == 'enabled') {
+                $pageDebugger->render_debug();
+            }
+            if (get_wpr_rocket_debug_log_status('wprd-page-debugger-file') == 'enabled') {
+                $pageDebugger->log_to_file();
+            }
+    }, PHP_INT_MAX );
+}

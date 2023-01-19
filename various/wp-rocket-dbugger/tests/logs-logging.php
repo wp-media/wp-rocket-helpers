@@ -47,6 +47,8 @@ $options = get_option('wpr_rocket_debug_log_settings'); ?>
                                 'cron' => '01-CRON periodicity',
                                 'fullcacheclear' => '02-Full cache clear',
                                 'partialcacheclear' => '03-Partial cache clear',
+                                'wprd-page-debugger-html' => '04-Page Debugger (Old debugger plugin)',
+                                'wprd-page-debugger-file' => '05-Page Debugger (Log file)'
                         ];
 
 foreach ($logs as $log_name => $log_display_name) {

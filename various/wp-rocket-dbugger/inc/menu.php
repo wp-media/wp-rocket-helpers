@@ -27,6 +27,12 @@ echo 'secondary';
     echo 'secondary';
 }?>"><span class="dashicons dashicons-clipboard"></span> Tests & PHP Info</a>
 
+<a href="tools.php?page=wprockettoolset&mode=check_ips" class="button-<?php if ($mode == 'check_ips') {
+    echo 'primary';
+} else {
+    echo 'secondary';
+}?>"><span class="dashicons dashicons-rest-api"></span> Check IPs</a>
+
     - <a target="_blank" href="<?php echo $plugin_dir ?>/tests/checks/dam.php?username=<?php echo DB_USER; ?>&db=<?php echo DB_NAME; ?>" class="button-<?php if ($mode == 'database') {
     echo 'primary';
     } else {

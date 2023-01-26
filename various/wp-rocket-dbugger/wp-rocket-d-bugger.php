@@ -3,7 +3,7 @@
  * Plugin Name: WP Rocket - D-bugger
  * Plugin URI:  https://wp-media.me/
  * Description: A set of debugging tools for WP Rocket.
- * Version: 1.1.0
+ * Version: 1.2.0
  * Author:      WP Rocket Support Team
  * Author URI:  https://wp-rocket.me/
  * License:     GNU General Public License v2 or later
@@ -52,6 +52,9 @@ function wprockettoolset_admin_page()
     }
     if ($mode == 'logs') {
         include('tests/logs.php');
+    }
+    if ($mode == 'check_ips') {
+        include('tests/check-ips.php');
     }
 
     if ($mode == 'configs') {

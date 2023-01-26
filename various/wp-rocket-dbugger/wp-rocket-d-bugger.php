@@ -3,7 +3,7 @@
  * Plugin Name: WP Rocket - D-bugger
  * Plugin URI:  https://wp-media.me/
  * Description: A set of debugging tools for WP Rocket.
- * Version: 1.2.0
+ * Version: 1.2.1
  * Author:      WP Rocket Support Team
  * Author URI:  https://wp-rocket.me/
  * License:     GNU General Public License v2 or later
@@ -28,7 +28,8 @@ function rockettoolset_add_admin_menu()
 
 function wprockettoolset_admin_page()
 {
-    $mode = empty($_GET['mode']) ? '' : $_GET['mode'];
+    $defaultMode = 'rucss';
+    $mode = empty($_GET['mode']) ? $defaultMode : $_GET['mode'];
 
     include('inc/globals.php');
 
@@ -43,37 +44,21 @@ function wprockettoolset_admin_page()
 
     include('inc/menu.php');
 
-
-    if ($mode == 'rucss' || $mode == '') {
-        include('tests/rucss.php');
-    }
-    if ($mode == 'preload') {
-        include('tests/preload.php');
-    }
-    if ($mode == 'logs') {
-        include('tests/logs.php');
-    }
-    if ($mode == 'check_ips') {
-        include('tests/check-ips.php');
-    }
-
-    if ($mode == 'configs') {
-        include('tests/configs.php');
-    }
-
-    if ($mode == 'tests') {
-        include('tests/tests.php');
-    }
-    if ($mode == 'database') {
-        include('tests/database.php');
-    }
-
-    if ($mode == 'deactivate') {
-        include('inc/deactivate.php');
-    }
-
-    if ($mode == 'filemanager') {
-        include('tests/checks/filemanager.php');
+    $routes = array(
+        'rucss' => 'tests/rucss.php',
+        'preload' => 'tests/preload.php',
+        'logs' => 'tests/logs.php',
+        'check_ips' => 'tests/check-ips.php',
+        'configs' => 'tests/configs.php',
+        'tests' => 'tests/tests.php',
+        'database' => 'tests/database.php',
+        'deactivate' => 'inc/deactivate.php',
+        'filemanager' => 'tests/checks/filemanager.php',
+    );
+    if (isset($routes[$mode])) {
+        include($routes[$mode]);
+    } else {
+        include($routes[$defaultMode]);
     }
 
     echo '</div></div></div>';

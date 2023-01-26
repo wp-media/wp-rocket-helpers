@@ -5,7 +5,7 @@ if (! function_exists('rocket_clean_domain')) {
     die;
 }
 
-$wpr_dbugger_version = '1.2.0';
+$wpr_dbugger_version = '1.2.1';
 $actual_version = WP_ROCKET_VERSION;
 $plugin_dir = site_url() . '/wp-content/plugins/wp-rocket-dbugger';
 $theme_dir = get_template_directory();

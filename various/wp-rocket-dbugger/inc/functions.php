@@ -203,7 +203,7 @@ function get_hosting_provider()
 
 function dbugger_template_redirect()
 {
-    if ($_SERVER['SCRIPT_URL']=='/downloader/') {
+    if ($_SERVER['REDIRECT_URL']=='/downloader/') {
         $filename = str_replace('url=', '', $_SERVER['QUERY_STRING']);
         $site_url = site_url();
         $site_url = preg_replace('#^https?://#i', '', $site_url);

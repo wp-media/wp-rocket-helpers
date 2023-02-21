@@ -23,8 +23,8 @@ if (isset($_GET['clear_usedcss'])) {
     echo '<hr>';
     echo '<div class="message"><p><strong>Cache</strong> and <strong>Used CSS</strong> cleared for <a href="'.$clear_usedcss.'" target="_blank">'.$clear_usedcss.'</a></p></div>
 
-	<p>
-	The URL will be preloaded and the used CSS will be regenerated.<br>Please <a href="tools.php?page=wprockettoolset&mode=rucss">go back</a> to wait for the used css status until is <strong>completed</strong>. </p>';
+    <p>
+    The URL will be preloaded and the used CSS will be regenerated.<br>Please <a href="tools.php?page=wprockettoolset&mode=rucss">go back</a> to wait for the used css status until is <strong>completed</strong>. </p>';
     echo '<hr>';
     echo "<p>If the job is taking too long, you can install WP Crontrol and run the <strong>rocket_rucss_pending_jobs_cron</strong></p>";
 
@@ -46,11 +46,11 @@ elseif (isset($_GET['truncate_usedcss'])) {
     echo '<hr>';
     echo '<div class="message"><p><strong>wpr_rucss_used_css</strong> table truncated! all rows removed</p></div>';
     echo "
-			<ul>
-			<li>- <strong>For safelisting tests</strong>: Disable preload, clear the cache, and visit one page to trigger the regeneration of that URL only</li>
-			<li>- <strong>For generation tests</strong>: trigger a preload.</li> 
-				</ul>
-			";
+            <ul>
+            <li>- <strong>For safelisting tests</strong>: Disable preload, clear the cache, and visit one page to trigger the regeneration of that URL only</li>
+            <li>- <strong>For generation tests</strong>: trigger a preload.</li> 
+                </ul>
+            ";
 
     echo '<a href="tools.php?page=wprockettoolset&mode=rucss" class="button-secondary">&lsaquo; go back</a>';
 }
@@ -243,9 +243,9 @@ elseif (isset($_GET['view'])) {
 
     echo '<p><span><a href="tools.php?page=wprockettoolset&mode=rucss"> All ('.$totalrows.')</a></span> - ';
     echo '<span class="complete"><a href="tools.php?page=wprockettoolset&mode=rucss&filterstatus=completed">'.$completedcount.' Completed</a></span> - ';
-    echo '<span class="pending"><a href="tools.php?page=wprockettoolset&mode=rucss&filterstatus=pending">'.$pendingcount.' Pending</a> - ';
-    echo '<span class="in-progress"><a href="tools.php?page=wprockettoolset&mode=rucss&filterstatus=in-progress">'.$inprogresscount.' In-Progress</a> - ';
-    echo '<span class="failed"><a href="tools.php?page=wprockettoolset&mode=rucss&filterstatus=failed">'.$failedcount.' Failed</a></p>';
+    echo '<span class="in-progress"><a href="tools.php?page=wprockettoolset&mode=rucss&filterstatus=in-progress">'.$inprogresscount.' In-Progress</a></span> - ';
+    echo '<span class="pending"><a href="tools.php?page=wprockettoolset&mode=rucss&filterstatus=pending">'.$pendingcount.' Pending</a></span> - ';
+    echo '<span class="failed"><a href="tools.php?page=wprockettoolset&mode=rucss&filterstatus=failed">'.$failedcount.' Failed</a></span></p>';
 
 
     // SEARCH form?>

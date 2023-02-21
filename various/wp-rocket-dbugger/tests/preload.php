@@ -4,7 +4,6 @@
 
 
 
-
 //REBUILD cache
 if (isset($_GET['rebuild_cache'])) {
     $rebuild_cache = $_GET['rebuild_cache'];
@@ -18,7 +17,9 @@ if (isset($_GET['rebuild_cache'])) {
     echo '<div class="message"><p>Cache for <strong>'.$rebuild_cache.'</strong> rebuilt</p></div>';
     echo '<a href="tools.php?page=wprockettoolset&mode=preload" class="button-secondary">&lsaquo; go back</a>';
     
-} //RESET IN-PROGRESS to PENDING
+} 
+
+//RESET IN-PROGRESS to PENDING
 
 elseif (isset($_GET['reset_inprogress'])) {
 
@@ -40,6 +41,8 @@ elseif (isset($_GET['remove_from_table'])) {
     
     $url_to_delete = $_GET['remove_from_table_url'];
     $post_id_to_clear = url_to_postid($url_to_delete);  
+    
+    // first, lets clear the post cache:
     rocket_clean_post($post_id_to_clear);
     
     $id_to_delete = $_GET['remove_from_table'];
@@ -49,10 +52,26 @@ elseif (isset($_GET['remove_from_table'])) {
     echo '<hr>';
     echo '<div class="message"><p><strong>URL Deleted</strong> URL from the database, and our Cache for that URL cleared too!. If you need to re-add it, just visit it in a browser.</p></div>';
     echo '<a href="tools.php?page=wprockettoolset&mode=preload" class="button-secondary">&lsaquo; go back</a>';
-    
-    // also, lets clear the post cache:
+ 
+}
+ 
+//TRUNCATE CACHE TABLE
+elseif (isset($_GET['truncate_cache'])) {
 
+    // truncate wpr_rocket_cache from the DB
+    global $wpdb;
+    $wpdb->query("TRUNCATE TABLE $wpdb->wpr_rocket_cache");
 
+    echo "<h1 class='wp-heading-inline'>Preload - Cache table truncated</h1>";
+    echo '<hr>';
+    echo '<div class="message"><p><strong>wpr_rocket_cache</strong> table truncated! all rows removed</p></div>';
+    echo "
+            <ul>
+            <li>- <strong>To repopulate the table</strong>: Disable preload, save the settings, and re-enable it again.</li>
+                </ul>
+            ";
+
+    echo '<a href="tools.php?page=wprockettoolset&mode=preload" class="button-secondary">&lsaquo; go back</a>';
 }
 else {
 
@@ -150,7 +169,7 @@ else {
         }
     }
 
-    $rows = $wpdb->get_results("SELECT * FROM ".$wpdb->prefix."wpr_rocket_cache $search $sort $order LIMIT $rows_per_page offset $pg ");
+    $rows = $wpdb->get_results("SELECT * FROM ".$wpdb->prefix."wpr_rocket_cache $search $status $sort $order LIMIT $rows_per_page offset $pg ");
 
 
     $currentrows = count($rows);
@@ -170,16 +189,16 @@ else {
 
 echo '<hr>';
 echo " <a class='button-secondary' href='tools.php?page=wprockettoolset&mode=preload&reset_inprogress'  onclick=\"return confirm('Are you sure?')\">Reset in-progress to pending</a>  ";
-echo " <a class='button-secondary danger' href='tools.php?page=wprockettoolset&mode=preload&truncate'  onclick=\"return confirm('Are you sure?')\">Truncate cache table</a>  ";
+echo " <a class='button-secondary danger' href='tools.php?page=wprockettoolset&mode=preload&truncate_cache'  onclick=\"return confirm('Are you sure?')\">Truncate cache table</a>  ";
 
 
     // Percentaje calculations
     echo '<p>'.$percentaje.'% completed - ' . $completedcount . ' of '.  $totalrows. ' urls<br>';
 
-    echo '<p><span class="complete">'.$completedcount.' Completed</span> - ';
-    echo '<span class="pending">'.$pendingcount.' Pending - ';
-    echo '<span class="in-progress">'.$inprogresscount.' In-Progress - ';
-    echo '<span class="failed">'.$failedcount.' Failed </p>';
+    echo '<p><span><a href="tools.php?page=wprockettoolset&mode=preload"> All ('.$totalrows.')</a></span> - ';
+    echo '<span class="complete"><a href="tools.php?page=wprockettoolset&mode=preload&filterstatus=completed">'.$completedcount.' Completed</a></span> - ';
+    echo '<span class="in-progress"><a href="tools.php?page=wprockettoolset&mode=preload&filterstatus=in-progress">'.$inprogresscount.' In-Progress</a></span> - ';
+    echo '<span class="pending"><a href="tools.php?page=wprockettoolset&mode=preload&filterstatus=pending">'.$pendingcount.' Pending</a></span> ';
 
 
     // SEARCH form?>

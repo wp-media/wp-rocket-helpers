@@ -221,14 +221,7 @@ function dbugger_template_redirect()
 
 add_action('template_redirect', 'dbugger_template_redirect');
 
-function wprdbugger_enable_debug_mode()
-{
-    error_reporting(E_ALL);
-    ini_set('display_errors', 0);
-    ini_set('log_errors', 1);
-    $log_path =  ABSPATH . '/wp-content/wpr-logs/debug.txt';
-    ini_set('error_log', $log_path);
-}
+
 
 //LOGS
  // first, lets see what is enabled
@@ -238,10 +231,6 @@ function wprdbugger_enable_debug_mode()
  if (get_wpr_rocket_debug_log_status('wprocketdebug') == 'enabled') {
      define('WP_ROCKET_DEBUG', true);
  }
-
-// WP_DEBUG
-     add_action('template_redirect', 'wprdbugger_enable_debug_mode');
-
 
 
 

@@ -9,5 +9,5 @@ To be used with:
 * Any setup where you want all logged in users to use the same cache.
 
 Last tested with:
-* WP Rocket 3.2.x
-* WordPress 4.9.x
+* WP Rocket 3.12.x
+* WordPress 6.1.x

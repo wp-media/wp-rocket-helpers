@@ -36,6 +36,10 @@ function purge_custom_post_urls( $purge_urls, $post ) {
                   // add the product translation
                   $purge_urls[] = get_permalink($id);
                   
+                  // Add homepage URL for each language
+                  $homepage_url = get_home_url( null, '', $l['language_code'] );
+                  $urls_to_purge[] = $homepage_url;
+                  
                  // add the categories of the product
                  $product_categories = wp_get_post_terms( $id, 'product_cat' );
                 

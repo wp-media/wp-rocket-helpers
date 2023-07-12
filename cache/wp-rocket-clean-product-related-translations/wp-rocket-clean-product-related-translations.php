@@ -16,46 +16,46 @@ namespace WP_Rocket\Helpers\htaccess\wp_rocket_clean_product_related_translation
 // Standard plugin security, keep this line in place.
 defined( 'ABSPATH' ) or die();
 
+ 
 
-function purge_custom_post_urls( $purge_urls, $post ) {
+function purge_custom_post_urls( $urls_to_purge, $post ) {
 
-    if ( empty( $purge_urls ) || ! is_array( $purge_urls ) ) {
-        return $purge_urls;
+    if ( empty( $urls_to_purge ) || ! is_array( $urls_to_purge ) ) {
+        return $urls_to_purge;
     }
 
-    // get current languages
+
     $languages = apply_filters( 'wpml_active_languages', NULL, 'orderby=id&order=desc' );
    
       if ( !empty( $languages ) && $post->post_type == 'product' ) {
                       
           foreach( $languages as $l ) {
               
+            // add homepage URL for each language
+            $urls_to_purge[] = $l['url'];
+              
               $id = icl_object_id($post->ID, 'product', false, $l['language_code']);
               if($id != $post->ID) {
+                                      
+                // add the product translation
+                $urls_to_purge[] = get_permalink($id);
                   
-                  // add the product translation
-                  $purge_urls[] = get_permalink($id);
-                  
-                  // Add homepage URL for each language
-                  $homepage_url = get_home_url( null, '', $l['language_code'] );
-                  $urls_to_purge[] = $homepage_url;
-                  
-                 // add the categories of the product
-                 $product_categories = wp_get_post_terms( $id, 'product_cat' );
+                // Get the categories of the product
+                $product_categories = wp_get_post_terms( $id, 'product_cat' );
                 
-                 foreach ( $product_categories as $category ) {
-                     $category_url = get_term_link( $category->term_id, 'product_cat' );
-                     $purge_urls[] = $category_url;
-                 }
-
-              }
+                foreach ( $product_categories as $category ) {
+                    $category_url = get_term_link( $category->term_id, 'product_cat' );
+                    $urls_to_purge[] = $category_url;
+                }
+            }
           }
       }
+    
 
     /**
      * Return modified purge set to filter.
      */
-    return $purge_urls;
+    return $urls_to_purge;
 }
 
 add_filter( 'rocket_post_purge_urls', __NAMESPACE__ . '\purge_custom_post_urls', 10, 2 );

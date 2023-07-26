@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Plugin Name: WP Rocket | Reduce failed RUCSS jobs clearing interval
  * Description: Reduce failed RUCSS jobs clearing interval for cases that require less than the default 3 days.
@@ -10,11 +11,43 @@
  *
  * Copyright SAS WP MEDIA 2018
  */
+ 
 namespace WP_Rocket\Helpers\rucss\change_failed_interval;
 
-add_filter( 'rocket_remove_rucss_failed_jobs_cron_interval', function ( $interval ) {
-    // START EDITING - HOURS IN SECONDS
-    $new_interval = 1 * 60 * 60;
-    // STOP EDITING
-    return $new_interval;
-} );
+use WP_Rocket\Dependencies\Database\Query;
+
+add_filter('rocket_remove_rucss_failed_jobs_cron_interval', function () {
+	// START EDITING - HOURS IN SECONDS
+	$new_interval = 1 * 3600;
+	// STOP EDITING
+	return $new_interval;
+}, 9999);
+
+add_action('rocket_remove_rucss_failed_jobs', function ()
+{
+	global $wpdb;
+	$container = apply_filters('rocket_container', null);
+	$rucss_used  = $container->get('rucss_used_css_query');
+
+	$query_find_failed_items = "SELECT * FROM {$wpdb->prefix}wpr_rucss_used_css WHERE status = 'failed'";
+
+	$failed_items = $wpdb->get_results(
+		$wpdb->prepare($query_find_failed_items),
+		ARRAY_A
+	);
+	
+	vis($failed_items);
+
+	$pages_to_clean_preload = [];
+
+	foreach ($failed_items as $failed_item) {
+		$pages_to_clean_preload[] = $failed_item["url"];
+		$rucss_used->delete_by_url($failed_item["url"]);
+	}
+
+	if (function_exists('rocket_clean_post')) {
+		foreach ($pages_to_clean_preload as $page_to_clean) {
+			rocket_clean_post($page_to_clean);
+		}
+	}
+}, 9999);

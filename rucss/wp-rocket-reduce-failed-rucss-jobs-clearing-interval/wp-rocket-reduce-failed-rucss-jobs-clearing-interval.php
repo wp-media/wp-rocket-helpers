@@ -11,41 +11,22 @@
  *
  * Copyright SAS WP MEDIA 2023
  */
- 
+
 namespace WP_Rocket\Helpers\rucss\change_failed_interval;
 
-use WP_Rocket\Dependencies\Database\Query;
-
+// Sets how old the failed job should be to be cleared
+add_filter(
+	'rocket_delay_remove_rucss_failed_jobs',
+	function () {
+		// START EDITING - (You can use hours, minutes, days / day)
+		$new_interval = '2 days';
+		// STOP EDITING
+		return $new_interval;
+	}
+);
+// Reduces the interval of the cron
 add_filter('rocket_remove_rucss_failed_jobs_cron_interval', function () {
-	// START EDITING - HOURS IN SECONDS
-	$new_interval = 48 * 3600;
-	// STOP EDITING
+	// No need to edit this (Hours in seconds).
+	$new_interval = 6 * 3600;
 	return $new_interval;
-}, 9999);
-
-add_action('rocket_remove_rucss_failed_jobs', function ()
-{
-	global $wpdb;
-	$container = apply_filters('rocket_container', null);
-	$rucss_used  = $container->get('rucss_used_css_query');
-
-	$query_find_failed_items = "SELECT * FROM {$wpdb->prefix}wpr_rucss_used_css WHERE status = 'failed'";
-
-	$failed_items = $wpdb->get_results(
-		$wpdb->prepare($query_find_failed_items),
-		ARRAY_A
-	);
-	
-	$pages_to_clean_preload = [];
-
-	foreach ($failed_items as $failed_item) {
-		$pages_to_clean_preload[] = $failed_item["url"];
-		$rucss_used->delete_by_url($failed_item["url"]);
-	}
-
-	if (function_exists('rocket_clean_post')) {
-		foreach ($pages_to_clean_preload as $page_to_clean) {
-			rocket_clean_post($page_to_clean);
-		}
-	}
 }, 9999);

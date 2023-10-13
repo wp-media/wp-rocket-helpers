@@ -1,61 +1,50 @@
 <?php
 /**
- * Plugin Name: WP Rocket | Clean product related translations (WPML)
- * Description: Clears the cache of product translations and its categories when updating a product, to keep the translations in sync
+ * Plugin Name: WP Rocket | Clean related translations (WPML)
+ * Description: Clears the cache of related translations and their categories when updating a post, page, product or any other specified post type to keep the translations in sync.
  * Plugin URI:  https://github.com/wp-media/wp-rocket-helpers/
  * Author:      WP Rocket Support Team
  * Author URI:  http://wp-rocket.me/
  * License:     GNU General Public License v2 or later
  * License URI: http://www.gnu.org/licenses/gpl-2.0.html
  *
- * Copyright SAS WP MEDIA 2022
+ * Copyright SAS WP MEDIA 2023
  */
 
-namespace WP_Rocket\Helpers\htaccess\wp_rocket_clean_product_related_translations;
+namespace WP_Rocket\Helpers\htaccess\wp_rocket_wpml_clean_related_translations;
 
 // Standard plugin security, keep this line in place.
 defined( 'ABSPATH' ) or die();
 
- 
+function rocket_clean_related_post_translations( $post ) {
 
-function purge_custom_post_urls( $urls_to_purge, $post ) {
+  $types_to_clear = array(
+    // EDIT HERE: Add or remove lines to specify what translated post types should be cleared
+    'post',
+    'page',
+    'product',
+    // STOP EDITING
+  );
 
-    if ( empty( $urls_to_purge ) || ! is_array( $urls_to_purge ) ) {
-        return $urls_to_purge;
-    }
+  $languages = apply_filters( 'wpml_active_languages', NULL, 'orderby=id&order=desc' );
 
+  $post_type = $post->post_type;
+  $id = $post->ID;
 
-    $languages = apply_filters( 'wpml_active_languages', NULL, 'orderby=id&order=desc' );
-   
-      if ( !empty( $languages ) && $post->post_type == 'product' ) {
-                      
-          foreach( $languages as $l ) {
-              
-            // add homepage URL for each language
-            $urls_to_purge[] = $l['url'];
-              
-              $id = icl_object_id($post->ID, 'product', false, $l['language_code']);
-              if($id != $post->ID) {
-                                      
-                // add the product translation
-                $urls_to_purge[] = get_permalink($id);
-                  
-                // Get the categories of the product
-                $product_categories = wp_get_post_terms( $id, 'product_cat' );
-                
-                foreach ( $product_categories as $category ) {
-                    $category_url = get_term_link( $category->term_id, 'product_cat' );
-                    $urls_to_purge[] = $category_url;
-                }
-            }
-          }
+  if ( !empty( $languages ) && in_array( $post_type, $types_to_clear ) ) {
+
+    foreach( $languages as $l ) {
+        
+      $icl_id = icl_object_id( $id, $post_type, false, $l['language_code'] );
+
+      if( $icl_id != $id ) {
+          
+        //clean the translations cache
+        if ( function_exists( 'rocket_clean_post' ) ) {
+          rocket_clean_post( $icl_id );						
+        }
       }
-    
-
-    /**
-     * Return modified purge set to filter.
-     */
-    return $urls_to_purge;
+    }
+  }
 }
-
-add_filter( 'rocket_post_purge_urls', __NAMESPACE__ . '\purge_custom_post_urls', 10, 2 );
+add_action( 'after_rocket_clean_post', __NAMESPACE__.'\rocket_clean_related_post_translations' );

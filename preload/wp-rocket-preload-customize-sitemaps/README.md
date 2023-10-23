@@ -35,6 +35,7 @@ You can duplicate this line to add more sitemaps, like this:
 
  **3) Customize Preload Priority sitemap(s)**
  You can change Preload order to run on URLs according to their *id* instead of their *modified* value.
+ 
 📝  Uncomment lines 49 and 53
 
 

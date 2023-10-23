@@ -25,11 +25,9 @@ You can duplicate this line to add more sitemaps, like this:
 
 📝  You will need to do the following edits:
 	
-    - Comment line 28
-	
-    - Uncomment lines 35 and 43
-	
-    - Edit line 38  and add the URL of your sitemap:
+- Comment line 28
+- Uncomment lines 35 and 43
+- Edit line 38  and add the URL of your sitemap:
 
     $sitemaps[] = 'https://domain.com/wp-content/files/custom-sitemap.xml';  // duplicate this line you want to add more sitemaps
     

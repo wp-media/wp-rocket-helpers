@@ -1,3 +1,4 @@
+
 # WP Rocket | Customize Preload Sitemap 
 
 Customize WP Rocket's preload by modifying the sitemaps to be used
@@ -17,21 +18,19 @@ Use this if you need to preload URLs in custom sitemaps *replacing* the automati
 You can duplicate this line to add more sitemaps, like this: 
 
        'https://example.com/page-sitemap.xml', // duplicate this line you want to add more sitemaps
-       'https://example.com/page-sitemap.xml', // duplicate this line you want to add more sitemaps
+       'https://example.com/page-sitemap.xml',
 
 
  **2) Preload ADDITIONAL sitemap(s)**
  Used this to ensure specific sitemaps are *included* in *ADDITION* to the compatible sitemaps
 
 📝  You will need to do the following edits:
-	
-    - Comment line 28
-	
-    - Uncomment lines 35 and 43
-	
-    - Edit line 38  and add the URL of your sitemap:
 
-    $sitemaps[] = 'https://domain.com/wp-content/files/custom-sitemap.xml';  // duplicate this line you want to add more sitemaps
+ - Comment line 28
+ - Uncomment lines 35 and 43
+ - Edit line 38  and add the URL of your sitemap:
+
+`$sitemaps[] = 'https://domain.com/wp-content/files/custom-sitemap.xml';  // duplicate this line you want to add more sitemaps`
     
  - You can  add more sitemaps by duplicating the above line
 

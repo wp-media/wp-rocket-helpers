@@ -1,6 +1,8 @@
 # WP Rocket | Customize Preload Sitemap 
 
-Customize WP Rocket's preload by modifying the sitemaps to be used
+Customize WP Rocket's preload by modifying the sitemaps to be used.
+
+Related Doc https://docs.wp-rocket.me/article/1723-customize-preload-sitemaps-and-priority
 
 📝  **Manual code edit required before use!**
 

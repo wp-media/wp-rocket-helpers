@@ -166,11 +166,12 @@ add_action( 'wp_rocket_loaded', __NAMESPACE__ . '\wp_rocket_disable_woocommerce_
 	$container = apply_filters( 'rocket_container', [] );
 	if ( ! empty( $container ) ) {
 		remove_action( 'rocket_after_save_dynamic_lists', [ $container->get( 'purge_actions_subscriber' ), 'purge_cache' ] );
+		remove_action( 'rocket_after_save_dynamic_lists', [ $container->get( 'purge_actions_subscriber' ), 'purge_cache_after_saving_dynamic_lists' ] );
 	}
 
  }
  
- add_action( 'wp_rocket_loaded', __NAMESPACE__ . '\wp_rocket_disable_rocket_after_save_dynamic_lists' );
+ add_action( 'init', __NAMESPACE__ . '\wp_rocket_disable_rocket_after_save_dynamic_lists' );
  
  
 /**

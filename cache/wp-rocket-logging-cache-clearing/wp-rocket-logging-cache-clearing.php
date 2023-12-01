@@ -20,12 +20,6 @@ defined( 'ABSPATH' ) or die();
  *
  */
 
-$logs_file_dir = '/wp-content/wpr-logs/';
-// create the uploads/wpr-logs folder if not exists.
-if (!file_exists($logs_file_dir)) {
-    wp_mkdir_p($logs_file_dir);
-}
-
 function generateCallTrace()
 {
     $e = new \Exception();
@@ -48,7 +42,7 @@ function generateCallTrace()
 				//FULL CACHE CLEARING
 /***************************************************************************************/
 add_action('before_rocket_clean_domain', function () {
-        error_log("\n\n*****************************************************************\n[" . date('Y-m-d H:i:s', $_SERVER['REQUEST_TIME']) . "]\n#CALLSTACK#####\n" . print_r(generateCallTrace(), true), 3, ABSPATH . "/wp-content/wpr-logs/01-full-cache-clear.txt");
+        error_log("\n\n*****************************************************************\n[" . date('Y-m-d H:i:s', $_SERVER['REQUEST_TIME']) . "]\n#CALLSTACK#####\n" . print_r(generateCallTrace(), true), 3, ABSPATH . "01-full-cache-clear.txt");
     });
 
 
@@ -56,11 +50,11 @@ add_action('before_rocket_clean_domain', function () {
 				//PARTIAL CACHE CLEARING
 /***************************************************************************************/
 function log_partialcacheclear($post, $purge_url, $lang) {
-        error_log("\n\n*****************************************************************\n[". date('Y-m-d H:i:s', $_SERVER['REQUEST_TIME']) . "]\n#CALLSTACK#####\n" . print_r(generateCallTrace(), true), 3, ABSPATH . "/wp-content/wpr-logs/02-partial-cache-clear.txt");
-       	error_log("\n\nPOST\n ID: " . print_r($post->ID, true), 3, ABSPATH . "/wp-content/wpr-logs/02-partial-cache-clear.txt");
-        error_log("\n URL: " . print_r(get_permalink($post->ID), true), 3, ABSPATH . "/wp-content/wpr-logs/02-partial-cache-clear.txt");
-        error_log("\n Post_type: " . print_r($post->post_type, true), 3, ABSPATH . "/wp-content/wpr-logs/02-partial-cache-clear.txt");
+        error_log("\n\n*****************************************************************\n[". date('Y-m-d H:i:s', $_SERVER['REQUEST_TIME']) . "]\n#CALLSTACK#####\n" . print_r(generateCallTrace(), true), 3, ABSPATH . "02-partial-cache-clear.txt");
+       	error_log("\n\nPOST\n ID: " . print_r($post->ID, true), 3, ABSPATH . "02-partial-cache-clear.txt");
+        error_log("\n URL: " . print_r(get_permalink($post->ID), true), 3, ABSPATH . "02-partial-cache-clear.txt");
+        error_log("\n Post_type: " . print_r($post->post_type, true), 3, ABSPATH . "02-partial-cache-clear.txt");
 
-        error_log("\n\n#PURGED_URLS#####\n" . print_r($purge_url, true), 3, ABSPATH . "/wp-content/wpr-logs/02-partial-cache-clear.txt");
+        error_log("\n\n#PURGED_URLS#####\n" . print_r($purge_url, true), 3, ABSPATH . "02-partial-cache-clear.txt");
     }
  add_action('after_rocket_clean_post', __NAMESPACE__ . '\log_partialcacheclear', 1000, 3);

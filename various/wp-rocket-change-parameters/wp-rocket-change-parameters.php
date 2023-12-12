@@ -25,7 +25,7 @@ function preload_batch_size($value)
 {
 
     // change this value, default is 45 urls:
-    $value = 35;
+    $value = 25;
 
     return $value;
 }
@@ -83,7 +83,7 @@ function rucss_batch_size($rucss_batch_size)
 {
 
     // change this value, default is 100 urls:
-    $rucss_batch_size = 50;
+    $rucss_batch_size = 25;
 
     return $rucss_batch_size;
 }

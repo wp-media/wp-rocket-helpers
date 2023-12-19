@@ -25,7 +25,7 @@ defined( 'ABSPATH' ) or die();
 function rucss_batch_size( $rucss_batch_size ) {   
     
      // change this value, default is 100 urls:
-     $rucss_batch_size = 10; 
+     $rucss_batch_size = 9; 
      
      return $rucss_batch_size;
  }

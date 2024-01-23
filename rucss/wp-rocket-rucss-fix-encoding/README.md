@@ -1,14 +1,16 @@
+
 # WP Rocket | Fix encoded characters in the Used CSS
 
 In some cases the Used CSS contains encoded characters, so for example a space " " will be replaced by a "%20" and this causes layout errors. This helper decodes the encoded characters in the Used CSS fixing the issue.
 
 Current replacements: 
-```$css = str_replace('%20', ' ', $css);
-$css = str_replace('%7B', '{', $css);
-$css = str_replace('%7D', '}', $css);
-$css = str_replace('%3E', '>', $css);
-$css = str_replace('%3c', '>', $css);
-$css = str_replace(' ', ' ', $css);```
+
+    $css = str_replace('%20', ' ', $css);
+    $css = str_replace('%7B', '{', $css);
+    $css = str_replace('%7D', '}', $css);
+    $css = str_replace('%3E', '>', $css);
+    $css = str_replace('%3c', '>', $css);
+    $css = str_replace(' ', ' ', $css);
 
 
 How to use it: 

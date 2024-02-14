@@ -73,3 +73,56 @@ function rocket_helper_get_sitemap_urls() {
     return $links;
 }
 
+
+
+// Upon activation, prepare the table, clear the cache and deactivate/reactivate Preload 
+register_activation_hook(__FILE__, __NAMESPACE__ .'\prepare_things_upon_activation');
+
+function prepare_things_upon_activation() {
+    
+    // 1 - truncate cache table upon plugin activation
+    global $wpdb;
+    $table_name = $wpdb->prefix . 'wpr_rocket_cache';
+    $wpdb->query("TRUNCATE TABLE $table_name");
+    
+    
+    // 2 clear the cache
+    if( function_exists('rocket_clean_domain')) {
+        rocket_clean_domain();
+    }
+    
+    
+    // 3 - Disable and reenable preload, so the sitemap change kicks in immediately
+
+    $options = get_option('wp_rocket_settings', []);
+
+    // disable preload
+    $options['manual_preload'] = 0;
+    update_option('wp_rocket_settings', $options);
+    
+    // enable preload
+    $options['manual_preload'] = 1;
+    update_option('wp_rocket_settings', $options);
+
+
+}
+
+// Upon deactivation, remove the filter and deactivate/reactivate Preload 
+register_deactivation_hook( __FILE__ , __NAMESPACE__ . '\deactivate_plugin' );
+
+function deactivate_plugin() {
+    
+    // Unhook any sitemap changes
+    remove_filter( 'rocket_sitemap_preload_list', __NAMESPACE__ . '\wprocket_preload_only_sitemap', PHP_INT_MAX );
+   
+    $options = get_option('wp_rocket_settings', []);
+
+    // disable preload
+    $options['manual_preload'] = 0;
+    update_option('wp_rocket_settings', $options);
+    
+    // enable preload
+    $options['manual_preload'] = 1;
+    update_option('wp_rocket_settings', $options);
+
+}

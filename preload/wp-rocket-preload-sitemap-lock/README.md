@@ -12,6 +12,7 @@ Edit line 20 and add the URL of your sitemap inde the **$my_custom_sitemap** var
 To be used with any setup where you want to:
 - limit the preload funcitonality to a specific set of URLs provided in a sitemap, 
 - avoid URLs visited by users from being added into the cache table, and subsequently preloaded
+- Will clear your cache and empty your WP Rocket cache table upon activation and deactivation
 
 Last tested with:
 * WP Rocket 3.14.x

@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: WP Rocket | Enforce Trailing Slash on multisite
- * Description: Removes Trailing Slash from URLs.
+ * Description: Enforces Trailing Slash on URLs.
  * Author:      WP Rocket Support Team
  * Plugin URI:  https://github.com/wp-media/wp-rocket-helpers/tree/master/htaccess/wp-rocket-htaccess-trailing-slash-multisite/
  * Author URI:  http://wp-rocket.me/

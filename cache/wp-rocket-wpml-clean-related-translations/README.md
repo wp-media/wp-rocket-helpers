@@ -9,5 +9,5 @@ To be used with:
 * Sites using WPML where related translations cache are not cleared
 
 Last tested with:
-* WP Rocket 3.15.x
+* WP Rocket 3.15.x.
 * WordPress 6.3.x

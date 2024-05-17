@@ -1,0 +1,11 @@
+#!/usr/bin/env php
+<?php
+
+use LaunchpadCLI\AppBuilder;
+
+require_once __DIR__ . '/../vendor/autoload.php';
+
+AppBuilder::init(__DIR__ . '/../', [
+    \LaunchpadRendererTakeOff\ServiceProvider::class,        \LaunchpadCLIInstaller\ServiceProvider::class,
+        \LaunchpadBuild\ServiceProvider::class,
+]);

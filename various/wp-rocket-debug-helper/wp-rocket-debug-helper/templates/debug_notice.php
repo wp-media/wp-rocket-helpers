@@ -17,6 +17,7 @@ Note: Filter `rocket_override_donotcachepage` gets set by WP Rocket core in cert
 <?php endforeach; ?>
 
 ## Functions
-
+<?php foreach ($functions as $function) ?>
+<?php ?>
 ####################################################
 -->

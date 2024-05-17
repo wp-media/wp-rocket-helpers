@@ -6,6 +6,7 @@ use WPRocketDebugHelper\Dependencies\LaunchpadCore\Container\PrefixAware;
 use WPRocketDebugHelper\Dependencies\LaunchpadCore\Container\PrefixAwareInterface;
 use WPRocketDebugHelper\Dependencies\LaunchpadCore\Dispatcher\DispatcherAwareInterface;
 use WPRocketDebugHelper\Dependencies\LaunchpadCore\Dispatcher\DispatcherAwareTrait;
+use function WP_Rocket\Helpers\debug\render_note_minify_html;
 
 class Subscriber implements PrefixAwareInterface, DispatcherAwareInterface
 {
@@ -16,11 +17,24 @@ class Subscriber implements PrefixAwareInterface, DispatcherAwareInterface
      */
     public function format_debug_notice()
     {
+
+        $parameters = [
+            'constants' => $this->check_constants_defined(),
+            'filters' => $this->check_filters(),
+            'functions' => $this->check_functions(),
+            'conflicts' => $this->check_conflicts(),
+            'ssl' => $this->check_ssl(),
+        ];
+
+        if(is_singular()) {
+            $post_id = absint( $GLOBALS['post']->ID );
+            $parameters['post_id'] = $post_id;
+            $parameters['excluded'] = $this->check_excluded($post_id);
+            $parameters['metaboxes'] = $this->check_metaboxes();
+        }
+
         $this->dispatcher->do_action("{$this->prefix}render_template", 'debug_notice', [
-            'parameters' => [
-                'constants' => $this->check_constants_defined(),
-                'filters' => $this->check_filters(),
-            ]
+            'parameters' => $parameters
         ]);
     }
 
@@ -105,8 +119,89 @@ class Subscriber implements PrefixAwareInterface, DispatcherAwareInterface
         return $filters_callbacks;
     }
 
-     public function check_functions()
+     public function check_functions(): array
      {
 
+         $functions = array(
+             'mb_substr_count',
+         );
+
+         $functions_exists = [];
+
+         foreach ( $functions as $function ) {
+             $functions_exists [$function] = function_exists( $function );
+         }
+
+         return $functions_exists;
+     }
+
+     public function check_conflicts(): array
+     {
+         $conflicts = [];
+
+         $known_plugin_conflicts = array(
+             'geoip-detect/geoip-detect.php',
+             'email-to-download/email-to-download.php',
+             'yet-another-stars-rating/yet-another-stars-rating.php',
+             'ezoic-integration/ezoic-integration.php',
+             'bulk-image-alt-text-with-yoast/bulk-image-alt-text-with-yoast.php',
+             'wp-facebook-open-graph-protocol/wp-facebook-ogp.php',
+             'password-protected/password-protected.php',
+             'wp-social-seo-booster/wpsocial-seo-booster.php',
+             'cookie-law-info/cookie-law-info.php'
+         );
+
+         foreach ( $known_plugin_conflicts as $plugin ) {
+
+             if( ! is_plugin_active( $plugin ) ) {
+                 continue;
+             }
+
+             $conflicts []= $plugin;
+         }
+
+         return $conflicts;
+     }
+
+     public function check_ssl(): bool
+     {
+         return 1 === (int) get_rocket_option( 'cache_ssl' );
+     }
+
+     public function check_metaboxes(): array
+     {
+
+         $cache_options = array(
+             'lazyload',
+             'lazyload_iframes',
+             'minify_html',
+             'minify_css',
+             'minify_js',
+             'cdn',
+             'async_css',
+             'defer_all_js',
+         );
+
+         $metaboxes = [];
+
+         foreach ( $cache_options as $cache_option ) {
+
+             $value = is_rocket_post_excluded_option( $cache_option );
+
+             $metaboxes[$cache_option] = '1' === $value ? 'DEACTIVATED' : 'unchanged';
+         }
+
+         return $metaboxes;
+     }
+
+     public function check_excluded($current_post_id)
+     {
+         // No way to find out if the “Never cache this page” option is checked,
+         // but we can find out whether or not this post is excluded from cache.
+         $excluded_post_paths = get_rocket_option( 'cache_reject_uri', array() );
+         $current_post_path   = rocket_clean_exclude_file( get_permalink( $current_post_id ) );
+         $maybe_post_excluded = in_array( $current_post_path, $excluded_post_paths);
+
+         return  $maybe_post_excluded;
      }
 }

@@ -188,7 +188,7 @@ class Subscriber implements PrefixAwareInterface, DispatcherAwareInterface
 
              $value = is_rocket_post_excluded_option( $cache_option );
 
-             $metaboxes[$cache_option] = '1' === $value ? 'DEACTIVATED' : 'unchanged';
+             $metaboxes[$cache_option] = '1' === $value;
          }
 
          return $metaboxes;

@@ -20,27 +20,26 @@ defined( 'ABSPATH' ) or die();
 // Upon activation change mobile cache options 
 register_activation_hook(__FILE__, __NAMESPACE__ .'\prepare_things_upon_activation');
 
+
+
 function prepare_things_upon_activation() {
     
-    
-    // 1 - Get WP Rocket options
     $options = get_option('wp_rocket_settings', []);
 
-    // 2 - Disable "Separate Cache Files for Mobile Devices"
+    // Disable Separate Cache Files for Mobile Devices
     $options['do_caching_mobile_files'] = 0;
-    update_option('wp_rocket_settings', $options);
+
+
+    //  to disable Mobile Cache alltogether, uncomment the next line    
+    // $options['cache_mobile'] = 0;
     
-    // 3 - Disable Cache for Mobile Devices altogheter, 
-    // EDIT: change this value to 0 if you also want to disable the cache for mobile devices
-    $options['cache_mobile'] = 1;
     update_option('wp_rocket_settings', $options);
 
 
-	// 4 - Regenerate Config files
-	if( function_exists('rocket_generate_config_file')) {
-		rocket_generate_config_file();
-	}
-
+    // Regenerate advanced-cache.php
+    if( function_exists('rocket_generate_advanced_cache_file')) {
+        rocket_generate_advanced_cache_file();
+    }
 
 }
 
@@ -49,26 +48,22 @@ register_deactivation_hook( __FILE__ , __NAMESPACE__ . '\deactivate_plugin' );
 
 function deactivate_plugin() {
     
-   
- 	// 1 - Get WP Rocket options
     $options = get_option('wp_rocket_settings', []);
-
-
-    // 2 - Enable "Separate Cache Files for Mobile Devices"
     $options['do_caching_mobile_files'] = 1;
-    update_option('wp_rocket_settings', $options);
-    
-    
-    // 3 - Enable Cache for Mobile Devices altogheter
     $options['cache_mobile'] = 1;
+    
     update_option('wp_rocket_settings', $options);
 
 
-	// 4 - Regenerate Config files
-	if( function_exists('rocket_generate_config_file')) {
-		rocket_generate_config_file();
-	}
-    
+    // Regenerate advanced-cache.php
+    if( function_exists('rocket_generate_advanced_cache_file')) {
+        rocket_generate_advanced_cache_file();
+    }
 
 }
 
+// Unless both mobile cache options are enabled, disable rocket_above_the_fold_optimization
+add_filter( 'rocket_above_the_fold_optimization', function( $enabled ) {
+    $options = get_option('wp_rocket_settings', []);
+    return $enabled && isset($options['do_caching_mobile_files'], $options['cache_mobile']) && $options['do_caching_mobile_files'] == 1 && $options['cache_mobile'] == 1;
+} );

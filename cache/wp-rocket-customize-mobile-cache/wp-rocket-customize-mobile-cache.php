@@ -8,7 +8,7 @@
  * License:     GNU General Public License v2 or later
  * License URI: http://www.gnu.org/licenses/gpl-2.0.html
  *
- * Copyright SAS WP MEDIA 2022
+ * Copyright SAS WP MEDIA 2024
  */
 
 namespace WP_Rocket\Helpers\customize_mobile_cache;
@@ -24,22 +24,18 @@ register_activation_hook(__FILE__, __NAMESPACE__ .'\prepare_things_upon_activati
 
 function prepare_things_upon_activation() {
     
+    $_POST['wpr_test'] = 1;
+    
     $options = get_option('wp_rocket_settings', []);
 
     // Disable Separate Cache Files for Mobile Devices
     $options['do_caching_mobile_files'] = 0;
 
-
-    //  to disable Mobile Cache alltogether, uncomment the next line    
+    // If you want to disable Mobile Cache alltogether, uncomment the next line    
     // $options['cache_mobile'] = 0;
     
     update_option('wp_rocket_settings', $options);
 
-
-    // Regenerate advanced-cache.php
-    if( function_exists('rocket_generate_advanced_cache_file')) {
-        rocket_generate_advanced_cache_file();
-    }
 
 }
 
@@ -48,17 +44,13 @@ register_deactivation_hook( __FILE__ , __NAMESPACE__ . '\deactivate_plugin' );
 
 function deactivate_plugin() {
     
+    $_POST['wpr_test'] = 1;
+    
     $options = get_option('wp_rocket_settings', []);
     $options['do_caching_mobile_files'] = 1;
     $options['cache_mobile'] = 1;
     
     update_option('wp_rocket_settings', $options);
-
-
-    // Regenerate advanced-cache.php
-    if( function_exists('rocket_generate_advanced_cache_file')) {
-        rocket_generate_advanced_cache_file();
-    }
 
 }
 

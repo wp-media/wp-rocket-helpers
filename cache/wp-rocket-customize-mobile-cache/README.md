@@ -1,13 +1,11 @@
 # WP Rocket | Customize Mobile Cache options
 
-Disables **Separate Cache files for Mobile devices** by default, and allows disabling the **Mobile Cache** option altogheter, enabled by default after WP Rocket 3.16
+Disables **Separate Cache files for Mobile devices** by default and also **Optimize Critical Images**, as separate cache for mobile devices is a requirement by that optimization.
 
-After installation, the helper will automatically disable  **Separate Cache files for Mobile devices** and also **Optimize Critical Images**, as separate cache for mobile devices is required by that optimization.
+⚠️ You can also disable the **Mobile Cache** option. 
+Keep in mind that doing this will prevent mobile devices from receiving cached and optimized pages. 
 
-⚠️ You can also disable the **Mobile Cache** option, but keep in mind that doing this will prevent mobile devices from receiving cached and optimized pages. 
-
-📝 If you want to proceed with this change, please uncomment line 34
-Change it from:
+📝 To Disable **Mobile Cache** please uncomment line 35, change it from:
 
     // $options['cache_mobile'] = 0;
     
@@ -15,10 +13,11 @@ to
 
     $options['cache_mobile'] = 0;
 
-**To reverse the changes,** simple deactivate the this helper plugin. 
+**To reverse the changes,** simply deactivate the this helper plugin. 
 
 Documentation:
 * [Mobile cache](https://docs.wp-rocket.me/article/708-mobile-cache)
+* [Optimize Critical Images](https://docs.wp-rocket.me/article/1816-optimize-critical-images)
 
 To be used with:
 * Any setup where you want to disable the Separate Cache Files for mobile devices, or the Mobile Cache altogheter. 

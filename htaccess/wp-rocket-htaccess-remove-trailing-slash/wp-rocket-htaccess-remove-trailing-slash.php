@@ -30,6 +30,7 @@ function render_rewrite_rules( $marker ) {
 	$redirection .= 'RewriteCond %{REQUEST_FILENAME} !-f' . PHP_EOL;
 	$redirection .= 'RewriteCond %{REQUEST_METHOD} GET' . PHP_EOL;
 	$redirection .= 'RewriteCond %{REQUEST_URI} (.*)/$' . PHP_EOL;
+	$redirection .= 'RewriteCond %{REQUEST_URI} !^/wp-json/' . PHP_EOL;
 	$redirection .= 'RewriteCond %{REQUEST_FILENAME} !\.(gif|jpg|png|jpeg|css|xml|txt|js|php|scss|webp|mp3|avi|wav|mp4|mov|pdf)$ [NC]' . PHP_EOL;
 	$redirection .= 'RewriteRule ^(.*)/$ /$1 [R=301,L]' . PHP_EOL . PHP_EOL;
 	

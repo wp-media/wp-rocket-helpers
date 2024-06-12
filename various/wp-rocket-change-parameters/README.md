@@ -28,5 +28,5 @@ To be used with:
 * Any setup where "Remove Unused CSS" or "Preload" are enabled and causing high CPU usage
 
 Last tested with:
-* WP Rocket 3.15.*
-* WordPress 6.x
+* WP Rocket 3.16.x
+* WordPress 6.5.x

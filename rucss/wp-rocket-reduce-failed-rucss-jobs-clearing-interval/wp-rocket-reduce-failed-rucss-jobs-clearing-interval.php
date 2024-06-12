@@ -14,19 +14,36 @@
 
 namespace WP_Rocket\Helpers\rucss\change_failed_interval;
 
+// Standard plugin security, keep this line in place.
+defined( 'ABSPATH' ) or die();
+
+// EDIT HERE: (Change to false if using WP Rocket version earlier than 3.16)
+$is_after_atf_introduced = true;
+// STOP EDITING
+
 // Sets how old the failed job should be to be cleared
-add_filter(
-	'rocket_delay_remove_rucss_failed_jobs',
-	function () {
-		// START EDITING - (You can use hours, minutes, days / day)
-		$new_interval = '2 days';
-		// STOP EDITING
-		return $new_interval;
-	}
-);
+function set_rocket_delay_remove_rucss_failed_jobs() {
+	// EDIT HERE - (You can use hours, minutes, days / day)
+	$new_interval = '2 days';
+	// STOP EDITING
+	return $new_interval;
+}
+
+if ( $is_after_atf_introduced ) {
+    add_filter( 'rocket_delay_remove_saas_failed_jobs', 'set_rocket_delay_remove_rucss_failed_jobs' );
+} else {
+    add_filter( 'rocket_delay_remove_rucss_failed_jobs', 'set_rocket_delay_remove_rucss_failed_jobs' );
+}
+
 // Reduces the interval of the cron
-add_filter('rocket_remove_rucss_failed_jobs_cron_interval', function () {
-	// No need to edit this (Hours in seconds).
+function rocket_remove_rucss_failed_jobs_cron_interval() {
+	// Hours in seconds
 	$new_interval = 6 * 3600;
 	return $new_interval;
-}, 9999);
+}
+
+if ( $is_after_atf_introduced ) {
+  add_filter('rocket_remove_saas_failed_jobs_cron_interval', 'rocket_remove_rucss_failed_jobs_cron_interval', 9999 );
+} else {
+  add_filter('rocket_remove_rucss_failed_jobs_cron_interval', 'rocket_remove_rucss_failed_jobs_cron_interval', 9999 );
+}

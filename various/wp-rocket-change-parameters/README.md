@@ -4,7 +4,7 @@ Change "Preload" and "Remove Unused CSS" parameters to lower values, in order to
 
 This helper can also be used to speed up the "Preload" and "Remove Unused CSS" processes on strong servers.
 
-📝&#160;&#160;**Manual code edit required before use!**
+📝&#160;&#160;**Possible manual code edit required before use! If you're using a WP Rocket version before 3.16, set $is_after_atf_introduced to false.**
 
 Change: 
 

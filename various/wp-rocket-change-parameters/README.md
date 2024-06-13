@@ -4,9 +4,9 @@ Change "Preload" and "Remove Unused CSS" parameters to lower values, in order to
 
 This helper can also be used to speed up the "Preload" and "Remove Unused CSS" processes on strong servers.
 
-📝&#160;&#160;**Possible manual code edit required before use! If you're using a WP Rocket version before 3.16, set $is_after_atf_introduced to false.**
+📝&#160;&#160;**Possible manual code edit required before use if you need to apply custom parameters!**
 
-Change: 
+Changes: 
 
 - 1) PRELOAD BATCH SIZE: Line 28. Is the number of URLs that will be processed on each run. 45 is the default, this helper sets it to 25 URLs. Setting a lower value can help the server to work on fewer requests at a time.
 
@@ -16,7 +16,7 @@ Change:
 
 - 4) RUCSS BATCH SIZE: Line 86, to set the batch size. It is the number of URLs that will be processed on each run. 100 is the default, this helper sets it to 25 URLs. Setting a lower value can help the server to work on fewer requests at a time.
 
-- 5) RUCSS CRON INTERVAL: Line 120, to set the desired cron interval in seconds. It is the pause that will be applied between batches processing. By setting a higher value (default is 60 seconds), the server will have more time to rest between processing batches. The helper sets the value to 120 seconds.
+- 5) RUCSS CRON INTERVAL: Line 105, to set the desired cron interval in seconds. It is the pause that will be applied between batches processing. By setting a higher value (default is 60 seconds), the server will have more time to rest between processing batches. The helper sets the value to 120 seconds.
 
 
 Documentation:
@@ -25,7 +25,7 @@ Documentation:
 * [High CPU usage](https://docs.wp-rocket.me/article/48-high-cpu-usage#remove-unused-css)
 
 To be used with:
-* Any setup where "Remove Unused CSS" or "Preload" are enabled and causing high CPU usage
+* Any setup where "Remove Unused CSS" or "Preload" are enabled and causing high CPU usage.
 
 Last tested with:
 * WP Rocket 3.16.x

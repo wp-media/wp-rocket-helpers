@@ -25,7 +25,7 @@ defined( 'ABSPATH' ) or die();
 function rucss_batch_size( $rucss_batch_size ) {   
     
      // change this value, default is 100 urls:
-     $rucss_batch_size = 50; 
+     $rucss_batch_size = 9; 
      
      return $rucss_batch_size;
  }
@@ -42,7 +42,7 @@ add_filter( 'rocket_rucss_pending_jobs_cron_rows_count', __NAMESPACE__ .'\rucss_
  function rucss_cron_interval( $cron_interval ) {   
      
      // change this value, default is 60 seconds:
-     $cron_interval = 120; 
+     $cron_interval = 300; 
      
      return $cron_interval;
  }

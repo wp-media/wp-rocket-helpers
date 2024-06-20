@@ -35,9 +35,9 @@ add_action( 'plugins_loaded', function() {
 	}
 
 	if ( $is_after_atf_introduced ) {
-			add_filter( 'rocket_delay_remove_saas_failed_jobs', 'set_rocket_delay_remove_rucss_failed_jobs' );
+			add_filter( 'rocket_delay_remove_saas_failed_jobs', __NAMESPACE__ . '\set_rocket_delay_remove_rucss_failed_jobs' );
 	} else {
-			add_filter( 'rocket_delay_remove_rucss_failed_jobs', 'set_rocket_delay_remove_rucss_failed_jobs' );
+			add_filter( 'rocket_delay_remove_rucss_failed_jobs', __NAMESPACE__ . '\set_rocket_delay_remove_rucss_failed_jobs' );
 	}
 
 	// Reduces the interval of the cron
@@ -48,9 +48,9 @@ add_action( 'plugins_loaded', function() {
 	}
 
 	if ( $is_after_atf_introduced ) {
-		add_filter('rocket_remove_saas_failed_jobs_cron_interval', 'rocket_remove_rucss_failed_jobs_cron_interval', 9999 );
+		add_filter('rocket_remove_saas_failed_jobs_cron_interval', __NAMESPACE__ . '\rocket_remove_rucss_failed_jobs_cron_interval', 9999 );
 	} else {
-		add_filter('rocket_remove_rucss_failed_jobs_cron_interval', 'rocket_remove_rucss_failed_jobs_cron_interval', 9999 );
+		add_filter('rocket_remove_rucss_failed_jobs_cron_interval', __NAMESPACE__ . '\rocket_remove_rucss_failed_jobs_cron_interval', 9999 );
 	}
 
 } );

@@ -46,6 +46,8 @@ function set_critical_images_parameters() {
       'li',
       'svg',
     ),
+      // The delay before the LCP beacon is triggered.
+      'rocket_lcp_delay' => 500,
   // STOP EDITING  
   );
 
@@ -149,6 +151,17 @@ function change_rocket_atf_elements( $elements ) {
 add_filter( 'rocket_atf_elements', __NAMESPACE__ . '\change_rocket_atf_elements', PHP_INT_MAX );
 
 
+/**
+ * Change the delay before the LCP beacon is triggered.
+ */
+function change_rocket_lcp_delay()
+{
+
+    $critical_images_parameters = set_critical_images_parameters();
+
+    return $critical_images_parameters['rocket_lcp_delay'];
+}
+add_filter('rocket_lcp_delay', __NAMESPACE__ . '\change_rocket_lcp_delay', PHP_INT_MAX);
 
 
 

@@ -45,6 +45,8 @@ function set_critical_images_parameters() {
       'div',
       'li',
       'svg',
+      'section',
+      'header',
     ),
       // The delay before the LCP beacon is triggered.
       'rocket_lcp_delay' => 500,
@@ -154,8 +156,7 @@ add_filter( 'rocket_atf_elements', __NAMESPACE__ . '\change_rocket_atf_elements'
 /**
  * Change the delay before the LCP beacon is triggered.
  */
-function change_rocket_lcp_delay()
-{
+function change_rocket_lcp_delay() {
 
     $critical_images_parameters = set_critical_images_parameters();
 

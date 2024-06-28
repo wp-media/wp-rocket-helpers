@@ -21,13 +21,19 @@ function get_configs() {
   $configs = [
 
     'rocket_rucss_external_exclusions' => [
+    /**
+     * EDIT THIS:
+     * Edit below line as needed to exclude specific CSS files.
+     * Replace "/wp-content/plugins/plugin-name/css/file.css" with the path of the file you want to exclude.
+     * To exclude multiple files, copy the entire line into a new line for each stylesheet to exclude.
+     */
       // '/wp-content/plugins/plugin-name/css/file.css'
     ],
 
     'rocket_rucss_inline_content_exclusions' => [
       /**
        * EDIT THIS:
-       * Edit below line as needed to exclude files.
+       * Edit below line as needed to exclude blocks of inline styles.
        * Copy the entire line into a new line for each style declaration you want you exclude.
        */
       // '.targetSelector',
@@ -38,7 +44,7 @@ function get_configs() {
     ],
 
     'rocket_rucss_skip_styles_with_attr' => [
-      '',
+      "id='wp-block-site-logo-inline-css'",
     ],
 
     'prepend_css' => [
@@ -49,9 +55,20 @@ function get_configs() {
       '',
     ],
 
+    /*
+     * Search and replace values
+     * The 'css_removed' value will be replaced with what you put in the 'css_inserted' value.
+     * To replace multiple inline css declarations, copy the entire line into a new line for each style declaration you want you replace.
+     */
+    // 'filter_css' => [
+    //   'css_removed' => '',
+    //   'css_inserted' => '',
+    // ],
+
     'filter_css' => [
-      'css_removed' => '',
-      'css_inserted' => '',
+      // '.to-be-removed{padding:10px};'
+      // =>
+      // '.to-be-inserted{padding:20px};',
     ],
   ];
 
@@ -59,18 +76,117 @@ function get_configs() {
 }
 
 
+
+
+function filter_css( $css ) {
+
+    /**
+     * EDIT THIS:
+     */
+
+
+    $css = str_replace( 'old', 'new', $css);
+
+    /**
+     * Prepend CSS to the Used CSS
+     * Replace line 41's value with the desired style to prepend.
+     */
+
+    $prependedss = '.new_css {background: red;}';
+    $css = $prependedcss . $css;
+
+    /**
+     * Append CSS to the Used CSS
+     * Replace line 49's value with the desired style to append.
+     */
+
+    $appendedcss = '.new_css {background: red;}';
+    $css = $css . $appendedcss;
+
+    // STOP EDITING
+    
+    return $css;
+    
+}
+add_filter( 'rocket_usedcss_content', __NAMESPACE__ . '\filter_css' );
+
+
+
+
 /**
- * Exclude inline styles from being removed by WP Rocket’s Remove Unused CSS optimization.
+ * Exclude external stylesheets from being removed by WP Rocket's Remove Unused CSS optimization.
+ */
+
+function external_exclusions( $external_exclusions = array() ) {
+
+  $configs = get_configs();
+
+  if ( empty( $configs['rocket_rucss_external_exclusions'] ) ) return $external_exclusions;
+
+  foreach ( $configs['rocket_rucss_external_exclusions'] as $rocket_rucss_external_exclusion ) {
+	  $external_exclusions[] = $rocket_rucss_external_exclusion;
+  }
+
+	return $external_exclusions;
+}
+add_filter( 'rocket_rucss_external_exclusions', __NAMESPACE__ . '\external_exclusions' );
+
+
+
+
+/**
+ * Exclude inline styles from being removed by WP Rocket's Remove Unused CSS optimization.
  */
 function inline_exclusions( $inline_exclusions = array() ) {
 
   $configs = get_configs();
 
-  foreach ( $configs['rocket_rucss_inline_atts_exclusions'] as $rocket_rucss_inline_atts_exclusion ) {
-	  $inline_exclusions[] = $rocket_rucss_inline_atts_exclusion;
+  if ( empty( $configs['rocket_rucss_inline_content_exclusions'] ) ) return $inline_exclusions;
+
+  foreach ( $configs['rocket_rucss_inline_content_exclusions'] as $rocket_rucss_inline_content_exclusion ) {
+	  $inline_exclusions[] = $rocket_rucss_inline_content_exclusion;
   }
 
 	return $inline_exclusions;
 }
 add_filter( 'rocket_rucss_inline_content_exclusions', __NAMESPACE__ . '\inline_exclusions' );
 
+
+
+
+/**
+ * Exclude inline styles from being removed by WP Rocket's Remove Unused CSS optimization.
+ */
+function inline_atts_exclusions( $inline_atts_exclusions = array() ) {
+
+  $configs = get_configs();
+
+  if ( empty( $configs['rocket_rucss_inline_atts_exclusions'] ) ) return $inline_atts_exclusions;
+
+  foreach ( $configs['rocket_rucss_inline_atts_exclusions'] as $rocket_rucss_inline_atts_exclusion ) {
+	  $inline_atts_exclusions[] = $rocket_rucss_inline_atts_exclusion;
+  }
+
+	return $inline_atts_exclusions;
+}
+add_filter( 'rocket_rucss_inline_atts_exclusions', __NAMESPACE__ . '\inline_atts_exclusions' );
+
+
+
+
+/**
+ * Completely remove styles with target attributes from page. Styles will not be in RUCSS and also removed from their original location.
+ */
+function skip_styles_with_attr( $skipped_attributes = array() ) {
+
+  $configs = get_configs();
+
+  if ( empty( $configs['skip_styles_with_attr'] ) ) return $skipped_attributes;
+
+  foreach( $configs['skip_styles_with_attr'] as $skip_style_with_attr ) {
+    $skipped_attributes[] = $skip_style_with_attr;
+  }
+  
+  return $skipped_attributes;
+
+add_filter( 'rocket_rucss_skip_styles_with_attr', __NAMESPACE__ . '\skip_styles_with_attr' );

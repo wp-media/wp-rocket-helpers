@@ -16,16 +16,29 @@ namespace WP_Rocket\Helpers\rucss\rucss_modify_used_css;
 defined( 'ABSPATH' ) or die();
 
 
-function setConfigs() {
+function get_configs() {
 
   $configs = [
 
-    'inline_exclusions' => [
-      '.targetSelector',
+    'rocket_rucss_external_exclusions' => [
+      // '/wp-content/plugins/plugin-name/css/file.css'
     ],
 
-    'external_exclusions' => [
-      '/wp-content/plugins/plugin-name/css/file.css'
+    'rocket_rucss_inline_content_exclusions' => [
+      /**
+       * EDIT THIS:
+       * Edit below line as needed to exclude files.
+       * Copy the entire line into a new line for each style declaration you want you exclude.
+       */
+      // '.targetSelector',
+    ],
+
+    'rocket_rucss_inline_atts_exclusions' => [
+      '',
+    ],
+
+    'rocket_rucss_skip_styles_with_attr' => [
+      '',
     ],
 
     'prepend_css' => [
@@ -33,34 +46,31 @@ function setConfigs() {
     ],
 
     'append_css' => [
-      ''
+      '',
     ],
 
     'filter_css' => [
-      'to_be_removed' => '',
-      'to_be_inserted' => '',
+      'css_removed' => '',
+      'css_inserted' => '',
     ],
-
-    ''
   ];
 
   return $configs;
 }
+
 
 /**
  * Exclude inline styles from being removed by WP Rocket’s Remove Unused CSS optimization.
  */
 function inline_exclusions( $inline_exclusions = array() ) {
 
-	/**
-	 * EDIT THIS:
-	 * Edit below line as needed to exclude files.
-	 * To exclude multiple inline css declarations, copy the entire line into a new line for each style declaration you want you exclude.
-	 */
-	$inline_exclusions[] = '.targetSelector';
-	
-	// STOP EDITING
+  $configs = get_configs();
+
+  foreach ( $configs['rocket_rucss_inline_atts_exclusions'] as $rocket_rucss_inline_atts_exclusion ) {
+	  $inline_exclusions[] = $rocket_rucss_inline_atts_exclusion;
+  }
 
 	return $inline_exclusions;
 }
 add_filter( 'rocket_rucss_inline_content_exclusions', __NAMESPACE__ . '\inline_exclusions' );
+

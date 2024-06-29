@@ -21,51 +21,63 @@ function get_configs() {
   $configs = [
 
     'rocket_rucss_external_exclusions' => [
-    /**
-     * EDIT THIS:
-     * Edit below line as needed to exclude specific CSS files.
-     * Replace "/wp-content/plugins/plugin-name/css/file.css" with the path of the file you want to exclude.
-     * To exclude multiple files, copy the entire line into a new line for each stylesheet to exclude.
-     */
+
+      // Edit below line as needed to exclude specific CSS files.
+      // Replace "/wp-content/plugins/plugin-name/css/file.css" with the path of the file you want to exclude.
+      // To exclude multiple files, copy the entire line into a new line for each stylesheet to exclude.
+
+      // UNCOMMENT BELOW AND EDIT TO USE THIS OPTION:
       // '/wp-content/plugins/plugin-name/css/file.css'
     ],
 
     'rocket_rucss_inline_content_exclusions' => [
-      /**
-       * EDIT THIS:
-       * Edit below line as needed to exclude blocks of inline styles.
-       * Copy the entire line into a new line for each style declaration you want you exclude.
-       */
+
+      // Edit below line as needed to exclude blocks of inline styles.
+      // Copy the entire line into a new line for each style declaration you want you exclude.
+
+      // UNCOMMENT BELOW AND EDIT TO USE THIS OPTION:
       // '.targetSelector',
     ],
 
     'rocket_rucss_inline_atts_exclusions' => [
-      '',
+
+      // 
+
+      // UNCOMMENT BELOW AND EDIT TO USE THIS OPTION:
+      // '',
     ],
 
     'rocket_rucss_skip_styles_with_attr' => [
-      "id='wp-block-site-logo-inline-css'",
+
+      // Remove external or inline styles that have the target attributes specified below
+      // The styles are removed entirely - from both the original location in the page and they are also not included in the Used CSS
+
+      // UNCOMMENT BELOW AND EDIT TO USE THIS OPTION:
+      // "id='wp-block-site-logo-inline-css'",
     ],
 
     'prepend_css' => [
-      '',
+
+      // Add the specified styles at the BEGINNING of the Used CSS
+
+      // UNCOMMENT BELOW AND EDIT TO USE THIS OPTION:
+      // '.new_css {background: red;}',
     ],
 
     'append_css' => [
-      '',
+
+      // Add the specified styles at the END of the Used CSS
+
+      // UNCOMMENT BELOW AND EDIT TO USE THIS OPTION:
+      // '.new_css {background: red;}',
     ],
 
-    /*
-     * Search and replace values
-     * The 'css_removed' value will be replaced with what you put in the 'css_inserted' value.
-     * To replace multiple inline css declarations, copy the entire line into a new line for each style declaration you want you replace.
-     */
-    // 'filter_css' => [
-    //   'css_removed' => '',
-    //   'css_inserted' => '',
-    // ],
-
     'filter_css' => [
+
+      // Replace the 'to-be-removed' value in the Used CSS with the 'to-be-inserted' value.
+      // To do multiple replacements, copy & paste the entire 3 lines and customize them.
+
+      // UNCOMMENT BELOW AND EDIT TO USE THIS OPTION:
       // '.to-be-removed{padding:10px};'
       // =>
       // '.to-be-inserted{padding:20px};',
@@ -74,43 +86,6 @@ function get_configs() {
 
   return $configs;
 }
-
-
-
-
-function filter_css( $css ) {
-
-    /**
-     * EDIT THIS:
-     */
-
-
-    $css = str_replace( 'old', 'new', $css);
-
-    /**
-     * Prepend CSS to the Used CSS
-     * Replace line 41's value with the desired style to prepend.
-     */
-
-    $prependedss = '.new_css {background: red;}';
-    $css = $prependedcss . $css;
-
-    /**
-     * Append CSS to the Used CSS
-     * Replace line 49's value with the desired style to append.
-     */
-
-    $appendedcss = '.new_css {background: red;}';
-    $css = $css . $appendedcss;
-
-    // STOP EDITING
-    
-    return $css;
-    
-}
-add_filter( 'rocket_usedcss_content', __NAMESPACE__ . '\filter_css' );
-
-
 
 
 /**
@@ -190,3 +165,36 @@ function skip_styles_with_attr( $skipped_attributes = array() ) {
   return $skipped_attributes;
 
 add_filter( 'rocket_rucss_skip_styles_with_attr', __NAMESPACE__ . '\skip_styles_with_attr' );
+
+
+
+
+
+/**
+ * Modify Used CSS by prepending, appending, or filtering values, depending on configs
+ */
+function filter_css( $css ) {
+
+  $configs = get_configs();
+
+  if ( ! empty( $configs['prepend_css'] ) ) {
+    foreach ( $configs['prepend_css'] as $prepend_css ) {
+      $css = $prepend_css . $css;
+    }
+  }
+
+  if ( ! empty( $configs['append_css'] ) ) {
+    foreach ( $configs['append_css'] as $append_css ) {
+      $css = $css . $append_css;
+    }
+  }
+
+  if ( ! empty( $configs['filter_css'] ) ) {
+    foreach ( $configs['filter_css'] as $to_be_removed => $to_be_inserted ) {
+      $css = str_replace( $to_be_removed, $to_be_inserted, $css );
+    }
+  }
+
+  return $css;
+}
+add_filter( 'rocket_usedcss_content', __NAMESPACE__ . '\filter_css' );

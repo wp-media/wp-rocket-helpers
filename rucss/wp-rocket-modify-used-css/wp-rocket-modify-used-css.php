@@ -22,18 +22,24 @@ function get_configs() {
 
     'rocket_rucss_external_exclusions' => [
 
-      // Edit below line as needed to exclude specific CSS files.
+      // Exclude specific CSS files from being removed by RUCSS
+      // Uses loose partial matching - if any part of the path the the file is matched, it will be excluded.
+      // Wildcards - (.*) - and other regex items do not work.
       // Replace "/wp-content/plugins/plugin-name/css/file.css" with the path of the file you want to exclude.
       // To exclude multiple files, copy the entire line into a new line for each stylesheet to exclude.
+      // CSS from excluded files that's used on the page is still added in the Used CSS.
 
       // UNCOMMENT BELOW AND EDIT TO USE THIS OPTION:
-      // '/wp-content/plugins/plugin-name/css/file.css'
+      // '/wp-content/plugins/plugin-name/css/file.css',
     ],
 
     'rocket_rucss_inline_content_exclusions' => [
 
-      // Edit below line as needed to exclude blocks of inline styles.
-      // Copy the entire line into a new line for each style declaration you want you exclude.
+      // Exclude all inline CSS contained in <style> element(s) by matching with any CSS selector contained within.
+      // Uses loose partial matching - if any part of the selector is matched, the inline <style> element will be excluded.
+      // Wildcards - (.*) - and other regex items do not work.
+      // Duplicate the line to apply exclusions for multiple inline <style> elements.
+      // CSS from excluded files that's used on the page is still added in the Used CSS.
 
       // UNCOMMENT BELOW AND EDIT TO USE THIS OPTION:
       // '.targetSelector',
@@ -41,19 +47,32 @@ function get_configs() {
 
     'rocket_rucss_inline_atts_exclusions' => [
 
-      // 
+      // Exclude CSS of entire inline <style> elements by matching attributes and (optionally) values applied to the <style> element.
+      // Uses loose partial matching - if any part of the attribute="value" string is matched, the <style> element is excluded.
+      // Wildcards - (.*) - and other regex items do not work.
+      // If single quotes are used in the HTML, use double quotes to surround the items below.
 
       // UNCOMMENT BELOW AND EDIT TO USE THIS OPTION:
-      // '',
+      // 'data-example-1',
+      // 'data-example-2="the-value"',
+      // "data-example-3='the-value'",
     ],
 
     'rocket_rucss_skip_styles_with_attr' => [
 
-      // Remove external or inline styles that have the target attributes specified below
-      // The styles are removed entirely - from both the original location in the page and they are also not included in the Used CSS
+      // Removes all styles from external CSS files and/or inline <style> elements that have the target attributes and (optionally) values applied.
+      // Uses strict matching - Need to use either the full attribute name or full attribute="value" pair.
+      // Wildcards - (.*) - and other regex items do not work.
+      // Target external CSS files are removed from pages completely.
+      // Target inline <style> elements are emptied, but the tags still remain in the HTML (for potential compatibility with other scripts).
+      // No styles from any target elements are added to the Used CSS.
+      // If single quotes are used in the HTML, use double quotes to surround the items below.
+      // If the same element is targeted with this and any of the 3 filters above, the related styles will not be added to the Used CSS, but the styles will remain applied to the page as they were before RUCSS optimization. This can be useful to prevent styles from being applied twice to pages.
 
       // UNCOMMENT BELOW AND EDIT TO USE THIS OPTION:
-      // "id='wp-block-site-logo-inline-css'",
+      // 'data-example-1',
+      // 'data-example-2="the-value"',
+      // "data-example-3='the-value'",
     ],
 
     'prepend_css' => [
@@ -74,8 +93,8 @@ function get_configs() {
 
     'filter_css' => [
 
-      // Replace the 'to-be-removed' value in the Used CSS with the 'to-be-inserted' value.
-      // To do multiple replacements, copy & paste the entire 3 lines and customize them.
+      // Replaces the 'to-be-removed' value in the Used CSS with the 'to-be-inserted' value.
+      // To do multiple replacements, duplicate the entire 3 lines and customize for the other replacements.
 
       // UNCOMMENT BELOW AND EDIT TO USE THIS OPTION:
       // '.to-be-removed{padding:10px};'
@@ -86,6 +105,9 @@ function get_configs() {
 
   return $configs;
 }
+
+
+// DO NOT MAKE EDITS BELOW THIS LINE UNLESS YOU KNOW WHAT YOU'RE DOING
 
 
 /**
@@ -156,14 +178,14 @@ function skip_styles_with_attr( $skipped_attributes = array() ) {
 
   $configs = get_configs();
 
-  if ( empty( $configs['skip_styles_with_attr'] ) ) return $skipped_attributes;
+  if ( empty( $configs['rocket_rucss_skip_styles_with_attr'] ) ) return $skipped_attributes;
 
-  foreach( $configs['skip_styles_with_attr'] as $skip_style_with_attr ) {
-    $skipped_attributes[] = $skip_style_with_attr;
+  foreach( $configs['rocket_rucss_skip_styles_with_attr'] as $rocket_rucss_skip_style_with_attr ) {
+    $skipped_attributes[] = $rocket_rucss_skip_style_with_attr;
   }
   
   return $skipped_attributes;
-
+}
 add_filter( 'rocket_rucss_skip_styles_with_attr', __NAMESPACE__ . '\skip_styles_with_attr' );
 
 

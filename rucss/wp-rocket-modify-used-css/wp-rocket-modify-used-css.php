@@ -110,91 +110,35 @@ function get_configs() {
 // DO NOT MAKE EDITS BELOW THIS LINE UNLESS YOU KNOW WHAT YOU'RE DOING
 
 
-/**
- * Exclude external stylesheets from being removed by WP Rocket's Remove Unused CSS optimization.
- */
-
-function external_exclusions( $external_exclusions = array() ) {
+function add_rucss_exclusions( $exclusions = array() ) {
 
   $configs = get_configs();
+  $current_filter = current_filter();
 
-  if ( empty( $configs['rocket_rucss_external_exclusions'] ) ) return $external_exclusions;
+  if ( empty( $configs[$current_filter] ) ) return $exclusions;
 
-  foreach ( $configs['rocket_rucss_external_exclusions'] as $rocket_rucss_external_exclusion ) {
-	  $external_exclusions[] = $rocket_rucss_external_exclusion;
+  foreach ( $configs[$current_filter] as $exclusion ) {
+	  $exclusions[] = $exclusion;
   }
 
-	return $external_exclusions;
+	return $exclusions;
 }
-add_filter( 'rocket_rucss_external_exclusions', __NAMESPACE__ . '\external_exclusions' );
+
+// Exclude external stylesheets from being removed by WP Rocket's Remove Unused CSS optimization.
+add_filter( 'rocket_rucss_external_exclusions', __NAMESPACE__ . '\add_rucss_exclusions' );
+
+// Exclude inline styles from being removed by WP Rocket's Remove Unused CSS optimization.
+add_filter( 'rocket_rucss_inline_content_exclusions', __NAMESPACE__ . '\add_rucss_exclusions' );
+
+// Exclude inline styles from being removed by WP Rocket's Remove Unused CSS optimization.
+add_filter( 'rocket_rucss_inline_atts_exclusions', __NAMESPACE__ . '\add_rucss_exclusions' );
+
+// Completely remove styles with target attributes from page.
+// Styles will not be in RUCSS and also removed from their original location.
+add_filter( 'rocket_rucss_skip_styles_with_attr', __NAMESPACE__ . '\add_rucss_exclusions' );
 
 
-
-
-/**
- * Exclude inline styles from being removed by WP Rocket's Remove Unused CSS optimization.
- */
-function inline_exclusions( $inline_exclusions = array() ) {
-
-  $configs = get_configs();
-
-  if ( empty( $configs['rocket_rucss_inline_content_exclusions'] ) ) return $inline_exclusions;
-
-  foreach ( $configs['rocket_rucss_inline_content_exclusions'] as $rocket_rucss_inline_content_exclusion ) {
-	  $inline_exclusions[] = $rocket_rucss_inline_content_exclusion;
-  }
-
-	return $inline_exclusions;
-}
-add_filter( 'rocket_rucss_inline_content_exclusions', __NAMESPACE__ . '\inline_exclusions' );
-
-
-
-
-/**
- * Exclude inline styles from being removed by WP Rocket's Remove Unused CSS optimization.
- */
-function inline_atts_exclusions( $inline_atts_exclusions = array() ) {
-
-  $configs = get_configs();
-
-  if ( empty( $configs['rocket_rucss_inline_atts_exclusions'] ) ) return $inline_atts_exclusions;
-
-  foreach ( $configs['rocket_rucss_inline_atts_exclusions'] as $rocket_rucss_inline_atts_exclusion ) {
-	  $inline_atts_exclusions[] = $rocket_rucss_inline_atts_exclusion;
-  }
-
-	return $inline_atts_exclusions;
-}
-add_filter( 'rocket_rucss_inline_atts_exclusions', __NAMESPACE__ . '\inline_atts_exclusions' );
-
-
-
-
-/**
- * Completely remove styles with target attributes from page. Styles will not be in RUCSS and also removed from their original location.
- */
-function skip_styles_with_attr( $skipped_attributes = array() ) {
-
-  $configs = get_configs();
-
-  if ( empty( $configs['rocket_rucss_skip_styles_with_attr'] ) ) return $skipped_attributes;
-
-  foreach( $configs['rocket_rucss_skip_styles_with_attr'] as $rocket_rucss_skip_style_with_attr ) {
-    $skipped_attributes[] = $rocket_rucss_skip_style_with_attr;
-  }
-  
-  return $skipped_attributes;
-}
-add_filter( 'rocket_rucss_skip_styles_with_attr', __NAMESPACE__ . '\skip_styles_with_attr' );
-
-
-
-
-
-/**
- * Modify Used CSS by prepending, appending, or filtering values, depending on configs
- */
+// Modify Used CSS by prepending, appending, or filtering values, depending on configs
 function filter_css( $css ) {
 
   $configs = get_configs();

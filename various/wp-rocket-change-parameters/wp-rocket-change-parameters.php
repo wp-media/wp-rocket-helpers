@@ -22,102 +22,117 @@ add_action( 'plugins_loaded', function() {
         return;
     }
 
+
+    function set_configs() {
+        
+        $configs = [
+
+        // EDIT HERE
+
+            /**
+             *  PRELOAD MAXIMUM BATCH SIZE
+             *  Change the maximum number of URLs to preload on each batch, 45 is the default.
+             *  A lower value can help the server to work on fewer requests at a time
+             */
+            'rocket_preload_cache_pending_jobs_cron_rows_count' => 25,
+
+            /**
+             *  PRELOAD MINIMUM BATCH SIZE
+             *  Change the minimum number of URLs to preload on each batch, 5 is the default.
+             *  A lower value can help the server to work on fewer requests at a time
+             */
+            'rocket_preload_cache_min_in_progress_jobs_count' => 3,
+
+            /**
+             *  PRELOAD CRON INTERVAL
+             *  Set the desired cron interval in seconds. 60 is the default.
+             *  By setting a higher value the server will have more time to rest between processing batches.
+             */
+            'rocket_preload_pending_jobs_cron_interval' => 120,
+
+            /**
+             *  PRELOAD DELAY BETWEEN REQUESTS:
+             *  Set delay in seconds between requests made to same URL
+             *  For example, for Separate cache files for mobile devices.
+             *  Default is 0.5 seconds (500000 microseconds)
+             */
+            'rocket_preload_delay_between_requests' => 1,
+
+            /**
+             * RUCSS BATCH SIZE
+             *  Change the processing batch value.
+             *  A lower value can help the server to work on fewer requests at a time
+             */
+            'rocket_saas_pending_jobs_cron_rows_count' => 25,
+
+            /**
+             *  RUCSS CRON Interval:
+             *  Set the desired cron interval in seconds
+             *  By setting a higher value the server will have more time to rest between processing batches.
+             */
+            'rocket_saas_pending_jobs_cron_interval' => 120,
+
+        // STOP EDITING
+        ];
+
+        $configs['rocket_preload_delay_between_requests'] = $configs['rocket_preload_delay_between_requests'] * 1000000;
+
+        $configs['rocket_rucss_pending_jobs_cron_rows_count'] = $configs['rocket_saas_pending_jobs_cron_rows_count'];
+
+        return $configs;
+    }
+
+
+    // DO NOT EDIT ANYTHING BELOW UNLESS YOU KNOW WHAT YOU ARE DOING
+
+
     $is_after_atf_introduced = version_compare( WP_ROCKET_VERSION, '3.16', '>=' );
+    $is_after_3_16_2 = version_compare( WP_ROCKET_VERSION, '3.16.2', '>=' );
 
-    /**
-     *  1) PRELOAD BATCH SIZE
-     *  Change the number of URLs to preload on each batch, 45 is the default.
-     *  A lower value can help the server to work on fewer requests at a time
-     */
-    function preload_batch_size( $value ) {
 
-        // change this value, default is 45 urls:
-        $value = 25;
+    function set_custom_parameter( $custom_parameter ) {
+        
+        $configs = set_configs();
 
-        return $value;
+        if ( isset( $configs[current_filter()] ) && is_numeric( $configs[current_filter()] ) ) {
+            $custom_parameter = $configs[current_filter()];
+        }
+
+        return $custom_parameter;
     }
 
-    add_filter( 'rocket_preload_cache_pending_jobs_cron_rows_count', __NAMESPACE__ . '\preload_batch_size' );
+
+    // Set max Preload batch size
+    add_filter( 'rocket_preload_cache_pending_jobs_cron_rows_count', __NAMESPACE__ . '\set_custom_parameter' );
 
 
-
-    /**
-     *  2) PRELOAD CRON INTERVAL:
-     *  Set the desired cron interval in seconds
-     *  By setting a higher value the server will have more time to rest between processing batches.
-     */
-    function preload_cron_interval( $interval ) {
-
-        // change this value, default is 60 seconds:
-        $interval = 120;
-
-        return $interval;
+    // Set minimum Preload batch size (if using WP Rocket 3.16.2 or later)
+    if ( $is_after_3_16_2 ) {
+        add_filter( 'rocket_preload_cache_min_in_progress_jobs_count', __NAMESPACE__ . '\set_custom_parameter' );
     }
 
-    add_filter( 'rocket_preload_pending_jobs_cron_interval', __NAMESPACE__ . '\preload_cron_interval' );
+
+    // Set Preload Cron Interval
+    add_filter( 'rocket_preload_pending_jobs_cron_interval', __NAMESPACE__ . '\set_custom_parameter' );
 
 
-
-    /**
-     *  3) PRELOAD DELAY BETWEEN REQUESTS:
-     *  This is the delay between requests made to the same URL.
-     *  for example, for Separate cache files for mobile devices.
-     *  Default is 0.5 seconds (500000 microseconds)
-     */
-    function preload_requests_delay( $delay_between ) {
-
-        // Edit this value, change the number of seconds
-        $seconds = 1;
-        // finish editing
-
-        // All done, don't change this part.
-        $delay_between = $seconds * 1000000;
-
-        return $delay_between;
-    }
-
-    add_filter( 'rocket_preload_delay_between_requests', __NAMESPACE__ . '\preload_requests_delay' );
+    // Set Preload delay between requests to the same page
+    add_filter( 'rocket_preload_delay_between_requests', __NAMESPACE__ . '\set_custom_parameter' );
 
 
-
-    /**
-     * 4) RUCSS BATCH SIZE
-     *  Change the processing batch value.
-     *  A lower value can help the server to work on fewer requests at a time
-     */
-    function rucss_batch_size( $rucss_batch_size ) {
-
-        // change this value, default is 100 urls:
-        $rucss_batch_size = 25;
-
-        return $rucss_batch_size;
-    }
-
+    // Set Remove Unused CSS batch size
     if ( $is_after_atf_introduced ) {
-        add_filter( 'rocket_saas_pending_jobs_cron_rows_count', __NAMESPACE__ . '\rucss_batch_size' );
+        add_filter( 'rocket_saas_pending_jobs_cron_rows_count', __NAMESPACE__ . '\set_custom_parameter' );
     } else {
-        add_filter( 'rocket_rucss_pending_jobs_cron_rows_count', __NAMESPACE__ . '\rucss_batch_size' );
+        add_filter( 'rocket_rucss_pending_jobs_cron_rows_count', __NAMESPACE__ . '\set_custom_parameter' );
     }
 
 
-
-    /**
-     *  5) RUCSS CRON Interval:
-     *  Set the desired cron interval in seconds
-     *  By setting a higher value the server will have more time to rest between processing batches.
-     */
-    function rucss_cron_interval( $cron_interval ) {
-
-        // change this value, default is 60 seconds:
-        $cron_interval = 120;
-
-        return $cron_interval;
-    }
-
+    // Set Remove Unused CSS cron interval
     if ( $is_after_atf_introduced ) {
-        add_filter( 'rocket_sass_pending_jobs_cron_interval', __NAMESPACE__ . '\rucss_cron_interval' );
+        add_filter( 'rocket_saas_pending_jobs_cron_interval', __NAMESPACE__ . '\set_custom_parameter' );
     } else {
-        add_filter( 'rocket_rucss_pending_jobs_cron_interval', __NAMESPACE__ . '\rucss_cron_interval' );
+        add_filter( 'rocket_rucss_pending_jobs_cron_interval', __NAMESPACE__ . '\set_custom_parameter' );
     }
 
 } );

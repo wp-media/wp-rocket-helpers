@@ -75,8 +75,10 @@ add_action( 'plugins_loaded', function() {
         // STOP EDITING
         ];
 
-        $configs['rocket_preload_delay_between_requests'] = $configs['rocket_preload_delay_between_requests'] * 1000000;
+        // Must be a positive integer
+        $configs['rocket_preload_delay_between_requests'] = absint( $configs['rocket_preload_delay_between_requests'] * 1000000 );
 
+        // Set the value for the old filter in case version prior to 3.16 used
         $configs['rocket_rucss_pending_jobs_cron_rows_count'] = $configs['rocket_saas_pending_jobs_cron_rows_count'];
 
         return $configs;

@@ -1,6 +1,6 @@
 # WP Rocket | Critical Images Parameters
 
-Change the critical images optimization cleanup interval, warmup links number, width and height thresholds, and elements considered for the optimization.
+Change the critical images optimization cleanup interval, warmup links number, width and height thresholds for both desktop and mobile, elements considered for the optimization, and the delay before the LCP beacon script is triggered.
 
 📝&#160;&#160;**Manual code edit required before use!**
 

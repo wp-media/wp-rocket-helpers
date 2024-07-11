@@ -27,7 +27,7 @@ function set_critical_images_parameters() {
     'rocket_atf_cleanup_interval' => 1,
 
     // Number of links fetched during warmup
-    'rocket_atf_warmup_links_number' => 5,
+    'rocket_atf_warmup_links_number' => 10,
 
     // Height and height thresholds for critical images optimization
     'rocket_lcp_width_threshold_mobile' => 393,

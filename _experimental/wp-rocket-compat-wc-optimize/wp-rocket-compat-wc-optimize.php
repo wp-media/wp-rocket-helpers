@@ -7,20 +7,42 @@
  * License:     GNU General Public License v2 or later
  * License URI: http://www.gnu.org/licenses/gpl-2.0.html
  *
- * Copyright SAS WP MEDIA 2018
+ * Copyright SAS WP MEDIA 2024
  */
 
 // Standard plugin security, keep this line in place.
 defined( 'ABSPATH' ) or die();
 
+
 /**
- * Remove WP Rocket core behaviour.
  *
- * @see wp-rocket/inc/3rd-party/plugins/ecommerce/woocommerce.php#L6
+ * @param  array $uri  Paths to exclude from caching
+ * @return array       Maybe modfied paths to exclude from caching
  */
-add_action( 'wp_rocket_loaded', function () {
-	remove_filter( 'rocket_cache_reject_uri', 'rocket_exclude_woocommerce_pages' );
-});
+function never_cache_urls( $uri ) {
+
+	// Edit these to match the WooCommerce URLs. 
+	// for multilingual sites, you can add more
+	$uris_to_remove = [
+		'/checkout',
+		'/cart',
+		'/my-account',
+	];
+
+	foreach ($uri as $key => $value) {
+		foreach ($uris_to_remove as $uri_to_remove) {
+			if (strpos($value, $uri_to_remove) !== false) {
+				unset($uri[$key]);
+				break; 
+			}
+		}
+	}
+
+	return $uri;
+}
+add_filter( 'rocket_cache_reject_uri', __NAMESPACE__ . '\never_cache_urls', PHP_INT_MAX );
+
+
 
 /**
  * Alters WP Rocket’s core behaviours so that page caching is still disabled on
@@ -31,9 +53,6 @@ add_action( 'wp_rocket_loaded', function () {
  */
 add_action( 'template_redirect', function () {
 
-	if ( ! function_exists( 'rocket_exclude_woocommerce_pages' ) ) {
-		return;
-	}
 
 	if ( ! class_exists( 'WooCommerce' ) ) {
 		return;
@@ -54,3 +73,40 @@ add_action( 'template_redirect', function () {
 		add_filter( 'do_rocket_generate_caching_files', '__return_false' );
 	}
 });
+
+
+/**
+ * Updates .htaccess, regenerates WP Rocket config file.
+ *
+ * @author Caspar Hübinger
+ */
+function flush_wp_rocket() {
+	
+	if ( ! function_exists( 'flush_rocket_htaccess' )
+	  || ! function_exists( 'rocket_generate_config_file' ) ) {
+		return false;
+	}
+	
+	// Update WP Rocket .htaccess rules.
+	flush_rocket_htaccess();
+	
+	// Regenerate WP Rocket config file.
+	rocket_generate_config_file();
+}
+register_activation_hook( __FILE__, __NAMESPACE__ . '\flush_wp_rocket' );
+
+/**
+ * Removes customizations, updates .htaccess, regenerates config file.
+ *
+ * @author Caspar Hübinger
+ */
+function deactivate() {
+	
+	// Remove all functionality added above.
+	remove_filter( 'rocket_cache_reject_uri', __NAMESPACE__ . '\never_cache_urls', PHP_INT_MAX );
+
+	
+	// Flush .htaccess rules, and regenerate WP Rocket config file.
+	flush_wp_rocket();
+}
+register_deactivation_hook( __FILE__, __NAMESPACE__ . '\deactivate' );

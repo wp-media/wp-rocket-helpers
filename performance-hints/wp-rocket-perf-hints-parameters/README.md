@@ -1,6 +1,10 @@
 # WP Rocket | Performance Hints Parameters
 <br>
 
+⚠ Only use this helper with WP Rocket versions 3.16.4 and later. If you're using WP Rocket version 3.16 through 3.16.3, please use the [WP Rocket | Critical Images Parameters](https://github.com/wp-media/wp-rocket-helpers/tree/master/_deprecated/wp-rocket-critical-images-parameters) plugin instead. If you're using a WP Rocket version prior to 3.16, neither of these helper plugins should be used.
+
+<br>
+
 ### Changes the following Performance Hints Optimization parameters:
 - Warmup links number
 - Width and height thresholds for both desktop and mobile

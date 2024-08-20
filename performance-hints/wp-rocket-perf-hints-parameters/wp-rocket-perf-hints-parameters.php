@@ -123,7 +123,7 @@ add_filter( 'rocket_performance_hints_optimization_height_threshold', __NAMESPAC
 /**
  * Change the delay before the beacon script is triggered.
  */
-function change_rocket_pho_delay() {
+function change_rocket_pho_delay( $delay ) {
 
     return WPROCKETHELPERS_PHO_PARAMETERS['rocket_pho_delay'];
 }
@@ -164,10 +164,10 @@ function wpr_clear_pho_data() {
     // access rocket's injection container
     $container = apply_filters( 'rocket_container', null );
 
-    // Get the Performace Hints subscriber from the container
+    // Get the Performance Hints subscriber from the container
     $perfhints_subscriber = $container->get( 'performance_hints_admin_subscriber' );
     // call the Performance Hints truncate tables method.
-    $perfhints_subscriber->truncate_tables;
+    $perfhints_subscriber->truncate_tables();
 
     // Get the rucss subscriber from the container
     $rucss_subscriber = $container->get( 'rucss_admin_subscriber' );

@@ -2,6 +2,8 @@
 
 Change the critical images optimization cleanup interval, warmup links number, width and height thresholds for both desktop and mobile, elements considered for the optimization, and the delay before the LCP beacon script is triggered.
 
+⚠ Only use this helper with WP Rocket versions 3.16 through 3.16.3. If you're using WP Rocket version 3.16.4 or later, please use the [WP Rocket | Performance Hints Parameters](https://github.com/wp-media/wp-rocket-helpers/tree/master/performance-hints/wp-rocket-perf-hints-parameters) plugin instead.
+
 📝&#160;&#160;**Manual code edit required before use!**
 
 Change: 

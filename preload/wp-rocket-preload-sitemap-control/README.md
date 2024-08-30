@@ -24,6 +24,8 @@ This helper allows you to customize Preload with the following configurations:
 
 📝 Set `'preload_only_pages_in_sitemaps'` to `true` if only pages that are listed in your sitemaps should be preloaded. If you set this to false, then pages not found in any sitemaps will be added to the cache Preload table when visited and cached, meaning they'll also be preloaded in future Preloads.
 
+📝  **This option uses a transient stored in your database. If your site has a very large number of pages or uses an internationalized domain that translates to a high number of characters, this option may halt preloading. If you notice this happens, either disable this option, or try using fewer sitemaps or sitemaps with fewer links.**
+
 <br>
 
  **3) Customize Preload Order**

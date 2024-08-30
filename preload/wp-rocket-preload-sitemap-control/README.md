@@ -1,4 +1,4 @@
-# WP Rocket | Customize Preload Sitemap 
+# WP Rocket | Preload Sitemap Control
 
 Customize WP Rocket's preload by modifying the sitemaps to be used.
 

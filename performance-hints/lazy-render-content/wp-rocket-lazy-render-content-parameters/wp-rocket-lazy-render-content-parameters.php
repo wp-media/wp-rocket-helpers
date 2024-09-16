@@ -21,7 +21,7 @@ defined( 'ABSPATH' ) or die();
  * Enable or disable Lazy Render Content (LRC) optimization.
  */
 function set_custom_rocket_lrc_optimization( $enable_lrc ) {
-    return true; // EDIT HERE Change to false to disable LRC.
+   // return false; // EDIT HERE uncomment disable LRC.
 }
 
 add_filter( 'rocket_lrc_optimization', __NAMESPACE__.'\set_custom_rocket_lrc_optimization' );

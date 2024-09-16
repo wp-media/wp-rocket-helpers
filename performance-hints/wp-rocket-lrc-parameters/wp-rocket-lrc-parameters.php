@@ -21,7 +21,7 @@ defined( 'ABSPATH' ) or die();
  * Enable or disable Lazy Render Content (LRC) optimization.
  */
 function set_custom_rocket_lrc_optimization( $enable_lrc ) {
-    return false; // EDIT HERE Change to false to disable LRC.
+    return true; // EDIT HERE Change to false to disable LRC.
 }
 
 add_filter( 'rocket_lrc_optimization', __NAMESPACE__.'\set_custom_rocket_lrc_optimization' );
@@ -34,7 +34,7 @@ add_filter( 'rocket_lrc_optimization', __NAMESPACE__.'\set_custom_rocket_lrc_opt
  * You can duplicate the line `$tags[] = "h1";` to add more tags
  */
 function set_custom_rocket_lrc_processed_tags( $tags ) {
-    // $tags[] = "h1"; // EDIT HERE and duplicate this line to add more tags.
+    // $tags[] = "h1"; // EDIT HERE uncomment and duplicate this line to add more tags.
     return $tags;
 }
 

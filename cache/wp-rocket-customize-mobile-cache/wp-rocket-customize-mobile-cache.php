@@ -59,3 +59,9 @@ add_filter( 'rocket_above_the_fold_optimization', function( $enabled ) {
     $options = get_option('wp_rocket_settings', []);
     return $enabled && isset($options['do_caching_mobile_files'], $options['cache_mobile']) && $options['do_caching_mobile_files'] == 1 && $options['cache_mobile'] == 1;
 } );
+
+// Unless both mobile cache options are enabled, disable rocket_lrc_optimization
+add_filter( 'rocket_lrc_optimization', function( $enabled ) {
+    $options = get_option('wp_rocket_settings', []);
+    return $enabled && isset($options['do_caching_mobile_files'], $options['cache_mobile']) && $options['do_caching_mobile_files'] == 1 && $options['cache_mobile'] == 1;
+} );

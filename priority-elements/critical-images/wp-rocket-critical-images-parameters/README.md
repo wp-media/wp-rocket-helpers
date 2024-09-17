@@ -1,18 +1,14 @@
-# WP Rocket | Performance Hints Parameters
+# WP Rocket | Critical Images Parameters
 <br>
 
-⚠ Only use this helper with WP Rocket versions 3.16.4 and later. If you're using WP Rocket version 3.16 through 3.16.3, please use the [WP Rocket | Critical Images Parameters](https://github.com/wp-media/wp-rocket-helpers/tree/master/_deprecated/wp-rocket-critical-images-parameters) plugin instead. If you're using a WP Rocket version prior to 3.16, neither of these helper plugins should be used.
+⚠ Only use this helper with WP Rocket versions 3.16.4 and later. If you're using WP Rocket version 3.16 through 3.16.3, please use the depcrecated version of the [WP Rocket | Critical Images Parameters](https://github.com/wp-media/wp-rocket-helpers/tree/master/_deprecated/wp-rocket-critical-images-parameters) plugin instead. If you're using a WP Rocket version prior to 3.16, neither of these helper plugins should be used.
 
 <br>
 
-### Changes the following Performance Hints Optimization parameters:
+### Changes the following Optimize Critical Images parameters:
 - Warmup links number
 - Width and height thresholds for both desktop and mobile
 - Delay before the beacon script is triggered
-
-<br>
-
-### Changes the following Optimize Critical Images parameters
 - Elements considered for the optimization
 - Cleanup interval
 
@@ -34,5 +30,5 @@
 <br>
 
 ### Last tested with:
-* WP Rocket 3.16.4
+* WP Rocket 3.17
 * WordPress 6.6.x

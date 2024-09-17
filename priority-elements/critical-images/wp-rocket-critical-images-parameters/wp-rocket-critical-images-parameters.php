@@ -1,7 +1,7 @@
 <?php
 /**
- * Plugin Name: WP Rocket | Performance Hints Parameters
- * Description: Customize the parameters applied to Performance Hints Optimization.
+ * Plugin Name: WP Rocket | Critical Images Parameters
+ * Description: Customize the parameters applied by Optimize Critical Images.
  * Author:      WP Rocket Support Team
  * Author URI:  http://wp-rocket.me/
  * License:     GNU General Public License v2 or later
@@ -10,31 +10,31 @@
  * Copyright SAS WP MEDIA 2024
  */
 
-namespace WP_Rocket\Helpers\performance_hints_parameters;
+namespace WP_Rocket\Helpers\priorityelements\criticalimages\critical_images_parameters;
 
 // Standard plugin security, keep this line in place.
 defined( 'ABSPATH' ) or die();
 
 
-if ( ! defined( 'WPROCKETHELPERS_PHO_PARAMETERS' ) ) {
-	define( 'WPROCKETHELPERS_PHO_PARAMETERS',
+if ( ! defined( 'WPROCKETHELPERS_OCI_PARAMETERS' ) ) {
+	define( 'WPROCKETHELPERS_OCI_PARAMETERS',
     [
 
       // EDIT HERE
 
       // Number of links fetched during warmup
-      'rocket_pho_warmup_links_number' => 10,
+      'rocket_oci_warmup_links_number' => 10,
 
-      // Height and height thresholds for Performance Hints Optimization
-      'rocket_pho_width_threshold_mobile' => 393,
-      'rocket_pho_width_threshold_desktop' => 1600,
-      'rocket_pho_height_threshold_mobile' => 830,
-      'rocket_pho_height_threshold_desktop' => 700,
+      // Height and height thresholds for Critical Images optimization
+      'rocket_oci_width_threshold_mobile' => 393,
+      'rocket_oci_width_threshold_desktop' => 1600,
+      'rocket_oci_height_threshold_mobile' => 830,
+      'rocket_oci_height_threshold_desktop' => 700,
 
       // The delay before the beacon script is triggered.
-      'rocket_pho_delay' => 500,
+      'rocket_oci_delay' => 500,
 
-      // Elements considered for Critical Images Optimization
+      // Elements considered for Critical Images optimization
       'rocket_atf_elements' => [
         'img',
         'video',
@@ -66,11 +66,11 @@ if ( ! defined( 'WPROCKETHELPERS_PHO_PARAMETERS' ) ) {
  *
  * @param int $limit number of links to return.
  */
-function change_rocket_pho_warmup_links_number( $limit ) {
+function change_rocket_oci_warmup_links_number( $limit ) {
 
-  return WPROCKETHELPERS_PHO_PARAMETERS['rocket_pho_warmup_links_number'];
+  return WPROCKETHELPERS_OCI_PARAMETERS['rocket_oci_warmup_links_number'];
 }
-add_filter( 'rocket_performance_hints_warmup_links_number', __NAMESPACE__ . '\change_rocket_pho_warmup_links_number', PHP_INT_MAX );
+add_filter( 'rocket_performance_hints_warmup_links_number', __NAMESPACE__ . '\change_rocket_oci_warmup_links_number', 9999 );
 
 
 
@@ -83,17 +83,17 @@ add_filter( 'rocket_performance_hints_warmup_links_number', __NAMESPACE__ . '\ch
  *
  * @return int The filtered width threshold.
  */
-function change_rocket_pho_width_threshold( $width_threshold, $is_mobile, $url ) {
+function change_rocket_oci_width_threshold( $width_threshold, $is_mobile, $url ) {
 
   if ( $is_mobile ) {
       // For mobile devices
-      return WPROCKETHELPERS_PHO_PARAMETERS['rocket_pho_width_threshold_mobile'];
+      return WPROCKETHELPERS_OCI_PARAMETERS['rocket_oci_width_threshold_mobile'];
   } else {
       // For other devices
-      return WPROCKETHELPERS_PHO_PARAMETERS['rocket_pho_width_threshold_desktop'];
+      return WPROCKETHELPERS_OCI_PARAMETERS['rocket_oci_width_threshold_desktop'];
   }
 }
-add_filter( 'rocket_performance_hints_optimization_width_threshold', __NAMESPACE__ . '\change_rocket_pho_width_threshold', PHP_INT_MAX, 3 );
+add_filter( 'rocket_performance_hints_optimization_width_threshold', __NAMESPACE__ . '\change_rocket_oci_width_threshold', 9999, 3 );
 
 
 
@@ -106,28 +106,28 @@ add_filter( 'rocket_performance_hints_optimization_width_threshold', __NAMESPACE
  *
  * @return int The filtered height threshold.
  */
-function change_rocket_pho_height_threshold( $height_threshold, $is_mobile, $url ) {
+function change_rocket_oci_height_threshold( $height_threshold, $is_mobile, $url ) {
 
   if ( $is_mobile ) {
       // For mobile devices
-      return WPROCKETHELPERS_PHO_PARAMETERS['rocket_pho_height_threshold_mobile'];
+      return WPROCKETHELPERS_OCI_PARAMETERS['rocket_oci_height_threshold_mobile'];
   } else {
       // For other devices
-      return WPROCKETHELPERS_PHO_PARAMETERS['rocket_pho_height_threshold_desktop'];
+      return WPROCKETHELPERS_OCI_PARAMETERS['rocket_oci_height_threshold_desktop'];
   }
 }
-add_filter( 'rocket_performance_hints_optimization_height_threshold', __NAMESPACE__ . '\change_rocket_pho_height_threshold', PHP_INT_MAX, 3 );
+add_filter( 'rocket_performance_hints_optimization_height_threshold', __NAMESPACE__ . '\change_rocket_oci_height_threshold', 9999, 3 );
 
 
 
 /**
  * Change the delay before the beacon script is triggered.
  */
-function change_rocket_pho_delay( $delay ) {
+function change_rocket_oci_delay( $delay ) {
 
-    return WPROCKETHELPERS_PHO_PARAMETERS['rocket_pho_delay'];
+    return WPROCKETHELPERS_OCI_PARAMETERS['rocket_oci_delay'];
 }
-add_filter('rocket_performance_hints_optimization_delay', __NAMESPACE__ . '\change_rocket_pho_delay', PHP_INT_MAX);
+add_filter('rocket_performance_hints_optimization_delay', __NAMESPACE__ . '\change_rocket_oci_delay', 9999);
 
 
 
@@ -138,9 +138,9 @@ add_filter('rocket_performance_hints_optimization_delay', __NAMESPACE__ . '\chan
  */
 function change_rocket_atf_elements( $elements ) {
 
-  return WPROCKETHELPERS_PHO_PARAMETERS['rocket_atf_elements'];
+  return WPROCKETHELPERS_OCI_PARAMETERS['rocket_atf_elements'];
 }
-add_filter( 'rocket_atf_elements', __NAMESPACE__ . '\change_rocket_atf_elements', PHP_INT_MAX );
+add_filter( 'rocket_atf_elements', __NAMESPACE__ . '\change_rocket_atf_elements', 9999 );
 
 
 
@@ -151,22 +151,22 @@ add_filter( 'rocket_atf_elements', __NAMESPACE__ . '\change_rocket_atf_elements'
  */
 function change_rocket_atf_cleanup_interval( $interval ) {
 
-  return WPROCKETHELPERS_PHO_PARAMETERS['rocket_atf_cleanup_interval'];
+  return WPROCKETHELPERS_OCI_PARAMETERS['rocket_atf_cleanup_interval'];
 }
-add_filter( 'rocket_atf_cleanup_interval', __NAMESPACE__ . '\change_rocket_atf_cleanup_interval', PHP_INT_MAX );
+add_filter( 'rocket_atf_cleanup_interval', __NAMESPACE__ . '\change_rocket_atf_cleanup_interval', 9999 );
 
 
 
-// Clear Performance Hints and RUCSS data
-function wpr_clear_pho_data() {
+// Clear Above the Fold and RUCSS data
+function wpr_clear_priority_elements_data() {
   
   if ( defined( 'WP_ROCKET_VERSION' ) ) {
     // access rocket's injection container
     $container = apply_filters( 'rocket_container', null );
 
-    // Get the Performance Hints subscriber from the container
+    // Get the Priority Elements subscriber from the container
     $perfhints_subscriber = $container->get( 'performance_hints_admin_subscriber' );
-    // call the Performance Hints truncate tables method.
+    // call the Priority Elements truncate tables method.
     $perfhints_subscriber->truncate_tables();
 
     // Get the rucss subscriber from the container
@@ -190,7 +190,7 @@ function wpr_clear_pho_data() {
 
 // Regenerate all cache and data on activation
 function prepare_things_upon_activation() {
-  wpr_clear_pho_data();
+  wpr_clear_priority_elements_data();
 }
 register_activation_hook(__FILE__, __NAMESPACE__ .'\prepare_things_upon_activation');
 
@@ -198,6 +198,6 @@ register_activation_hook(__FILE__, __NAMESPACE__ .'\prepare_things_upon_activati
 
 // Regenerate all cache and data on deactivation
 function deactivate_plugin() {
-  wpr_clear_pho_data();
+  wpr_clear_priority_elements_data();
 }
 register_deactivation_hook( __FILE__ , __NAMESPACE__ . '\deactivate_plugin' );

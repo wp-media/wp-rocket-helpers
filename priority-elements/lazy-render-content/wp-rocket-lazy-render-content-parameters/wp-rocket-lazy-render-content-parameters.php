@@ -16,29 +16,49 @@ namespace WP_Rocket\Helpers\lrc_parameters;
 defined( 'ABSPATH' ) or die();
 
 
-/**
- * DISABLE LRC	
- * Enable or disable Lazy Render Content (LRC) optimization.
- */
-function set_custom_rocket_lrc_optimization( $enable_lrc ) {
-   // return false; // EDIT HERE uncomment disable LRC.
+// /**
+//  * DISABLE LRC	
+//  * Enable or disable Lazy Render Content (LRC) optimization.
+//  */
+// function set_custom_rocket_lrc_optimization( $enable_lrc ) {
+//    // return false; // EDIT HERE uncomment disable LRC.
+// }
+
+// add_filter( 'rocket_lrc_optimization', __NAMESPACE__.'\set_custom_rocket_lrc_optimization' );
+
+
+
+if ( ! defined( 'WPROCKETHELPERS_LRC_PARAMETERS' ) ) {
+  define( 'WPROCKETHELPERS_LRC_PARAMETERS',
+    [
+
+      // EDIT HERE
+
+      // Threshold in pixels for content to be considered below the fold.
+      'rocket_lrc_threshold' => 1800,
+
+      // Max levels nested from the body element to still be eligible for lazy rendering.
+      'rocket_lrc_depth' => 2,
+
+      // Max number of processed tags (higher numbers process more elements but may risk performance issues).
+      'rocket_lrc_max_hashes' => 200,
+
+      // Specify elements eligible for Lazy Render Content optimization.
+      'rocket_lrc_processed_tags' => [
+				'DIV',
+				'MAIN',
+				'FOOTER',
+				'SECTION',
+				'ARTICLE',
+				'HEADER',
+      ],
+
+      // STOP EDITING
+
+    ]
+  );
 }
 
-add_filter( 'rocket_lrc_optimization', __NAMESPACE__.'\set_custom_rocket_lrc_optimization' );
-
-
-
-/**
- * ADDITIONAL TAGS
- * Add additional HTML tags to be processed by LRC.
- * You can duplicate the line `$tags[] = "h1";` to add more tags
- */
-function set_custom_rocket_lrc_processed_tags( $tags ) {
-    // $tags[] = "h1"; // EDIT HERE uncomment and duplicate this line to add more tags.
-    return $tags;
-}
-
-add_filter( 'rocket_lrc_processed_tags', __NAMESPACE__.'\set_custom_rocket_lrc_processed_tags' );
 
 
 
@@ -52,9 +72,8 @@ add_filter( 'rocket_lrc_processed_tags', __NAMESPACE__.'\set_custom_rocket_lrc_p
  */
 
 function set_custom_rocket_lrc_threshold( $threshold ) {
-    return 1800; // EDIT HERE to start lazy rendering before or after 
+    return WPROCKETHELPERS_LRC_PARAMETERS['rocket_lrc_threshold'];
 }
-
 add_filter( 'rocket_lrc_threshold', __NAMESPACE__.'\set_custom_rocket_lrc_threshold' );
 
 
@@ -67,7 +86,25 @@ add_filter( 'rocket_lrc_threshold', __NAMESPACE__.'\set_custom_rocket_lrc_thresh
  * Use with caution, as adjusting the depth value may affect performance based on the complexity of the page structure.
  */
 function set_custom_rocket_lrc_depth( $depth ) {
-    return 2; // EDIT HERE to adjust the depth of the LRC search.
+    return WPROCKETHELPERS_LRC_PARAMETERS['rocket_lrc_depth'];
 }
-
 add_filter( 'rocket_lrc_depth', __NAMESPACE__.'\set_custom_rocket_lrc_depth' );
+
+/**
+ * MAX HASHES
+ */
+function set_custom_rocket_lrc_max_hashes ( $hashes ) {
+  return WPROCKETHELPERS_LRC_PARAMETERS['rocket_lrc_max_hashes'];
+}
+add_filter( 'rocket_lrc_max_hashes', __NAMESPACE__.'\set_custom_rocket_lrc_max_hashes' );
+
+
+/**
+ * ADDITIONAL TAGS
+ * Add additional HTML tags to be processed by LRC.
+ * You can duplicate the line `$tags[] = "h1";` to add more tags
+ */
+function set_custom_rocket_lrc_processed_tags( $tags ) {
+  return WPROCKETHELPERS_LRC_PARAMETERS['rocket_lrc_processed_tags'];
+}
+add_filter( 'rocket_lrc_processed_tags', __NAMESPACE__.'\set_custom_rocket_lrc_processed_tags' );

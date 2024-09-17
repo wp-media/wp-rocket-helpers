@@ -158,15 +158,15 @@ add_filter( 'rocket_atf_cleanup_interval', __NAMESPACE__ . '\change_rocket_atf_c
 
 
 // Clear Above the Fold and RUCSS data
-function wpr_clear_pho_data() {
+function wpr_clear_priority_elements_data() {
   
   if ( defined( 'WP_ROCKET_VERSION' ) ) {
     // access rocket's injection container
     $container = apply_filters( 'rocket_container', null );
 
-    // Get the Performance Hints subscriber from the container
+    // Get the Priority Elements subscriber from the container
     $perfhints_subscriber = $container->get( 'performance_hints_admin_subscriber' );
-    // call the Performance Hints truncate tables method.
+    // call the Priority Elements truncate tables method.
     $perfhints_subscriber->truncate_tables();
 
     // Get the rucss subscriber from the container
@@ -190,7 +190,7 @@ function wpr_clear_pho_data() {
 
 // Regenerate all cache and data on activation
 function prepare_things_upon_activation() {
-  wpr_clear_pho_data();
+  wpr_clear_priority_elements_data();
 }
 register_activation_hook(__FILE__, __NAMESPACE__ .'\prepare_things_upon_activation');
 
@@ -198,6 +198,6 @@ register_activation_hook(__FILE__, __NAMESPACE__ .'\prepare_things_upon_activati
 
 // Regenerate all cache and data on deactivation
 function deactivate_plugin() {
-  wpr_clear_pho_data();
+  wpr_clear_priority_elements_data();
 }
 register_deactivation_hook( __FILE__ , __NAMESPACE__ . '\deactivate_plugin' );

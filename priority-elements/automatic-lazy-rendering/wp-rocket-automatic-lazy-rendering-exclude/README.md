@@ -3,11 +3,12 @@
 
 Allows to exclude specific elements from the Automatic Lazy Rendering optimization
 
-Edit **line 32**, replace `.site-footer` with the element you'd like to exclude from Automatic Lazy Rendering 
-You can use IDs, Classes, etc. If you want to exclude more than one element, you can separate with comma: 
+Edit **line 27**, replace `id="main-footer"` with the HTML of the element you'd like to exclude from Automatic Lazy Rendering 
+ This filter matches HTML, so you have to use a portion of the HTML you want to exclude.
+ If you want to exclude more elements you can uncomment and duplicate line 28: 
+ $exclusions[] = 'class="popup-builder"';
 
-	.element1, #element2, svg {...
-	
+
 Documentation:
 * [Automatic Lazy Rendering](https://docs.wp-rocket.me/article/1835-automatic-lazy-rendering)
 

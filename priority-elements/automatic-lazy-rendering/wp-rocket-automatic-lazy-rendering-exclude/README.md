@@ -6,7 +6,8 @@ Allows to exclude specific elements from the Automatic Lazy Rendering optimizati
 Edit **line 27**, replace `id="main-footer"` with the HTML of the element you'd like to exclude from Automatic Lazy Rendering 
  This filter matches HTML, so you have to use a portion of the HTML you want to exclude.
  If you want to exclude more elements you can uncomment and duplicate line 28: 
- $exclusions[] = 'class="popup-builder"';
+ 
+$exclusions[] = 'class="popup-builder"';
 
 
 Documentation:

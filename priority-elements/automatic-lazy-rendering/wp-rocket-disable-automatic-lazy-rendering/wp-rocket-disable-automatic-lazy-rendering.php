@@ -1,8 +1,8 @@
 <?php
 /**
- * Plugin Name: WP Rocket | Disable Lazy Render Content
- * Description: Disable Lazy Render Content Optimization.
- * Plugin URI:  https://docs.wp-rocket.me/article/1835-lazy-render-content#how-to-deactivate-this-feature
+ * Plugin Name: WP Rocket | Disable Automatic Lazy Rendering
+ * Description: Disable Automatic Lazy Rendering Optimization.
+ * Plugin URI:  https://docs.wp-rocket.me/article/1835-automatic-lazy-rendering#how-to-deactivate-this-feature
  * Author:      WP Rocket Support Team
  * Author URI:  http://wp-rocket.me/
  * License:     GNU General Public License v2 or later
@@ -11,12 +11,12 @@
  * Copyright SAS WP MEDIA 2024
  */
 
-namespace WP_Rocket\Helpers\disable_lazy_render_content;
+namespace WP_Rocket\Helpers\disable_automatic_lazy_render;
 
 // Standard plugin security, keep this line in place.
 defined( 'ABSPATH' ) or die();
 
-// Disable Lazy Render Content Optimization
+// Disable Automatic Lazy Rendering Optimization
 add_filter( 'rocket_lrc_optimization', '__return_false', 999 );
 
 

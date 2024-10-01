@@ -1,7 +1,7 @@
 <?php
 /**
- * Plugin Name: WP Rocket | Disable Lazy Render Content
- * Description: Disable Lazy Render Content Optimization.
+ * Plugin Name: WP Rocket | Disable Automatic Lazy Rendering
+ * Description: Disable Autromatic Lazy Rendering Optimization.
  * Plugin URI:  https://docs.wp-rocket.me/article/1835-lazy-render-content#how-to-deactivate-this-feature
  * Author:      WP Rocket Support Team
  * Author URI:  http://wp-rocket.me/

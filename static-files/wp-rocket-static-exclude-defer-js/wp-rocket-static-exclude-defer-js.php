@@ -22,15 +22,6 @@ if ( ! defined( 'WPRHELPERS_LJD_EXCLUDE_CONFIGS' ) ) {
 			// EDIT HERE
 
 			/**
-			 * Uncomment (remove //) and edit below line if need to specify only specific pages to apply exclusions.
-			 * To specify multiple pages, copy entire line into a new line and specify slug for each page.
-			 * If this is left empty, the Defer JS exclusions will be applied to all pages.
-			 */
-			'specific_pages_to_exclude' => [
-				// 'example-slug',
-			],
-
-			/**
 			 * Uncomment (remove //) and edit below line as needed to exclude files.
 			 * To exclude mupltiple files, copy entire line into a new line for each file you wish you exclude.
 			 */
@@ -47,6 +38,25 @@ if ( ! defined( 'WPRHELPERS_LJD_EXCLUDE_CONFIGS' ) ) {
 				// 'example-inline-exclusion',
 			],
 
+			/**
+			 * When set to true (default), exclusions will be applied for all pages.
+			 * Set to false if you would prefer to apply exclusions only to pages specified below.
+			 */
+			'exclude_from_all_pages' => true,
+
+			/**
+			 * Change to true if need to apply exclusions to the home page.
+			 */
+			'exclude_from_home' => false,
+
+			/**
+			 * Uncomment (remove //) and edit below line if need to specify only specific pages to apply exclusions.
+			 * To specify multiple pages, copy entire line into a new line and specify slug for each page.
+			 */
+			'specific_pages_to_exclude' => [
+				// 'example-slug',
+			],
+
 			// STOP EDITING
 		],
 	);
@@ -61,9 +71,10 @@ if ( ! defined( 'WPRHELPERS_LJD_EXCLUDE_CONFIGS' ) ) {
 function is_page_to_apply_exclusions( $excluded_slugs = array() ) {
 
 	if ( 
-		empty( $excluded_slugs )
-		|| ( function_exists( 'is_page' ) && is_page( $excluded_slugs ) ) 
-		|| ( function_exists( 'is_single' ) && is_single( $excluded_slugs ) )
+		WPRHELPERS_LJD_EXCLUDE_CONFIGS['exclude_from_all_pages']
+		|| ( WPRHELPERS_LJD_EXCLUDE_CONFIGS['exclude_from_home'] && function_exists( 'is_front_page' ) && is_front_page() )
+		|| ( !empty( $excluded_slugs ) && function_exists( 'is_page' ) && is_page( $excluded_slugs ) )
+		|| ( !empty( $excluded_slugs ) && function_exists( 'is_single' ) && is_single( $excluded_slugs ) )
 	) {
 		return true;
 	}

@@ -39,7 +39,7 @@ function wprocket_preload_add_custom_sitemaps ( $sitemaps ){
     
     return $sitemaps;
 }
-add_filter( 'rocket_sitemap_preload_list', 'wprocket_preload_add_custom_sitemaps', PHP_INT_MAX );
+add_filter( 'rocket_sitemap_preload_list', __NAMESPACE__ .'\wprocket_preload_add_custom_sitemaps', PHP_INT_MAX );
 */
 
 

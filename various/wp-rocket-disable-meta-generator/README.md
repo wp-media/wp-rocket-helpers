@@ -1,6 +1,6 @@
 # WP Rocket | Disable Meta Generator tag
 
-Disable the Meta Generator tag added by WP Rocket using the `rocket_disable_meta_generator` filter
+Disables the Meta Generator tag added by WP Rocket using the `rocket_disable_meta_generator` filter
 
 
 Documentation:

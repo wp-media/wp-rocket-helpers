@@ -24,8 +24,8 @@ defined( 'ABSPATH' ) or die();
  * @author Vasilis Manthos
  */
 function handle_cache_for_admins() {
-	// Only for admins.
-	if ( ! current_user_can( 'administrator' ) ) {
+	// Only for contributors and up.
+	if ( ! current_user_can( 'edit_posts' ) ) {
 		return false;
 	}
 

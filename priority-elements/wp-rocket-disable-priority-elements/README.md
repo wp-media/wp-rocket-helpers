@@ -1,20 +1,18 @@
-# WP Rocket | Clear Priority Elements of Specific Pages
+# WP Rocket | Disable Priority Elemments
 
+Disables the Priority Elements optimizations, which includes Automatic Lazy Rendering and Optimize Critical Images.
 
-### 📝Manual code edit required before use!
-Please find the comment (// EDIT HERE) showing where to make changes.
+**To reverse the changes,** simply deactivate the this helper plugin. 
 
-### Customize the following configs to your needs:
-- <code>clear_triggering_actions</code> - Speficy which actions should trigger clearing of Priority Elements.
-- <code>page_to_be_cleared_ids</code> - Specify the IDs of the pages whose Priority Elements should be cleared.
+**Documentation**: [Priority Elements](https://docs.wp-rocket.me/article/1841-priority-elements)
 
-### Documentation:
-https://docs.wp-rocket.me/article/1841-priority-elements
+**Includes**: 
+* [Automatic Lazy Rendering](https://docs.wp-rocket.me/article/1835-automatic-lazy-rendering)
+* [Optimize Critical Images](https://docs.wp-rocket.me/article/1816-optimize-critical-images)
 
-### To be used with:
-* Any setup where Priority Elements of specific pages need to be cleared when specific actions occur.
+**To be used with:**
+* Any setup where you want to disable Automatic Lazy Rendering and Optimize Critical Images.
 
-
-### Last tested with:
-* WP Rocket 3.17.2
-* WordPress 6.7.x
+**Last tested with:**
+* WP Rocket 3.18
+* WordPress 6.6.2

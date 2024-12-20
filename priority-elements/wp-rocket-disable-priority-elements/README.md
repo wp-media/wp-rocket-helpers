@@ -1,4 +1,4 @@
-# WP Rocket | Disable Priority Elemments
+# WP Rocket | Disable Priority Elements
 
 Disables the Priority Elements optimizations, which includes Automatic Lazy Rendering and Optimize Critical Images.
 
@@ -6,7 +6,7 @@ Disables the Priority Elements optimizations, which includes Automatic Lazy Rend
 
 **Documentation**: [Priority Elements](https://docs.wp-rocket.me/article/1841-priority-elements)
 
-**Includes**: 
+**Disables**: 
 * [Automatic Lazy Rendering](https://docs.wp-rocket.me/article/1835-automatic-lazy-rendering)
 * [Optimize Critical Images](https://docs.wp-rocket.me/article/1816-optimize-critical-images)
 

@@ -1,8 +1,8 @@
 <?php
 /**
  * Plugin Name: WP Rocket | Disable Priority Elements
- * Description: Disable Priority Elements, including Automatic Lazy Rendering and Optimize Critical Images.
- * Plugin URI:  https://docs.wp-rocket.me/article/1841-priority-elements
+ * Description: Disables the Priority Elements optimizations, which includes Automatic Lazy Rendering and Optimize Critical Images.
+ * Plugin URI:  https://docs.wp-rocket.me/article/1841-priority-elements#how-to-deactivate-this-feature
  * Author:      WP Rocket Support Team
  * Author URI:  http://wp-rocket.me/
  * License:     GNU General Public License v2 or later

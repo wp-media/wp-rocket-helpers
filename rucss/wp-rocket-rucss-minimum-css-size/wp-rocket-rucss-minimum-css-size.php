@@ -7,7 +7,7 @@
  * License:     GNU General Public License v2 or later
  * License URI: http://www.gnu.org/licenses/gpl-2.0.html
  *
- * Copyright SAS WP MEDIA 2023
+ * Copyright SAS WP MEDIA 2024
  */
 
 namespace WP_Rocket\Helpers\rucss\set_rucss_min_css_size;

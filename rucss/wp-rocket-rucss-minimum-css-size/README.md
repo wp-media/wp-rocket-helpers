@@ -1,6 +1,6 @@
 # WP Rocket | RUCSS Set Minimum Acceptable Size
 
-With this helper you can use the rocket_min_rucss_size filter to set the minimum size of Used CSS that is acceptable. 150 is the default.
+With this helper you can use the `rocket_min_rucss_size` filter to set the minimum size of Used CSS that is acceptable. 150 is the default.
 Some examples of limits: 
  
      2kb  = 2000
@@ -20,5 +20,5 @@ How to use it:
 * Clear Remove Unused CSS
 
 Last tested with:
-* WP Rocket 3.15.x
-* WordPress 6.4.x
+* WP Rocket 3.17.x
+* WordPress 6.7.x

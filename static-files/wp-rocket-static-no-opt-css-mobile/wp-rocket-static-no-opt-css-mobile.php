@@ -52,8 +52,11 @@ function maybe_no_optimized_css() {
 		return false;
 	}
 
-	// Disable Optimize CSS delivery.
+	// Disable Loads CSS asynchronously.
 	add_filter( 'pre_get_rocket_option_async_css', '__return_zero' );
+	
+	// Disable Remove Unused CSS.
+	add_filter( 'pre_get_rocket_option_remove_unused_css', '__return_zero' );
 
 	return true;
 }

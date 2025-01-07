@@ -31,7 +31,7 @@ function set_custom_varnish_ip( $ips ) {
     	}
 
 	$ips[] = '127.0.0.1';	// Enter your custom Varnish IP here
-	// $ips[] = '13.1.2.3';	// Add each new IP as a new line
+	// $ips[] = '13.1.2.3:23457';	// Add each new IP as a new line, you can add the port if needed
 	
 	return $ips;
 }

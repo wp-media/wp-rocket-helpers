@@ -1,6 +1,6 @@
 # WP Rocket | Clear the Used CSS of Related Posts
  
-**Tested in:** WP ROcket 3.18 
+**Tested in:** WP Rocket 3.18 
 ---
 
 ## Description

@@ -17,7 +17,6 @@ namespace WP_Rocket\Helpers\cache\no_cache_urls_regexes;
 defined( 'ABSPATH' ) or die();
 
 /**
- *
  * @param  array $uri  Paths to exclude from caching
  * @return array       Maybe modfied paths to exclude from caching
  */
@@ -39,3 +38,32 @@ function never_cache_urls( $uri ) {
 	return $uri;
 }
 add_filter( 'rocket_cache_reject_uri', __NAMESPACE__ . '\never_cache_urls' );
+
+
+/**
+ * Apply exclusions on activation and remove them upon deactivation.
+ */
+function prepare_on_activation() {
+
+	if ( ! function_exists( 'rocket_generate_config_file' ) ) {
+		return false;
+	}
+
+	// Regenerate WP Rocket config file.
+	rocket_generate_config_file();
+}
+register_activation_hook( __FILE__, __NAMESPACE__ . '\prepare_on_activation' );
+
+
+function cleanup_on_deactivation() {
+
+	if ( ! function_exists( 'rocket_generate_config_file' ) ) {
+		return false;
+	}
+
+	remove_filter( 'rocket_cache_reject_uri', __NAMESPACE__ . '\never_cache_urls' );
+
+	// Regenerate WP Rocket config file.
+	rocket_generate_config_file();
+}
+register_deactivation_hook( __FILE__, __NAMESPACE__ . '\cleanup_on_deactivation' );

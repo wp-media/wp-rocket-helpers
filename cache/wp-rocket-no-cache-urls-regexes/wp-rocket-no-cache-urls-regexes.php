@@ -8,7 +8,7 @@
  * License:     GNU General Public License v2 or later
  * License URI: http://www.gnu.org/licenses/gpl-2.0.html
  *
- * Copyright SAS WP MEDIA 2018
+ * Copyright SAS WP MEDIA 2024
  */
 
 namespace WP_Rocket\Helpers\cache\no_cache_urls_regexes;
@@ -23,17 +23,18 @@ defined( 'ABSPATH' ) or die();
  */
 function never_cache_urls( $uri ) {
 
+	// EDIT HERE:
 	/**
-	 * Sample expression, will match:
-	 * /sample/2018/
-	 * /sample/2018/01/
-	 * /sample/2018/01/02/
-	 * …but not:
-	 * /sample/
-	 * /sample/page/
-	 * /sample/2018-01/
+	 * Use any regex you'd like, but only target paths of pages (no https:// protocol or domain)
+	 * The regex must start with a / to work correctly
+	 * Apply as many regexes as you'd like by copying the line below.
 	 */
-	$uri[] = '/sample/[0-9]{4}?\/(.*)';
+	$uri[] = '/sample/page/[0-9]{4}?\/(.*)';
+	// STOP EDITING
+
+	foreach ( $uri as $uri_to_check_key => $uri_to_check_val ) {
+		$uri[$uri_to_check_key] = str_starts_with( $uri_to_check_val, '/' ) ? $uri_to_check_val : '/' . $uri_to_check_val;
+	}
 
 	return $uri;
 }

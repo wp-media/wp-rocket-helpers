@@ -9,3 +9,4 @@ Allows choosing a specific version to rollback WP Rocket. You will find the plug
 3.  **Go to  _WP Rocket settings > Export/import settings and version rollback_ **  and refresh the page, the version number should update accordingly to the selection.
 4. On WP Rocket settings page, you can click  **REINSTALL VERSION X.XX** so the rollback to that specific version is applied.
 5. You can choose and  **older or newer version**, the rollback will still work to update WP Rocket from older to newer.
+

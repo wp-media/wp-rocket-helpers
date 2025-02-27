@@ -134,6 +134,7 @@ function clear_cache_or_used_css() {
     $container = apply_filters( 'rocket_container', null );
     $subscriber = $container->get( 'rucss_admin_subscriber' );
     $subscriber->truncate_used_css();
+    rocket_clean_domain();
 
   } else {
 

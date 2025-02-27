@@ -15,96 +15,51 @@ namespace WP_Rocket\Helpers\rucss\rucss_modify_used_css;
 // Standard plugin security, keep this line in place.
 defined( 'ABSPATH' ) or die();
 
+/**
+ * Edit the items below to modify the Used CSS as needed
+ * See README.md file for detailed notes on how to use each:
+ * https://github.com/wp-media/wp-rocket-helpers/tree/master/rucss/wp-rocket-modify-used-css
+ */
 
-function get_configs() {
+define( 'WPRH_MOD_USED_CSS_PARAMS', [
 
-  $configs = [
+  // EDIT HERE:
+  'rocket_rucss_external_exclusions' => [
+    // '/wp-content/plugins/plugin-name/css/file.css',
+  ],
 
-    'rocket_rucss_external_exclusions' => [
+  'rocket_rucss_inline_content_exclusions' => [
+    // '.targetSelector',
+  ],
 
-      // Exclude specific CSS files from being removed by RUCSS
-      // Uses loose partial matching - if any part of the path the the file is matched, it will be excluded.
-      // Wildcards - (.*) - and other regex items do not work.
-      // Replace "/wp-content/plugins/plugin-name/css/file.css" with the path of the file you want to exclude.
-      // To exclude multiple files, copy the entire line into a new line for each stylesheet to exclude.
-      // CSS from excluded files that's used on the page is still added in the Used CSS.
+  'rocket_rucss_inline_atts_exclusions' => [
+    // 'data-example-1',
+    // 'data-example-2="the-value"',
+    // "data-example-3='the-value'",
+  ],
 
-      // UNCOMMENT BELOW AND EDIT TO USE THIS OPTION:
-      // '/wp-content/plugins/plugin-name/css/file.css',
-    ],
+  'rocket_rucss_skip_styles_with_attr' => [
+    // 'data-example-1',
+    // 'data-example-2="the-value"',
+    // "data-example-3='the-value'",
+  ],
 
-    'rocket_rucss_inline_content_exclusions' => [
+  'prepend_css' => [
+    // '.new_css{background:red;}',
+  ],
 
-      // Exclude all inline CSS contained in <style> element(s) by matching with any CSS selector contained within.
-      // Uses loose partial matching - if any part of the selector is matched, the inline <style> element will be excluded.
-      // Wildcards - (.*) - and other regex items do not work.
-      // Duplicate the line to apply exclusions for multiple inline <style> elements.
-      // CSS from excluded files that's used on the page is still added in the Used CSS.
+  'append_css' => [
+    // '.new_css{background:red;}',
+  ],
 
-      // UNCOMMENT BELOW AND EDIT TO USE THIS OPTION:
-      // '.targetSelector',
-    ],
+  'filter_css' => [
+    // '.to-be-removed{padding:10px};'
+    // =>
+    // '.to-be-inserted{padding:20px};',
+  ],
+  // STOP EDITING
 
-    'rocket_rucss_inline_atts_exclusions' => [
-
-      // Exclude CSS of entire inline <style> elements by matching attributes and (optionally) values applied to the <style> element.
-      // Uses loose partial matching - if any part of the attribute="value" string is matched, the <style> element is excluded.
-      // Wildcards - (.*) - and other regex items do not work.
-      // If single quotes are used in the HTML, use double quotes to surround the items below.
-
-      // UNCOMMENT BELOW AND EDIT TO USE THIS OPTION:
-      // 'data-example-1',
-      // 'data-example-2="the-value"',
-      // "data-example-3='the-value'",
-    ],
-
-    'rocket_rucss_skip_styles_with_attr' => [
-
-      // Removes all styles from external CSS files and/or inline <style> elements that have the target attributes and (optionally) values applied.
-      // Uses strict matching - Need to use either the full attribute name or full attribute="value" pair.
-      // Wildcards - (.*) - and other regex items do not work.
-      // Target external CSS files are removed from pages completely.
-      // Target inline <style> elements are emptied, but the tags still remain in the HTML (for potential compatibility with other scripts).
-      // No styles from any target elements are added to the Used CSS.
-      // If single quotes are used in the HTML, use double quotes to surround the items below.
-      // If the same element is targeted with this and any of the 3 filters above, the related styles will not be added to the Used CSS, but the styles will remain applied to the page as they were before RUCSS optimization. This can be useful to prevent styles from being applied twice to pages.
-
-      // UNCOMMENT BELOW AND EDIT TO USE THIS OPTION:
-      // 'data-example-1',
-      // 'data-example-2="the-value"',
-      // "data-example-3='the-value'",
-    ],
-
-    'prepend_css' => [
-
-      // Add the specified styles at the BEGINNING of the Used CSS
-
-      // UNCOMMENT BELOW AND EDIT TO USE THIS OPTION:
-      // '.new_css {background: red;}',
-    ],
-
-    'append_css' => [
-
-      // Add the specified styles at the END of the Used CSS
-
-      // UNCOMMENT BELOW AND EDIT TO USE THIS OPTION:
-      // '.new_css {background: red;}',
-    ],
-
-    'filter_css' => [
-
-      // Replaces the 'to-be-removed' value in the Used CSS with the 'to-be-inserted' value.
-      // To do multiple replacements, duplicate the entire 3 lines and customize for the other replacements.
-
-      // UNCOMMENT BELOW AND EDIT TO USE THIS OPTION:
-      // '.to-be-removed{padding:10px};'
-      // =>
-      // '.to-be-inserted{padding:20px};',
-    ],
-  ];
-
-  return $configs;
-}
+] );
 
 
 // DO NOT MAKE EDITS BELOW THIS LINE UNLESS YOU KNOW WHAT YOU'RE DOING
@@ -112,12 +67,13 @@ function get_configs() {
 
 function add_rucss_exclusions( $exclusions = array() ) {
 
-  $configs = get_configs();
   $current_filter = current_filter();
 
-  if ( empty( $configs[$current_filter] ) ) return $exclusions;
+  if ( empty( WPRH_MOD_USED_CSS_PARAMS[$current_filter] ) ) {
+    return $exclusions;
+  }
 
-  foreach ( $configs[$current_filter] as $exclusion ) {
+  foreach ( WPRH_MOD_USED_CSS_PARAMS[$current_filter] as $exclusion ) {
 	  $exclusions[] = $exclusion;
   }
 
@@ -134,29 +90,26 @@ add_filter( 'rocket_rucss_inline_content_exclusions', __NAMESPACE__ . '\add_rucs
 add_filter( 'rocket_rucss_inline_atts_exclusions', __NAMESPACE__ . '\add_rucss_exclusions' );
 
 // Completely remove styles with target attributes from page.
-// Styles will not be in RUCSS and also removed from their original location.
 add_filter( 'rocket_rucss_skip_styles_with_attr', __NAMESPACE__ . '\add_rucss_exclusions' );
 
 
 // Modify Used CSS by prepending, appending, or filtering values, depending on configs
 function filter_css( $css ) {
 
-  $configs = get_configs();
-
-  if ( ! empty( $configs['prepend_css'] ) ) {
-    foreach ( $configs['prepend_css'] as $prepend_css ) {
+  if ( ! empty( WPRH_MOD_USED_CSS_PARAMS['prepend_css'] ) ) {
+    foreach ( WPRH_MOD_USED_CSS_PARAMS['prepend_css'] as $prepend_css ) {
       $css = $prepend_css . $css;
     }
   }
 
-  if ( ! empty( $configs['append_css'] ) ) {
-    foreach ( $configs['append_css'] as $append_css ) {
+  if ( ! empty( WPRH_MOD_USED_CSS_PARAMS['append_css'] ) ) {
+    foreach ( WPRH_MOD_USED_CSS_PARAMS['append_css'] as $append_css ) {
       $css = $css . $append_css;
     }
   }
 
-  if ( ! empty( $configs['filter_css'] ) ) {
-    foreach ( $configs['filter_css'] as $to_be_removed => $to_be_inserted ) {
+  if ( ! empty( WPRH_MOD_USED_CSS_PARAMS['filter_css'] ) ) {
+    foreach ( WPRH_MOD_USED_CSS_PARAMS['filter_css'] as $to_be_removed => $to_be_inserted ) {
       $css = str_replace( $to_be_removed, $to_be_inserted, $css );
     }
   }
@@ -164,3 +117,29 @@ function filter_css( $css ) {
   return $css;
 }
 add_filter( 'rocket_usedcss_content', __NAMESPACE__ . '\filter_css' );
+
+
+/**
+ * Clear cache or Used CSS (whichever is needed) on activation and deactivation.
+ */
+function clear_cache_or_used_css() {
+
+	if ( ! function_exists( 'rocket_clean_domain' ) ) {
+		return false;
+	}
+
+  if ( ! empty( WPRH_MOD_USED_CSS_PARAMS['rocket_rucss_skip_styles_with_attr'] ) ) {
+
+    // Clear Used CSS
+    $container = apply_filters( 'rocket_container', null );
+    $subscriber = $container->get( 'rucss_admin_subscriber' );
+    $subscriber->truncate_used_css();
+
+  } else {
+
+    // Only need to clear cache
+    rocket_clean_domain();
+  }
+}
+register_activation_hook( __FILE__, __NAMESPACE__ . '\clear_cache_or_used_css' );
+register_deactivation_hook( __FILE__, __NAMESPACE__ . '\clear_cache_or_used_css' );

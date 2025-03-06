@@ -3,7 +3,8 @@
 Disables the preloading of fonts (doc: [Using Remove Unused CSS with Preload Fonts](https://docs.wp-rocket.me/article/1529-remove-unused-css#preload-fonts)) that are found in the used CSS when the **Remove Unused CSS** feature is used.
 
 On plugin activation/deactivation:
+* the used CSS is cleared
 * the cache is cleared
-
+* preload is initiated if the respective option is activated
 
 

@@ -24,19 +24,37 @@ add_action( 'init', function(){
 });
 
 /*
- * Clear cache
+ * Clear used CSS and the cache and run preloading.
  */
- function only_clear_cache(){
-
+function clear_used_css_and_cache(){
 	if( ! is_rucss_enabled() ){
 		return;
 	}
 
 	
 	if( function_exists( 'rocket_clean_domain' ) ){
-		rocket_clean_domain(); 
+		$container = apply_filters( 'rocket_container', null );
+		$rucss_subscriber = $container->get('rucss_admin_subscriber');
+		$rucss_subscriber->truncate_used_css(); // Clear the used CSS.
+		
+		rocket_clean_domain(); // Clear the cache.
+		
+		preload_cache(); // Preload the cache.
 	}
+}
 
+/*
+ * Preloads WP Rocket's cache.
+ */
+function preload_cache(){
+	if ( get_rocket_option( 'sitemap_preload' ) ) {
+			run_rocket_sitemap_preload();// Preload the sitemap if sitemap preloading is enabled.
+			return;
+	}
+		
+	if( get_rocket_option( 'manual_preload' ) ){
+		run_rocket_bot(); // Preload the homepage cache if preload is enabled but sitemap preloading is disabled.
+	}
 }
 
 /*
@@ -57,6 +75,6 @@ function is_rucss_enabled(){
 	return $is_rucss_enabled;
 }
 
+register_activation_hook( __FILE__ , __NAMESPACE__ . '\clear_used_css_and_cache' );
 
-
-register_deactivation_hook( __FILE__ , __NAMESPACE__ . '\only_clear_cache' );
+register_deactivation_hook( __FILE__ , __NAMESPACE__ . '\clear_used_css_and_cache' );

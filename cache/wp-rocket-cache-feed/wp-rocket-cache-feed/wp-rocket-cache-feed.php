@@ -46,6 +46,8 @@ function wp_rocket_cache_feed_maybe_deactivate() {
 }
 add_action( 'admin_init', 'wp_rocket_cache_feed_maybe_deactivate' );
 
+
+
 /**
  * Run when plugin is activated
  *
@@ -62,6 +64,8 @@ function wp_rocket_cache_feed_activate() {
 	flush_rocket_htaccess();
 }
 register_activation_hook( __FILE__, 'wp_rocket_cache_feed_activate' );
+
+add_filter( 'rocket_preload_load_custom_urls', 'wp_rocket_preload_feeds' );
 
 /**
  * Run when plugin is deactivated

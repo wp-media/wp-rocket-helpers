@@ -31,8 +31,8 @@ if ( ! defined( 'WPROCKETHELPERS_OCI_PARAMETERS' ) ) {
       'rocket_oci_height_threshold_mobile' => 830,
       'rocket_oci_height_threshold_desktop' => 700,
 
-      // The delay before the beacon script is triggered.
-      'rocket_oci_delay' => 500,
+      // The delay before the beacon script is triggered. Default is 500.
+      'rocket_oci_delay' => 1000,
 
       // Elements considered for Critical Images optimization
       'rocket_atf_elements' => [

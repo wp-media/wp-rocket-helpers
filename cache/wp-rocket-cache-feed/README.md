@@ -3,5 +3,5 @@
 This add-on will allow caching of WordPress RSS Feeds.
 
 Last tested with:
-* WP Rocket 3.1.x
-* WordPress 4.9.x
+* WP Rocket 3.18.x
+* WordPress 6.8.x

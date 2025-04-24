@@ -80,3 +80,13 @@ function wp_rocket_cache_feed_deactivate() {
 	rocket_clean_home_feeds();
 }
 register_deactivation_hook( __FILE__, 'wp_rocket_cache_feed_deactivate' );
+
+
+/**
+ * Disable optimizations for feeds
+ */
+add_action( 'template_redirect', function() {
+    if ( is_feed() && ! defined( 'DONOTROCKETOPTIMIZE' ) ) {
+        define( 'DONOTROCKETOPTIMIZE', true );
+    }
+});

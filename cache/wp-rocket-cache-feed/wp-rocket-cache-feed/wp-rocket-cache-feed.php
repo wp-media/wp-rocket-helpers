@@ -84,6 +84,9 @@ register_deactivation_hook( __FILE__, 'wp_rocket_cache_feed_deactivate' );
 
 /**
  * Disable optimizations for feeds
+ *
+ * @author Alfonso Catron
+ * @since 1.1
  */
 add_action( 'template_redirect', function() {
     if ( is_feed() && ! defined( 'DONOTROCKETOPTIMIZE' ) ) {

@@ -21,6 +21,7 @@ You can replace or extend the conditions in line 39 and 40 to target different t
 Combine multiple conditions as needed to match your specific use case.
 
 Documentation:
+* [Disable LazyLoad on specific images](https://docs.wp-rocket.me/article/15-disable-lazy-load-on-specific-images)
 * [LazyLoad for images](https://docs.wp-rocket.me/article/1141-lazyload-for-images)
 
 To be used:

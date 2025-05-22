@@ -41,7 +41,7 @@ This plugin changes:
 
 <br>
 
-- RUCSS CRON INTERVAL - `rocket_sass_pending_jobs_cron_interval`
+- RUCSS CRON INTERVAL - `rocket_saas_pending_jobs_cron_interval`
   - Sets the desired cron interval in seconds. Default is 60, this helper sets it to 120 seconds.
   - It is the pause that will be applied between processing batches. 
   - Setting a higher value allows the server to have more time to rest between processing batches.

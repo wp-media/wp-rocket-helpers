@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: WP Rocket | Disable Priority Elements
- * Description: Disables the Priority Elements optimizations, which includes Automatic Lazy Rendering and Optimize Critical Images.
+ * Description: Disables the Priority Elements optimizations, which includes Automatic Lazy Rendering, Optimize Critical Images, and Preconnect to External Domains.
  * Plugin URI:  https://docs.wp-rocket.me/article/1841-priority-elements#how-to-deactivate-this-feature
  * Author:      WP Rocket Support Team
  * Author URI:  http://wp-rocket.me/
@@ -21,6 +21,10 @@ add_filter( 'rocket_above_the_fold_optimization', '__return_false', 999 );
 
 // Disable Automatic Lazy Render
 add_filter( 'rocket_lrc_optimization', '__return_false', 999 );
+
+// Disable Preconnect to External Domains
+add_filter( 'rocket_preconnect_external_domains_optimization', '__return_false', 999 );
+
 
 // Clear cache on activation 
 register_activation_hook(__FILE__, __NAMESPACE__ .'\prepare_things_upon_activation');

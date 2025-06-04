@@ -19,6 +19,7 @@ Documentation:
 * [Mobile cache](https://docs.wp-rocket.me/article/708-mobile-cache)
 * [Optimize Critical Images](https://docs.wp-rocket.me/article/1816-optimize-critical-images)
 * [Lazy Render Content](https://docs.wp-rocket.me/article/1835-lazy-render-content)
+* [Preconnect to External Domains](https://docs.wp-rocket.me/article/1835-lazy-render-content)
 
 To be used with:
 * Any setup where you want to disable the Separate Cache Files for mobile devices, or the Mobile Cache altogheter. 

@@ -2,7 +2,7 @@
 /**
  * Plugin Name: WP Rocket | Disable Preconnect to external domains
  * Description: Disables WP Rocket's Preconnect to external domains.
- * Plugin URI:  https://docs.wp-rocket.me/article/1816-optimize-critical-images#how-to-deactivate-this-feature
+ * Plugin URI:  https://docs.wp-rocket.me/article/1869-preconnect-to-external-domains#how-to-deactivate-this-feature
  * Author:      WP Rocket Support Team
  * Author URI:  http://wp-rocket.me/
  * License:     GNU General Public License v2 or later

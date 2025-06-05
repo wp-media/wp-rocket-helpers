@@ -11,8 +11,8 @@ To be used with:
 * Any setup where you want to disable the Critical Images Optimization.
 
 Last tested with:
-* WP Rocket 3.16
-* WordPress 6.5.3
+* WP Rocket 3.19
+* WordPress 6.8
 
 
 

@@ -3,7 +3,9 @@
 
 This helper plugin lets you exclude specific fonts from being preloaded by WP Rocket's Fonts Preload optimization: [WP Rocket: Preload Fonts](https://docs.wp-rocket.me/article/1317-preload-fonts)
 
-## How to edit
+📝&#160;&#160;**Manual code edit required before use!**
+
+**How to use it**
 To define the fonts you want to exclude:
 
 1. Open the plugin file.
@@ -27,6 +29,6 @@ You can uncomment one of the examples or add one, per font you want to exclude:
 1. Just deactivate the plugin from the Plugins menu. The exclusions will no longer apply.
 2. Clear the Priority Elements again
 
-## Last tested with:
-WP Rocket 3.19
-WordPress 6.8
+**Last tested with**
+* WP Rocket 3.19
+* WordPress 6.8

@@ -23,10 +23,9 @@ defined( 'ABSPATH' ) or die();
  */
 function wpr_exclude_fonts_from_preload( array $exclusions ): array {
     // START editing — add full or partial font filenames to exclude
+    
     //$exclusions[] = 'OpenSans.woff2';
     //$exclusions[] = 'my-font-subset.woff';
-    $exclusions[] = 'Manrope-VariableFont_wght.woff2';
-
 
     // END editing
     return $exclusions;

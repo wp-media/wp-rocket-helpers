@@ -5,7 +5,7 @@ Disables the  Disable Preconnect to external domains and clears cache so pages a
 **To reverse the changes,** simply deactivate the this helper plugin. 
 
 Documentation:
-* [Disable Preconnect to external domains](https://docs.wp-rocket.me/article/1816-optimize-critical-images)
+* [Disable Preconnect to external domains](https://docs.wp-rocket.me/article/1869-preconnect-to-external-domains)
 
 To be used with:
 * Any setup where you want to disable the Critical Images Optimization.

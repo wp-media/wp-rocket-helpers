@@ -26,7 +26,7 @@ To be used with:
 
 Last tested with:
 * WP Rocket 3.19
-* WordPress 6.6.2
+* WordPress 6.8
 
 
 

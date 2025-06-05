@@ -9,11 +9,11 @@ Disables the Priority Elements optimizations, which includes Automatic Lazy Rend
 **Disables**: 
 * [Automatic Lazy Rendering](https://docs.wp-rocket.me/article/1835-automatic-lazy-rendering)
 * [Optimize Critical Images](https://docs.wp-rocket.me/article/1816-optimize-critical-images)
-* [Preconnect to External Domains](https://docs.wp-rocket.me/article/1816-optimize-critical-images)
+* [Preconnect to External Domains](https://docs.wp-rocket.me/article/1869-preconnect-to-external-domains)
 
 **To be used with:**
 * Any setup where you want to disable Automatic Lazy Rendering and Optimize Critical Images.
 
 **Last tested with:**
-* WP Rocket 3.18
-* WordPress 6.6.2
+* WP Rocket 3.19
+* WordPress 6.8

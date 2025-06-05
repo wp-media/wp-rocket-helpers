@@ -5,7 +5,9 @@ This helper plugin lets you exclude specific fonts from being preloaded by WP Ro
 
 📝&#160;&#160;**Manual code edit required before use!**
 
-**How to use it**
+
+**How to use**
+
 To define the fonts you want to exclude:
 
 1. Open the plugin file.

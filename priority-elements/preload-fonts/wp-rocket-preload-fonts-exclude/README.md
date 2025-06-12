@@ -19,7 +19,7 @@ To exclude fonts :
 // $exclusions[] = 'my-font-subset.woff';
 // END editing
 ```
-You can uncomment one of the examples or add one, per font you want to exclude:
+You should add one line per font filename you want to exclude:
 
      $exclusions[] = 'your-font-file.woff2'; 
 
@@ -31,7 +31,7 @@ You can uncomment one of the examples or add one, per font you want to exclude:
 //$extensions[] = 'otf';  
 // END editing
 ```
-You can uncomment one of the examples or add one, per font extension you want to exclude:
+You should add one line per font extension you want to exclude:
 
      $extensions[] = 'otf'; 
      

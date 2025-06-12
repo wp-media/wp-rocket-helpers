@@ -16,7 +16,7 @@ namespace WP_Rocket\Helpers\exclude_fonts_preload;
 defined( 'ABSPATH' ) or die();
 
 /**
- * Exclude specific fonts from WP Rocket preload
+ * Exclude specific fonts from WP Rocket Fonts preload
  *
  * @param array $exclusions Fonts to exclude (e.g. ['font.woff2', 'OpenSans.woff']).
  * @return array
@@ -30,5 +30,22 @@ function wpr_exclude_fonts_from_preload( array $exclusions ): array {
     // END editing
     return $exclusions;
 }
-
 add_filter( 'rocket_preload_fonts_excluded_fonts', __NAMESPACE__ . '\wpr_exclude_fonts_from_preload' );
+
+
+/**
+ * Exclude specific font extensions from WP Rocket Fonts preload
+ *
+ * @param array $extensions Fonts to exclude (e.g. ['eot', 'otf']).
+ * @return array
+ */
+function wpr_exclude_font_extensions_from_preload( array $extensions ): array {
+    // START editing — add font extensions
+    
+    //$extensions[] = 'eot'; 
+    //$extensions[] = 'otf'; 
+
+    // END editing
+    return $extensions;
+}
+add_filter( 'rocket_preload_fonts_processed_extensions', __NAMESPACE__ . '\wpr_exclude_font_extensions_from_preload' );

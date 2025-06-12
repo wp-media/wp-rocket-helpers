@@ -44,7 +44,7 @@ function wpr_exclude_font_extensions_from_preload( array $extensions ): array {
     
     //$extensions[] = 'eot'; 
     //$extensions[] = 'otf'; 
-
+    
     // END editing
     return $extensions;
 }

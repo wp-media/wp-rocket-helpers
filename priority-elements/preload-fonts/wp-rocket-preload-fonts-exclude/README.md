@@ -8,13 +8,13 @@ This helper plugin lets you exclude specific fonts from being preloaded by WP Ro
 
 **How to use**
 
-To define the fonts you want to exclude:
+To exclude fonts :
 
 1. Open the plugin file.
-2. Find this section:
+2. If you want to exclude filenames, find this section:
 
 ```php
-// START editing — add full or partial font filenames to exclude as in the examples below
+// START editing — add full or partial font filenames to exclude
 // $exclusions[] = 'OpenSans.woff2';
 // $exclusions[] = 'my-font-subset.woff';
 // END editing
@@ -23,9 +23,24 @@ You can uncomment one of the examples or add one, per font you want to exclude:
 
      $exclusions[] = 'your-font-file.woff2'; 
 
-3. Save the file, zip it
-4. Upload the plugin to your WordPress site and activate it   
-5. Clear the Priority Elements, WP Rocket will automatically apply the exclusions on the regeneration.
+3. If you want to exclude fonts by extension, find this section instead:
+
+```php
+// START editing — add font extensions
+//$extensions[] = 'eot'; 
+//$extensions[] = 'otf';  
+// END editing
+```
+You can uncomment one of the examples or add one, per font extension you want to exclude:
+
+     $extensions[] = 'otf'; 
+     
+4. Save the file, zip it
+5. Upload the plugin to your WordPress site and activate it   
+6. Clear the Priority Elements, WP Rocket will automatically apply the exclusions on the regeneration.
+
+
+
 
 **To undo the changes**
 1. Just deactivate the plugin from the Plugins menu. The exclusions will no longer apply.

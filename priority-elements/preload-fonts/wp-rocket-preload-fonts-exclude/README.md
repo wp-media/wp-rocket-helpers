@@ -11,7 +11,7 @@ This helper plugin lets you exclude specific fonts from being preloaded by WP Ro
 To exclude fonts :
 
 1. Open the plugin file.
-2. If you want to exclude filenames, find this section:
+2. If you want to **exclude fonts by filename**, find this section:
 
 ```php
 // START editing — add full or partial font filenames to exclude
@@ -23,7 +23,7 @@ You should add one line per font filename you want to exclude:
 
      $exclusions[] = 'your-font-file.woff2'; 
 
-3. If you want to exclude fonts by extension, find this section instead:
+3. If you want to **exclude fonts by extension**, find this section instead:
 
 ```php
 // START editing — add font extensions

@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: WP Rocket | Exclude Fonts from Preload Fonts
- * Description: Filter font detection from WP Rocket's Fonts Preload feature using the font name or extension.
+ * Description: Exclude specific fonts from WP Rocket's Fonts Preload feature using the `rocket_preload_fonts_excluded_fonts` filter.
  * Author:      WP Rocket Support Team
  * Author URI:  https://wp-rocket.me/
  * License:     GNU General Public License v2 or later
@@ -33,25 +33,24 @@ add_filter( 'rocket_preload_fonts_excluded_fonts', __NAMESPACE__ . '\wpr_exclude
 
 
 function wpr_filter_font_extensions_from_preload( array $extensions ): array {
-    // Use this to remove or add font extensions. By default we detect: 'woff2', 'woff', 'ttf' 
-    
+
+    $extensions = [];
+
     // START editing
+    
+    // These are default extensions preloaded by WP Rocket.
+    // To REMOVE you can comment these lines
+    
+    $extensions[] = 'woff2';
+    $extensions[] = 'woff';
+    $extensions[] = 'ttf';
 
-    // Remove these
-    //$remove[] = 'ttf';
-    //$remove[] = 'woff2';
+    // To ADD you can uncomment these
+    //$extensions[] = 'otf';
+    //$extensions[] = 'eot';
 
-    // Add these
-    //$add[] = 'otf';
-    //$add[] = 'eot';
+    // END edit
 
-    // END editing
-
-    $extensions = array_filter( $extensions, function( $ext ) use ( $remove ) {
-        return ! in_array( $ext, $remove, true );
-    });
-
-    $extensions = array_merge( $extensions, $add );
 
     return array_unique( $extensions );
 }

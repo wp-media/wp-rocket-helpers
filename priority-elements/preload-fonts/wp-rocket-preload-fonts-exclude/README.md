@@ -23,7 +23,7 @@ You should add one line per font filename you want to exclude:
 
      $exclusions[] = 'your-font-file.woff2'; 
 
-3. If you want to **exclude fonts by extension**, find this section instead:
+3. If you want to **manipulate the fonts by their extension**, find this section instead:
 
 ```php
 // START editing
@@ -44,6 +44,7 @@ You should add one line per font filename you want to exclude:
 You should comment the active extensions if you want to exclude them from preload, or add new lines if you want to preload more extensions.
 
 To exclude: 
+
      //$extensions[] = 'ttf';
 
 To add a new one:

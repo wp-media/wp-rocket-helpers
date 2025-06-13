@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: WP Rocket | Exclude Fonts from Preload Fonts
- * Description: Exclude specific fonts from WP Rocket's Fonts Preload feature using the `rocket_preload_fonts_excluded_fonts` filter.
+ * Description: Filter font detection from WP Rocket's Fonts Preload feature using the font name or extension.
  * Author:      WP Rocket Support Team
  * Author URI:  https://wp-rocket.me/
  * License:     GNU General Public License v2 or later
@@ -25,7 +25,6 @@ function wpr_exclude_fonts_from_preload( array $exclusions ): array {
     // START editing — add full or partial font filenames to exclude
     
     //$exclusions[] = 'OpenSans.woff2';
-    //$exclusions[] = 'my-font-subset.woff';
 
     // END editing
     return $exclusions;
@@ -33,19 +32,28 @@ function wpr_exclude_fonts_from_preload( array $exclusions ): array {
 add_filter( 'rocket_preload_fonts_excluded_fonts', __NAMESPACE__ . '\wpr_exclude_fonts_from_preload' );
 
 
-/**
- * Exclude specific font extensions from WP Rocket Fonts preload
- *
- * @param array $extensions Fonts to exclude (e.g. ['eot', 'otf']).
- * @return array
- */
-function wpr_exclude_font_extensions_from_preload( array $extensions ): array {
-    // START editing — add font extensions
+function wpr_filter_font_extensions_from_preload( array $extensions ): array {
+    // Use this to remove or add font extensions. By default we detect: 'woff2', 'woff', 'ttf' 
     
-    //$extensions[] = 'eot'; 
-    //$extensions[] = 'otf'; 
-    
+    // START editing
+
+    // Remove these
+    //$remove[] = 'ttf';
+    //$remove[] = 'woff2';
+
+    // Add these
+    //$add[] = 'otf';
+    //$add[] = 'eot';
+
     // END editing
-    return $extensions;
+
+    $extensions = array_filter( $extensions, function( $ext ) use ( $remove ) {
+        return ! in_array( $ext, $remove, true );
+    });
+
+    $extensions = array_merge( $extensions, $add );
+
+    return array_unique( $extensions );
 }
-add_filter( 'rocket_preload_fonts_processed_extensions', __NAMESPACE__ . '\wpr_exclude_font_extensions_from_preload' );
+
+add_filter( 'rocket_preload_fonts_processed_extensions', __NAMESPACE__ . '\wpr_filter_font_extensions_from_preload' );

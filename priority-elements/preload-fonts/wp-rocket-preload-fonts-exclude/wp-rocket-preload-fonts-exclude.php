@@ -51,7 +51,6 @@ function wpr_filter_font_extensions_from_preload( array $extensions ): array {
 
     // END edit
 
-
     return array_unique( $extensions );
 }
 

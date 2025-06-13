@@ -48,8 +48,9 @@ To exclude:
      //$extensions[] = 'ttf';
 
 To add a new one:
+
      $extensions[] = 'otf'; 
-     
+
 4. Save the file, zip it
 5. Upload the plugin to your WordPress site and activate it   
 6. Clear the Priority Elements, WP Rocket will automatically apply the exclusions on the regeneration.

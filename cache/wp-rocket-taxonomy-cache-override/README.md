@@ -41,7 +41,8 @@ The plugin accesses WP Rocket's dependency injection container through the `rock
 3. No configuration needed - the plugin works automatically  
   
 ## Compatibility  
-  
+⚠️&#160;&#160; **Not compatible with the latest WP Rocket version 3.19.2 and above !**
+
 This plugin is designed to work with WP Rocket's internal architecture and may need updates if WP Rocket's TaxonomySubscriber implementation changes.  
   
 Last tested with:  

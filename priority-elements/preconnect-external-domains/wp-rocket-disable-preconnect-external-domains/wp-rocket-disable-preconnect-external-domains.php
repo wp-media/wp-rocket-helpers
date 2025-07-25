@@ -11,7 +11,7 @@
  * Copyright SAS WP MEDIA 2025
  */
 
-namespace WP_Rocket\Helpers\disable_critical_images_optimization;
+namespace WP_Rocket\Helpers\disable_preconnect_to_external_domains;
 
 // Standard plugin security, keep this line in place.
 defined( 'ABSPATH' ) or die();

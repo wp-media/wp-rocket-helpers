@@ -35,10 +35,17 @@ add_filter( 'rocket_sitemap_preload_list', function( $sitemaps ){
 // these will still be cached after a visit, but not preloaded 
 add_filter( 'rocket_preload_exclude_urls', function( $regexes, $url ) {
     $url = untrailingslashit( $url );
+
+    // Avoid null fatals and parse issues
+    $list = rocket_helper_get_sitemap_urls();
+    if ( ! is_array( $list ) ) {
+        $list = [];
+    }
+
     $sitemap_urls = array_map( function( $sitemap_url ){
         return untrailingslashit( $sitemap_url );
-    }, rocket_helper_get_sitemap_urls() );
- 
+    }, $list );
+
     if ( ! in_array( $url, $sitemap_urls, true ) ) {
         $regexes[] = $url;
     }

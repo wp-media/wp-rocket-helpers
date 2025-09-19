@@ -1,6 +1,6 @@
 # WP Rocket | Logging Cache Clearing
 
-Creates two log files that record full and partial cache clears.
+Creates three log files that record full and partial cache clears.
 
 The files 01-full-cache-clear.txt, 02-partial-cache-clear.txt and 03-rocket_clean_files_log.txt are created in the WordPress installation directory.
 

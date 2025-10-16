@@ -27,7 +27,8 @@ function add_mandatory_cookies( array $cookies ) {
 
 Replace `'mandatory_cookie'` with your own cookie name(s).  
 You can add more cookies by duplicating the `$cookies[] = 'cookie_name';` line.
-If you don't need mandatory cookies, you can comment line 27.
+
+Comment this line if you don't need mandatory cookies.
 
 ### **Dynamic Cookies**
 Then locate:
@@ -42,7 +43,8 @@ function add_dynamic_cookies( array $cookies ) {
 
 Replace `'dynamic_cookie'` with your own cookie name(s).  
 You can add multiple cookies in the same way.
-If you don't need dynamic cookies, you can comment line 40.
+
+Comment this line if you don't need dynamic cookies.
 
 
 ---

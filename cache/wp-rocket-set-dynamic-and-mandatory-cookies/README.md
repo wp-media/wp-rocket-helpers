@@ -6,8 +6,7 @@ Adds **Mandatory** and/or **Dynamic** cookies to WP Rocket’s configuration.
 - **Mandatory cookies** prevent the cache from being served until the specified cookie(s) exist in the visitor’s browser. (e.g. geolocation detection, language setting, etc)
 - **Dynamic cookies** create separate cache files depending on the value of each specified cookie. (e.g. geolocation, currency, preferences).
 
-📘 **Documentation:**  
-[Create Different Cache Files with Dynamic and Mandatory Cookies](https://docs.wp-rocket.me/article/1313-create-different-cache-files-with-dynamic-and-mandatory-cookies)
+**Documentation:** [Create Different Cache Files with Dynamic and Mandatory Cookies](https://docs.wp-rocket.me/article/1313-create-different-cache-files-with-dynamic-and-mandatory-cookies)
 
 
 ## 📝 Manual code edit required before use!

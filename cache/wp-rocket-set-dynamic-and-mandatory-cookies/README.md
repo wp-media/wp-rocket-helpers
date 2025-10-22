@@ -17,7 +17,7 @@ Before activating the plugin, open the PHP file and scroll to the sections:
 At the top of the file, find:
 
 ```php
-function add_mandatory_cookies( array $cookies ) {
+function cache_mandatory_cookie( array $cookies ) {
     // Edit below: add one cookie name per line.
     $cookies[] = 'mandatory_cookie';
     return $cookies;
@@ -33,7 +33,7 @@ Comment this line if you don't need mandatory cookies.
 Then locate:
 
 ```php
-function add_dynamic_cookies( array $cookies ) {
+function cache_dynamic_cookie( array $cookies ) {
     // Edit below: add one cookie name per line.
     $cookies[] = 'dynamic_cookie';
     return $cookies;

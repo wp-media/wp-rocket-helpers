@@ -21,7 +21,7 @@ defined( 'ABSPATH' ) or die();
  * MANDATORY COOKIES
  * ===========================================================
  */
-function add_mandatory_cookies( array $cookies ) {
+function cache_mandatory_cookie( array $cookies ) {
 	
 	// Edit below: add one cookie name per line. 
 	$cookies[] = 'mandatory_cookie';
@@ -34,7 +34,7 @@ function add_mandatory_cookies( array $cookies ) {
  * DYNAMIC COOKIES
  * ===========================================================
  */
-function add_dynamic_cookies( array $cookies ) {
+function cache_dynamic_cookie( array $cookies ) {
 	
 	// Edit below: add one cookie name per line.
 	$cookies[] = 'dynamic_cookie';

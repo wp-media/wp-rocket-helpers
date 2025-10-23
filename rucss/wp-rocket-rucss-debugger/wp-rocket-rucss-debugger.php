@@ -289,13 +289,9 @@ function wprocketrucssdebuger_admin_page() {
     
     <td>#</td>
     <td>url</td>
-    <td>css</td>
-    <td>hash (> 3.11.4) </td>
-    <td>unprocessed css</td>
-    <td>retries</td>
+    <td>Error Code</td>
+    <td>Error Message</td>
     <td>is_mobile</td>
-    <td>job_id</td>
-    <td>queue_name</td>
     <td>status</td>
     <td>modified</td>
     <td>last_accessed</td>
@@ -308,23 +304,9 @@ function wprocketrucssdebuger_admin_page() {
     
     echo "<td class='".$row->status."'>".$i."</td>";
     echo "<td><a target='_blank' href='".$row->url."'>".$row->url."</a></td>";
-    
-    if ( version_compare( $actual_version, '3.11.4' )  >= 0 ) {
-
-    echo "<td></td>";    
-    echo "<td><a target='_blank' href='tools.php?page=wprocketrucssdebuger&view=".$row->job_id."'>".$row->hash."</a></td>";
-
-    } else {
-    echo "<td><a target='_blank' href='tools.php?page=wprocketrucssdebuger&view=".$row->job_id."'>view css</a></td>";    
-    echo "<td></td>";
-    }
-    
-    echo "<td>".$row->unprocessedcss."</td>";
-    echo "<td align='center'>".$row->retries."</td>";
+    echo "<td>".$row->error_code."</td>";
+    echo "<td>".$row->error_message."</td>";
     echo "<td align='center'>".$row->is_mobile."</td>";
-    echo "<td align='center'>".$row->job_id."</td>";
-    echo "<td align='center'>".$row->queue_name."</td>";
-    
     echo "<td align='center' class='".$row->status."'>".$row->status."</td>";
     echo "<td align='center'>".$row->modified."</td>";
     echo "<td align='center'>".$row->last_accessed."</td>";

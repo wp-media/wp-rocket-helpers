@@ -227,9 +227,7 @@ function wprocketrucssdebuger_admin_page() {
     echo '<hr>';
     echo '<a href="'.get_site_url().'/wp-cron.php?doing_wp_cron" id="doing-cron-button">Run WP-Cron</a><span id="doing-cron-status"></span><br><br>';
     echo '<script src="'. esc_url( plugins_url( 'main.js', __FILE__ ) ) .'"></script>';
-    echo " <a href='tools.php?page=wprocketrucssdebuger&truncate_pending_usedcss'  onclick=\"return confirm('Are you sure?')\">Clear PENDING</a> | ";
-    echo " <a href='tools.php?page=wprocketrucssdebuger&truncate_failed_usedcss'  onclick=\"return confirm('Are you sure?')\">Clear FAILED</a> | ";
-    echo " <a class='failed' href='tools.php?page=wprocketrucssdebuger&truncate_usedcss' onclick=\"return confirm('Are you sure?')\"><strong>Truncate wpr_rucss_used_css</strong></a>";
+
     
     
     // Percentaje calculations

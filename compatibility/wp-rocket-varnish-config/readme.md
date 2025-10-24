@@ -1,5 +1,5 @@
 
-# WP Rocket | Varnish customize IP & Host
+# WP Rocket | Varnish Customize Parameters
 
   
 

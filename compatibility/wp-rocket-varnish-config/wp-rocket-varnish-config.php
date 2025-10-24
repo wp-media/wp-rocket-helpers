@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: WP Rocket | Varnish customize IP & Host
+ * Plugin Name: WP Rocket | Varnish customize parameters
  * Description: Sets a custom Varnish IP and host name to sync WP Rocket’s cache with.
  * Plugin URI:  https://github.com/wp-media/wp-rocket-helpers/
  * Author:      WP Rocket Support Team

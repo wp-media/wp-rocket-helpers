@@ -92,7 +92,7 @@ In lines 70 to 80: You can modify:
 
 
 
-This helper is ideal if:
+This helper is useful if:
 
 - You use **Varnish behind a proxy** and WP Rocket purges the wrong IP or host.
 - You want to **target a specific internal Varnish address**.

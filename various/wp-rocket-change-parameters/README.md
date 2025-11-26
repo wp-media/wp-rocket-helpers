@@ -12,7 +12,7 @@ This helper can also be used to speed up the "Preload" and "Remove Unused CSS" p
 
 <h2>rocket_preload_cache_pending_jobs_cron_rows_count</h2>
 
-<img style="margin-top:0;margin-bottom:0;" src="https://prnt.sc/Yqqi7RLMYMaR"><br>
+<img style="margin-top:0;margin-bottom:0;" src="https://imagizer.imageshack.com/v2/640x480q70/923/iZ0YYe.png"><br>
 
 - PRELOAD MAXIMUM BATCH SIZE
   - Change maximum number of URLs that will be processed on each run. 45 is the default, this helper sets it to 25 URLs. 
@@ -22,7 +22,7 @@ This helper can also be used to speed up the "Preload" and "Remove Unused CSS" p
 
 <h2>rocket_preload_cache_min_in_progress_jobs_count</h2>
 
-<img style="margin-top:0;margin-bottom:0;" src="https://prnt.sc/2AhM7DIxqUhV"><br>
+<img style="margin-top:0;margin-bottom:0;" src="https://imagizer.imageshack.com/v2/640x480q70/924/nqT8AD.png"><br>
 
 - PRELOAD MINIMUM BATCH SIZE
   - Sets minimum number of URLs to preload in each batch, 5 is the default, this helper sets it to 3 URLs.
@@ -32,7 +32,7 @@ This helper can also be used to speed up the "Preload" and "Remove Unused CSS" p
 
 <h2>rocket_preload_pending_jobs_cron_interval</h2>
 
-<img style="margin-top:0;margin-bottom:0;" src="https://prnt.sc/reVEAn4qayYW"><br>
+<img style="margin-top:0;margin-bottom:0;" src="https://imagizer.imageshack.com/v2/640x480q70/924/0UJfJs.png"><br>
 
 - PRELOAD CRON INTERVAL
   - Sets the desired cron interval in seconds. 60 seconds is the default, this helper sets it to 120 seconds.
@@ -42,7 +42,7 @@ This helper can also be used to speed up the "Preload" and "Remove Unused CSS" p
 
 <h2>rocket_preload_delay_between_requests</h2>
 
-<img style="margin-top:0;margin-bottom:0;" src="https://prnt.sc/BVLElkYbF4fW"><br>
+<img style="margin-top:0;margin-bottom:0;" src="https://imagizer.imageshack.com/v2/640x480q70/922/5rg7zu.png"><br>
 
 - PRELOAD DELAY BETWEEN REQUESTS 
   - Sets the pause between each request made to same URL. 
@@ -55,7 +55,7 @@ This helper can also be used to speed up the "Preload" and "Remove Unused CSS" p
 
 <h2>rocket_saas_pending_jobs_cron_rows_count</h2>
 
-<img style="margin-top:0;margin-bottom:0;" src="https://prnt.sc/NVy5CRDfF8gn"><br>
+<img style="margin-top:0;margin-bottom:0;" src="https://imagizer.imageshack.com/v2/640x480q70/924/dcXv1Y.png"><br>
 
 - RUCSS BATCH SIZE
   - Sets the batch size of URLs that will be processed on each run. 100 is the default, this helper sets it to 25 URLs.
@@ -65,7 +65,7 @@ This helper can also be used to speed up the "Preload" and "Remove Unused CSS" p
 
 <h2>rocket_saas_pending_jobs_cron_interval</h2>
 
-<img style="margin-top:0;margin-bottom:0;" src="https://prnt.sc/CNrtPFaVN94s"><br>
+<img style="margin-top:0;margin-bottom:0;" src="https://imagizer.imageshack.com/v2/640x480q70/922/Lj0GHX.png"><br>
 
 - RUCSS CRON INTERVAL
   - Sets the desired cron interval for pending jobs in seconds. Default is 60, this helper sets it to 120 seconds.

@@ -27,7 +27,7 @@ function disable_google_font_optimization() {
 		return false;
 	}
 	
-	// Enable SSL Cache
+	// Disable Google Fonts Optimization
 	update_rocket_option( 'minify_google_fonts', 0 );
 	
 	// Clear cache
@@ -35,15 +35,22 @@ function disable_google_font_optimization() {
 }
 register_activation_hook( __FILE__, __NAMESPACE__ . '\disable_google_font_optimization' );
 
+
 /**
- * Clear WP Rocket's cache.
- *
- * @author Vasilis Manthos
+ * Reenable Google Fonts and clear WP Rocket's cache.
  */
-function clear_cache(){
-	if( function_exists( 'rocket_clean_domain' ) ){
-		rocket_clean_domain();
+function rollback_changes(){
+	
+	if ( ! function_exists( 'update_rocket_option' ) || ! function_exists( 'rocket_clean_domain' ) ) {
+		return false;
 	}
+	
+	// Enable Google Fonts Optimization
+	update_rocket_option( 'minify_google_fonts', 1 );
+	
+	// Clear cache
+	rocket_clean_domain();
+
 }
 
-register_deactivation_hook( __FILE__, __NAMESPACE__ . '\clear_cache' );
+register_deactivation_hook( __FILE__, __NAMESPACE__ . '\rollback_changes' );

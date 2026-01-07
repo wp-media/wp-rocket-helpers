@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: WP Rocket | Disable Google Font Optimization
- * Description: Disable Google Font Optimization in WP Rocket. To re-enable the option, visit Tools tab of WP Rocket. 
+ * Description: Disable Google Font Optimization in WP Rocket 
  * Plugin URI:  https://github.com/wp-media/wp-rocket-helpers/tree/master/static-files/wp-rocket-disable-google-font-optimization
  * Author:      WP Rocket Support Team
  * Author URI:  http://wp-rocket.me/

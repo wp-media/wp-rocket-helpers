@@ -8,7 +8,7 @@
  * License:     GNU General Public License v2 or later
  * License URI: http://www.gnu.org/licenses/gpl-2.0.html
  *
- * Copyright SAS WP MEDIA 2020
+ * Copyright SAS WP MEDIA 2026
  */
 
 namespace WP_Rocket\Helpers\static_files\disable_google_font_optimization;

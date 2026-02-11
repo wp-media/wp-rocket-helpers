@@ -16,7 +16,7 @@ namespace WP_Rocket\Helpers\static_files\change_delay_js_script;
 // Standard plugin security, keep this line in place.
 defined( 'ABSPATH' ) or die();
  
-//For now it is only possible to change to '1.2.6'. Default value is '2.0.3'
+//For now it is only possible to change to '1.2.6'. Default value is '2.0.5'
 add_filter( 'rocket_delay_js_version_js_script', function () {
   return '1.2.6';
   });

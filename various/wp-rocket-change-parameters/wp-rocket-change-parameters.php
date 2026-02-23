@@ -29,47 +29,27 @@ add_action( 'plugins_loaded', function() {
 
         // EDIT HERE
 
-            /**
-             *  PRELOAD MAXIMUM BATCH SIZE
-             *  Change the maximum number of URLs to preload on each batch, 45 is the default.
-             *  A lower value can help the server to work on fewer requests at a time
-             */
+            //PRELOAD MAXIMUM BATCH SIZE
             'rocket_preload_cache_pending_jobs_cron_rows_count' => 25,
 
-            /**
-             *  PRELOAD MINIMUM BATCH SIZE
-             *  Change the minimum number of URLs to preload on each batch, 5 is the default.
-             *  A lower value can help the server to work on fewer requests at a time
-             */
+
+            //PRELOAD MINIMUM BATCH SIZE
             'rocket_preload_cache_min_in_progress_jobs_count' => 3,
 
-            /**
-             *  PRELOAD CRON INTERVAL
-             *  Set the desired cron interval in seconds. 60 is the default.
-             *  By setting a higher value the server will have more time to rest between processing batches.
-             */
+
+            //PRELOAD CRON INTERVAL
             'rocket_preload_pending_jobs_cron_interval' => 120,
 
-            /**
-             *  PRELOAD DELAY BETWEEN REQUESTS:
-             *  Set delay in seconds between requests made to same URL
-             *  For example, for Separate cache files for mobile devices.
-             *  Default is 0.5 seconds (500000 microseconds)
-             */
+
+            //PRELOAD DELAY BETWEEN REQUESTS:
             'rocket_preload_delay_between_requests' => 1,
 
-            /**
-             * RUCSS BATCH SIZE
-             *  Change the processing batch value.
-             *  A lower value can help the server to work on fewer requests at a time
-             */
+
+            //RUCSS BATCH SIZE
             'rocket_saas_pending_jobs_cron_rows_count' => 25,
 
-            /**
-             *  RUCSS CRON Interval:
-             *  Set the desired cron interval in seconds
-             *  By setting a higher value the server will have more time to rest between processing batches.
-             */
+ 
+            //RUCSS CRON INTERVAL
             'rocket_saas_pending_jobs_cron_interval' => 120,
 
         // STOP EDITING

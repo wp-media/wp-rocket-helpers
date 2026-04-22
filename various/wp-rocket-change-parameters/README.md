@@ -74,6 +74,16 @@ This helper can also be used to speed up the "Preload" and "Remove Unused CSS" p
 
 <br>
 
+<h2>rocket_min_rucss_size</h2>
+
+<img style="margin-top:0;margin-bottom:0;" src="https://jmp.sh/xj3HyV1G+/Image+2026-04-22+at+3.19.34+PM.png"><br>
+
+- RUCSS MINIMUM CSS FILE SIZE (in bytes, default is 150)
+  - Sets the minimum possible size of the Used CSS in Kb. Default is 150b, this helper sets it to 10Kb seconds.
+  - Setting a higher value allows the server to have more time to rest between processing batches.
+
+<br>
+
 Documentation:
 * [Change Preload Parameters](https://docs.wp-rocket.me/article/1715-customize-preload-parameters)
 * [Change Remove Unused CSS Parameters](https://docs.wp-rocket.me/article/1691-customize-remove-unused-css-parameters)

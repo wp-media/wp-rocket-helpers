@@ -51,6 +51,9 @@ add_action( 'plugins_loaded', function() {
  
             //RUCSS CRON INTERVAL
             'rocket_saas_pending_jobs_cron_interval' => 120,
+            
+            //RUCSS MINIMUM CSS FILE SIZE (in bytes, default is 150)
+            'rocket_min_rucss_size' => 10000, // 10kb
 
         // STOP EDITING
         ];
@@ -117,4 +120,8 @@ add_action( 'plugins_loaded', function() {
         add_filter( 'rocket_rucss_pending_jobs_cron_interval', __NAMESPACE__ . '\set_custom_parameter' );
     }
 
+
+    // Set Remove Unused CSS minimum CSS file size
+        add_filter( 'rocket_min_rucss_size', __NAMESPACE__ . '\set_custom_parameter' );
+        
 } );

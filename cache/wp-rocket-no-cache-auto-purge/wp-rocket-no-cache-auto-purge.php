@@ -93,6 +93,9 @@ function remove_purge_hooks() {
 	
 	// Prevent cache purge when a post's slug is changed.
 	remove_action( 'pre_post_update', 'rocket_clean_post_cache_on_slug_change', PHP_INT_MAX, 2 );
+
+	// Prevent cache purge when WP Rocket settings is updated.
+	remove_action('update_option_wp_rocket_settings', 'rocket_after_save_options', 10, 2);
 	
 }
 add_action( 'wp_rocket_loaded', __NAMESPACE__ . '\remove_purge_hooks' );

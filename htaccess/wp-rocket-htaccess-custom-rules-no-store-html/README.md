@@ -8,7 +8,9 @@ _Only install this plugin yourself if you are comfortable with editing files via
 
 _Please comment out 41st/42nd and 72nd/73rd lines in the code dependently on where do you want to place your .htaccess rules._
 
+Documentation:
+*  <a href="https://docs.wp-rocket.me/article/1696-logged-out-cache-displayed-to-logged-in-users">Logged Out Cache Displayed to Logged In Users</a>
 
 Last tested with:
-* WP Rocket 3.3.4
-* WordPress 5.2.1
+* WP Rocket 3.11.3
+* WordPress 5.9

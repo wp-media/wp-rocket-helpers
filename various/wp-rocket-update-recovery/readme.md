@@ -1,10 +1,6 @@
 # WP Rocket – Update Recovery Helper
 
-This temporary helper plugin allows WP Rocket **3.23.2.1** to be safely re-enabled on **WordPress 7.1** so it can be updated to the latest version.
-
-## When to use it
-
-Use this helper if WP Rocket **3.23.2.1** is currently disabled because activating it causes a fatal error.
+This temporary helper plugin allows WP Rocket versions older than **3.23.2.2** to be safely enabled on **WordPress 7.1** to prevent a fatal error https://github.com/wp-media/wp-rocket/issues/8596 
 
 **Do not uninstall WP Rocket**, as uninstalling it may remove your existing WP Rocket settings.
 
@@ -46,3 +42,7 @@ If the fatal error prevents you from accessing WP Admin:
 6. Follow the instructions above to install the **WP Rocket – Update Recovery Helper**.
 
 Your existing WP Rocket settings will remain in place throughout this process.
+
+## If you can't update WP Rocket to the latest version
+
+Keeping this plugin active will prevent the fatal error

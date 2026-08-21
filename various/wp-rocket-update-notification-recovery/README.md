@@ -1,6 +1,6 @@
-# WP Rocket Updates Recovery
+# WP Rocket Update Notification Recovery
 
-WP Rocket Updates Recovery asks WP Rocket's licensing server for updates when the main
+WP Rocket Update Notification Recovery asks WP Rocket's licensing server for updates when the main
 WP Rocket plugin is installed but not loaded. It does not include or execute any
 WP Rocket file, so a new, deactivated, or Recovery Mode-paused copy can still
 receive its licensed update offer through WordPress's normal Plugins screen.
@@ -9,7 +9,7 @@ receive its licensed update offer through WordPress's normal Plugins screen.
 
 ### Must-use plugin (recommended for recovery)
 
-Copy `wp-rocket-updates-recovery.php` directly into `wp-content/mu-plugins/`.
+Copy `wp-rocket-update-notification-recovery.php` directly into `wp-content/mu-plugins/`.
 Create that directory if it does not exist. WordPress only auto-loads PHP files
 at the root of `mu-plugins`, so do not leave the file inside a nested directory.
 
@@ -21,7 +21,7 @@ is more reliable for Recovery Mode scenarios.
 
 ## Behavior
 
-- Updates Recovery is inert whenever WP Rocket successfully defines
+- Update Notification Recovery is inert whenever WP Rocket successfully defines
   `WP_ROCKET_VERSION`; WP Rocket then owns its update checks.
 - It reads the installed version from WP Rocket's plugin header without loading
   the plugin.
@@ -40,7 +40,7 @@ is more reliable for Recovery Mode scenarios.
   for one hour and HTTP errors for two hours.
 - Visiting `plugins.php?rocket_force_update=1` as a user allowed to update
   plugins clears both update caches and forces a fresh request.
-- Activating Updates Recovery redirects the activating administrator once to that
+- Activating Update Notification Recovery redirects the activating administrator once to that
   forced-check URL, so the integration is tested immediately.
 - WP Rocket's metadata row ends with a bold **Check Available Updates Now** link
   that runs the same forced check.

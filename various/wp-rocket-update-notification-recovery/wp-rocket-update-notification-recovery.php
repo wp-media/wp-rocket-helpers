@@ -1,21 +1,21 @@
 <?php
 /**
- * Plugin Name: WP Rocket - Updates Recovery
- * Description: Recovers licensed WP Rocket updates when WP Rocket is inactive, newly installed, or paused by Recovery Mode.
- * Version: 1.4.1
+ * Plugin Name: WP Rocket - Update Notification Recovery
+ * Description: Recovers WP Rocket update notifications and licensed downloads when WP Rocket is inactive, newly installed, or paused by Recovery Mode.
+ * Version: 1.5.0
  * Author: WP Rocket Support Team
  */
 
 defined( 'ABSPATH' ) || exit;
 
-if ( ! class_exists( 'WP_Rocket_Updates_Recovery', false ) ) {
-	final class WP_Rocket_Updates_Recovery {
+if ( ! class_exists( 'WP_Rocket_Update_Notification_Recovery', false ) ) {
+	final class WP_Rocket_Update_Notification_Recovery {
 		const EXPECTED_PLUGIN_FILE = 'wp-rocket/wp-rocket.php';
 		const LICENSE_FILE     = 'licence-data.php';
 		const SETTINGS_OPTION  = 'wp_rocket_settings';
 		const API_HOST          = 'api.wp-rocket.me';
 		const UPDATE_ENDPOINT  = 'https://api.wp-rocket.me/check_update.php';
-		const CACHE_TRANSIENT   = 'wp_rocket_updates_recovery_data';
+		const CACHE_TRANSIENT   = 'wp_rocket_update_notification_recovery_data';
 		const FORCE_QUERY_PARAM = 'rocket_force_update';
 
 		/**
@@ -26,7 +26,7 @@ if ( ! class_exists( 'WP_Rocket_Updates_Recovery', false ) ) {
 		private static $request_cache;
 
 		/**
-		 * Register Updates Recovery independently from WP Rocket.
+		 * Register Update Notification Recovery independently from WP Rocket.
 		 */
 		public static function bootstrap() {
 			add_filter( 'http_request_args', array( __CLASS__, 'maybe_add_rocket_user_agent' ), 10, 2 );
@@ -37,7 +37,7 @@ if ( ! class_exists( 'WP_Rocket_Updates_Recovery', false ) ) {
 			add_action( 'admin_init', array( __CLASS__, 'maybe_force_update_check' ), 1 );
 			add_action( 'admin_init', array( __CLASS__, 'maybe_redirect_after_activation' ), 2 );
 			add_action( 'admin_notices', array( __CLASS__, 'display_folder_notice' ) );
-			add_action( 'admin_post_wp_rocket_updates_recovery_restore_folder', array( __CLASS__, 'restore_folder_name' ) );
+			add_action( 'admin_post_wp_rocket_update_notification_recovery_restore_folder', array( __CLASS__, 'restore_folder_name' ) );
 		}
 
 		/**
@@ -79,7 +79,7 @@ if ( ! class_exists( 'WP_Rocket_Updates_Recovery', false ) ) {
 		}
 
 		/**
-		 * Redirect once after activation so Updates Recovery is tested immediately.
+		 * Redirect once after activation so Update Notification Recovery is tested immediately.
 		 */
 		public static function maybe_redirect_after_activation() {
 			if ( ! current_user_can( 'update_plugins' ) || wp_doing_ajax() ) {
@@ -113,10 +113,10 @@ if ( ! class_exists( 'WP_Rocket_Updates_Recovery', false ) ) {
 				return $plugin_meta;
 			}
 
-			$plugin_meta['wp-rocket-updates-recovery-check'] = sprintf(
+			$plugin_meta['wp-rocket-update-notification-recovery-check'] = sprintf(
 				'<a href="%s"><strong><span class="dashicons dashicons-update" aria-hidden="true"></span> %s</strong></a>',
 				esc_url( add_query_arg( self::FORCE_QUERY_PARAM, '1', self_admin_url( 'plugins.php' ) ) ),
-				esc_html__( 'Check Available Updates Now', 'wp-rocket-updates-recovery' )
+				esc_html__( 'Check Available Updates Now', 'wp-rocket-update-notification-recovery' )
 			);
 
 			return $plugin_meta;
@@ -132,21 +132,21 @@ if ( ! class_exists( 'WP_Rocket_Updates_Recovery', false ) ) {
 				return;
 			}
 
-			$result = isset( $_GET['wp_rocket_updates_recovery_folder'] ) // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-				? sanitize_key( wp_unslash( $_GET['wp_rocket_updates_recovery_folder'] ) ) // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			$result = isset( $_GET['wp_rocket_update_notification_recovery_folder'] ) // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+				? sanitize_key( wp_unslash( $_GET['wp_rocket_update_notification_recovery_folder'] ) ) // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 				: '';
 
 			if ( 'restored' === $result ) {
-				echo '<div class="notice notice-success is-dismissible"><p>' . esc_html__( 'WP Rocket\'s plugin folder was restored to wp-rocket.', 'wp-rocket-updates-recovery' ) . '</p></div>';
+				echo '<div class="notice notice-success is-dismissible"><p>' . esc_html__( 'WP Rocket\'s plugin folder was restored to wp-rocket.', 'wp-rocket-update-notification-recovery' ) . '</p></div>';
 				return;
 			}
 
 			$error_messages = array(
-				'destination_exists' => __( 'The wp-rocket destination folder already exists, so the renamed folder was not moved.', 'wp-rocket-updates-recovery' ),
-				'invalid_source'      => __( 'The detected WP Rocket folder is not a safe direct child of the plugins directory.', 'wp-rocket-updates-recovery' ),
-				'move_failed'         => __( 'WordPress could not rename the WP Rocket folder. Check filesystem permissions.', 'wp-rocket-updates-recovery' ),
-				'not_found'           => __( 'WP Rocket could no longer be found.', 'wp-rocket-updates-recovery' ),
-				'plugin_active'       => __( 'WP Rocket must be inactive before its folder can be restored.', 'wp-rocket-updates-recovery' ),
+				'destination_exists' => __( 'The wp-rocket destination folder already exists, so the renamed folder was not moved.', 'wp-rocket-update-notification-recovery' ),
+				'invalid_source'      => __( 'The detected WP Rocket folder is not a safe direct child of the plugins directory.', 'wp-rocket-update-notification-recovery' ),
+				'move_failed'         => __( 'WordPress could not rename the WP Rocket folder. Check filesystem permissions.', 'wp-rocket-update-notification-recovery' ),
+				'not_found'           => __( 'WP Rocket could no longer be found.', 'wp-rocket-update-notification-recovery' ),
+				'plugin_active'       => __( 'WP Rocket must be inactive before its folder can be restored.', 'wp-rocket-update-notification-recovery' ),
 			);
 
 			if ( isset( $error_messages[ $result ] ) ) {
@@ -170,23 +170,23 @@ if ( ! class_exists( 'WP_Rocket_Updates_Recovery', false ) ) {
 			$plugin_active = is_plugin_active( $plugin_file ) || ( is_multisite() && is_plugin_active_for_network( $plugin_file ) );
 
 			$restore_url = wp_nonce_url(
-				self_admin_url( 'admin-post.php?action=wp_rocket_updates_recovery_restore_folder' ),
-				'wp_rocket_updates_recovery_restore_folder'
+				self_admin_url( 'admin-post.php?action=wp_rocket_update_notification_recovery_restore_folder' ),
+				'wp_rocket_update_notification_recovery_restore_folder'
 			);
 
 			echo '<div class="notice notice-error"><p>';
-			echo '<strong>' . esc_html__( 'WP Rocket folder renamed:', 'wp-rocket-updates-recovery' ) . '</strong> ';
+			echo '<strong>' . esc_html__( 'WP Rocket folder renamed:', 'wp-rocket-update-notification-recovery' ) . '</strong> ';
 			echo esc_html(
 				sprintf(
 					/* translators: %s is the detected plugin folder name. */
-					__( 'WP Rocket was found in “%s” instead of “wp-rocket”.', 'wp-rocket-updates-recovery' ),
+					__( 'WP Rocket was found in “%s” instead of “wp-rocket”.', 'wp-rocket-update-notification-recovery' ),
 					$current_folder
 				)
 			);
 			if ( $plugin_active ) {
-				echo ' <strong>' . esc_html__( 'Deactivate WP Rocket before restoring its folder name.', 'wp-rocket-updates-recovery' ) . '</strong>';
+				echo ' <strong>' . esc_html__( 'Deactivate WP Rocket before restoring its folder name.', 'wp-rocket-update-notification-recovery' ) . '</strong>';
 			} else {
-				echo ' <a class="button button-primary" href="' . esc_url( $restore_url ) . '">' . esc_html__( 'Restore folder name', 'wp-rocket-updates-recovery' ) . '</a>';
+				echo ' <a class="button button-primary" href="' . esc_url( $restore_url ) . '">' . esc_html__( 'Restore folder name', 'wp-rocket-update-notification-recovery' ) . '</a>';
 			}
 			echo '</p></div>';
 		}
@@ -196,10 +196,10 @@ if ( ! class_exists( 'WP_Rocket_Updates_Recovery', false ) ) {
 		 */
 		public static function restore_folder_name() {
 			if ( ! current_user_can( 'update_plugins' ) ) {
-				wp_die( esc_html__( 'You are not allowed to update plugins.', 'wp-rocket-updates-recovery' ) );
+				wp_die( esc_html__( 'You are not allowed to update plugins.', 'wp-rocket-update-notification-recovery' ) );
 			}
 
-			check_admin_referer( 'wp_rocket_updates_recovery_restore_folder' );
+			check_admin_referer( 'wp_rocket_update_notification_recovery_restore_folder' );
 
 			$plugin_file = self::get_wp_rocket_plugin_file();
 			if ( ! $plugin_file ) {
@@ -373,7 +373,7 @@ if ( ! class_exists( 'WP_Rocket_Updates_Recovery', false ) ) {
 
 			if ( is_wp_error( $response ) ) {
 				return new WP_Error(
-					'wp_rocket_updates_recovery_transport_error',
+					'wp_rocket_update_notification_recovery_transport_error',
 					$response->get_error_message(),
 					array( 'transport_error' => $response->get_error_code() )
 				);
@@ -384,14 +384,14 @@ if ( ! class_exists( 'WP_Rocket_Updates_Recovery', false ) ) {
 
 			if ( 200 !== $code ) {
 				return new WP_Error(
-					'wp_rocket_updates_recovery_http_error',
+					'wp_rocket_update_notification_recovery_http_error',
 					'WP Rocket update API returned an unexpected HTTP status.',
 					array( 'http_code' => $code )
 				);
 			}
 
 			if ( ! preg_match( '@^(?<stable_version>\d+(?:\.\d+){1,3}[^|]*)\|(?<package>(?:http.+\.zip)?)\|(?<user_version>\d+(?:\.\d+){1,3}[^|]*)(?:\|+)?$@', $body, $matches ) ) {
-				return new WP_Error( 'wp_rocket_updates_recovery_invalid_response', 'WP Rocket update API returned an invalid response.' );
+				return new WP_Error( 'wp_rocket_update_notification_recovery_invalid_response', 'WP Rocket update API returned an invalid response.' );
 			}
 
 			$data                 = new stdClass();
@@ -507,7 +507,7 @@ if ( ! class_exists( 'WP_Rocket_Updates_Recovery', false ) ) {
 		 */
 		private static function redirect_folder_result( $result, $force_update = false ) {
 			$query_args = array(
-				'wp_rocket_updates_recovery_folder' => $result,
+				'wp_rocket_update_notification_recovery_folder' => $result,
 			);
 
 			if ( $force_update ) {
@@ -525,7 +525,7 @@ if ( ! class_exists( 'WP_Rocket_Updates_Recovery', false ) ) {
 		 * @return string
 		 */
 		private static function get_activation_transient_name( $user_id ) {
-			return 'wp_rocket_updates_recovery_activation_redirect_' . absint( $user_id );
+			return 'wp_rocket_update_notification_recovery_activation_redirect_' . absint( $user_id );
 		}
 
 		/**
@@ -619,6 +619,6 @@ if ( ! class_exists( 'WP_Rocket_Updates_Recovery', false ) ) {
 		}
 	}
 
-	WP_Rocket_Updates_Recovery::bootstrap();
-	register_activation_hook( __FILE__, array( 'WP_Rocket_Updates_Recovery', 'activate' ) );
+	WP_Rocket_Update_Notification_Recovery::bootstrap();
+	register_activation_hook( __FILE__, array( 'WP_Rocket_Update_Notification_Recovery', 'activate' ) );
 }

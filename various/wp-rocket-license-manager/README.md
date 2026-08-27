@@ -23,6 +23,7 @@ Activation automatically copies the bundled bootstrap to:
 If WordPress cannot create or write that file, activation stops with an
 actionable permissions error instead of enabling a partially working plugin.
 
+<img width="844" height="798" alt="main_full" src="https://github.com/user-attachments/assets/a8c4c80a-34a3-43b8-af9a-372e0feeda48" />
 
 
 ## Safety behavior

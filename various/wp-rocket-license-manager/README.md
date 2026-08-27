@@ -23,6 +23,9 @@ Activation automatically copies the bundled bootstrap to:
 If WordPress cannot create or write that file, activation stops with an
 actionable permissions error instead of enabling a partially working plugin.
 
+<img width="824" height="823" alt="Captura de pantalla 2026-08-27 a la(s) 4 24 45 p  m" src="https://github.com/user-attachments/assets/aa744caa-acea-485b-90ef-60187608a724" />
+
+
 ## Safety behavior
 
 - The complete wp_rocket_settings array is read before validation.

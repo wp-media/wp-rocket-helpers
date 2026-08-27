@@ -1,9 +1,8 @@
 # WP Rocket - License Manager
 
-This is a standard WordPress helper plugin for safely changing WP Rocket license
-credentials. It automatically installs a tiny early-loading bootstrap in the
-WordPress mu-plugins directory; you do not need to install or manage the MU
-file yourself.
+You can use this helper plugin for safely changing WP Rocket license information (Email and/or API Key) preserving your current WP Rocket settings after the change. 
+
+It automatically installs a tiny early-loading bootstrap in the WordPress mu-plugins directory; you do not need to install or manage the MU file yourself.
 
 ## Installation
 
@@ -11,15 +10,11 @@ file yourself.
 2. Upload the wp-rocket-license-manager.zip file.
 3. Activate **WP Rocket - License Manager**.
 4. Open **Settings > WP Rocket License**.
-5. Enter the new API key and account email, then select **Validate and change
-   license**.
-6. You can change only the API Key if needed
+5. Enter the new API key and account email, then select **Validate and change license**. You can change only the API Key if needed
 
-The same settings page is also available from **WP Rocket > License Manager**
-at the bottom of WP Rocket's top admin-bar menu.
+The same settings page is also available from **WP Rocket > License Manager** at the bottom of WP Rocket's top admin-bar menu.
 
-The settings screen detects and prepopulates WP Rocket's current account email.
-The field remains editable so a user can switch to a different account.
+The settings screen detects and prepopulates WP Rocket's current account email. The field remains editable so a user can switch to a different account.
 
 Activation automatically copies the bundled bootstrap to:
 
@@ -44,11 +39,6 @@ actionable permissions error instead of enabling a partially working plugin.
   validated database settings intact.
 - Uninstall removes both the generated bootstrap and the helper option.
 
-The account change is permanent once validation succeeds. Deactivating or
-deleting this helper does not restore the previous account because the new
-validated credentials have also been saved in WP Rocket's own settings.
+The account change is permanent once validation succeeds. Deactivating or deleting this helper does not restore the previous account because the new validated credentials have also been saved in WP Rocket's own settings.
 
-If WP_ROCKET_KEY or WP_ROCKET_EMAIL is defined in wp-config.php or by another
-MU plugin, remove those definitions before using this manager to change the
-credentials. WP Rocket's bundled licence-data.php is handled automatically
-after successful validation.
+Important: If WP_ROCKET_KEY or WP_ROCKET_EMAIL is defined in wp-config.php or by another MU plugin, this helper detects them and shows a warning. remove those definitions before using this manager to change the credentials. WP Rocket's bundled licence-data.php is handled automatically after successful validation.

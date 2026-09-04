@@ -9,5 +9,5 @@ Documentation:
 
 
 Last tested with:
-* WP Rocket 3.8.3
-* WordPress 5.6
+* WP Rocket 3.23.3.3
+* WordPress 7.1

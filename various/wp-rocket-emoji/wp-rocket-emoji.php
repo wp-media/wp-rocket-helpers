@@ -2,6 +2,7 @@
 /**
  * Plugin Name: WP Rocket | Disable WP Rocket's Emoji optimization
  * Description: This helper plugin will disable WP Rocket's emoji optimization. This means your website will use the Emoji file from WordPress.org instead of the default Emoji from vistor's browser. 
+ * Version:     1.0.0
  * Author:      WP Rocket Support Team
  * Author URI:  http://wp-rocket.me/
  * License:     GNU General Public License v2 or later

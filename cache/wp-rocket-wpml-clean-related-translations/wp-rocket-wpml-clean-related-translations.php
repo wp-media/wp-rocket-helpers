@@ -3,6 +3,7 @@
  * Plugin Name: WP Rocket | Clean related translations (WPML)
  * Description: Clears the cache of related translations and their categories when updating a post, page, product or any other specified post type to keep the translations in sync.
  * Plugin URI:  https://github.com/wp-media/wp-rocket-helpers/
+ * Version:     1.3.0
  * Author:      WP Rocket Support Team
  * Author URI:  http://wp-rocket.me/
  * License:     GNU General Public License v2 or later

@@ -3,6 +3,7 @@
  * Plugin Name: WP Rocket | Ignore Query Strings
  * Description: Define query strings that should use the same set of cache.
  * Plugin URI:  https://github.com/wp-media/wp-rocket-helpers/cache/wp-rocket-cache-ignore-query-strings
+ * Version:     1.1.1
  * Author:      WP Rocket Support Team
  * Author URI:  http://wp-rocket.me/
  * License:     GNU General Public License v2 or later

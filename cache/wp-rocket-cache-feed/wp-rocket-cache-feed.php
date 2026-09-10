@@ -3,6 +3,7 @@
  * Plugin Name: WP Rocket | Cache Feed
  * Description: Activate caching of WordPress RSS feeds by WP Rocket
  * Plugin URI:  https://github.com/wp-media/wp-rocket-helpers/tree/master/cache/wp-rocket-cache-feed/
+ * Version:     1.1.0
  * Author:      WP Rocket Support Team
  * Author URI:  http://wp-rocket.me/
  * License:     GNU General Public License v2 or later

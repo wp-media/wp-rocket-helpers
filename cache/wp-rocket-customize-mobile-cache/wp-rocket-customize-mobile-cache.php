@@ -3,6 +3,7 @@
  * Plugin Name: WP Rocket | Customize Mobile Cache options
  * Description: Customize WP Rocket's mobile cache by changing the default settings.
  * Plugin URI:  https://docs.wp-rocket.me/article/708-mobile-cache
+ * Version:     1.3.0
  * Author:      WP Rocket Support Team
  * Author URI:  http://wp-rocket.me/
  * License:     GNU General Public License v2 or later

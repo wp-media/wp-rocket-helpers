@@ -3,6 +3,7 @@
  * Plugin Name: WP Rocket | Enable SSL Cache
  * Description: Enables SSL cache so that WP Rocket caches pages with SSL.
  * Plugin URI:  https://github.com/wp-media/wp-rocket-helpers/tree/master/cache/wp-rocket-cache-ssl
+ * Version:     1.0.0
  * Author:      WP Rocket Support Team
  * Author URI:  http://wp-rocket.me/
  * License:     GNU General Public License v2 or later

@@ -3,6 +3,7 @@
 /**
  * Plugin Name: WP Rocket | Logging cache clearing
  * Description: Log the Full and Partial cache clearing
+ * Version:     1.1.0
  * Author:      WP Rocket Support Team
  * Author URI:  http://wp-rocket.me/
  * License:     GNU General Public License v2 or later

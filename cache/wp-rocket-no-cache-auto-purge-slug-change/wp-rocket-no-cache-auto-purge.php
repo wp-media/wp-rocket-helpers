@@ -3,6 +3,7 @@
  * Plugin Name: WP Rocket | Disable Cache Clearing When Slug Change
  * Description: Disables all of WP Rocket’s automatic cache clearing.
  * Plugin URI:  https://github.com/wp-media/wp-rocket-helpers/tree/master/cache/wp-rocket-no-cache-auto-purge/
+ * Version:     1.0.0
  * Author:      WP Rocket Support Team
  * Author URI:  http://wp-rocket.me/
  * License:     GNU General Public License v2 or later

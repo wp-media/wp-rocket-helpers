@@ -2,6 +2,7 @@
 /**    
  * Plugin Name: WP Rocket | Taxonomy Cache Override    
  * Description: Removes WP Rocket's taxonomy validation filters to allow caching of invalid taxonomy pages    
+ * Version:     1.0.0
  * Author:      WP Rocket Support Team  
  * Author URI:  http://wp-rocket.me/  
  * License:     GNU General Public License v2 or later  

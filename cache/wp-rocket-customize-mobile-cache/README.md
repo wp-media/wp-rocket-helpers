@@ -25,9 +25,8 @@ To be used with:
 * Any setup where you want to disable the Separate Cache Files for mobile devices, or the Mobile Cache altogheter. 
 
 Last tested with:
-* WP Rocket 3.19
-* WordPress 6.8
-
+* WP Rocket 3.23.x
+* WordPress 7.x
 
 
 

@@ -2,6 +2,7 @@
 /**
  * Plugin Name: WP Rocket | Disable Page Cache
  * Description: Disable cache and (optionally) optimizations for pages.
+ * Version:     1.0.0
  * Author:      WP Rocket Support Team
  * Author URI:  http://wp-rocket.me/
  * License:     GNU General Public License v2 or later

@@ -10,5 +10,5 @@ To be used with:
 * any setup where the values of a specified cookie should be used to create dedicated caches
 
 Last tested with:
-* WP Rocket 2.11.x
-* WordPress 4.9.x
+* WP Rocket 3.23.x
+* WordPress 7.x

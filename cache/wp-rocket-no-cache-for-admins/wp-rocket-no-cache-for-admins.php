@@ -3,6 +3,7 @@
  * Plugin Name: WP Rocket | No Cache for Admins
  * Description: Disable WP Rocket caching and optimizations for logged-in administrators.
  * Plugin URI:  https://github.com/wp-media/wp-rocket-helpers/tree/master/cache/wp-rocket-no-cache-for-admins/
+ * Version:     1.1.1
  * Author:      WP Rocket Support Team
  * Author URI:  http://wp-rocket.me/
  * License:     GNU General Public License v2 or later

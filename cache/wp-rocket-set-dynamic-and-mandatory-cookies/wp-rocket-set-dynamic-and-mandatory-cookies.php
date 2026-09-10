@@ -2,6 +2,7 @@
 /**
  * Plugin Name: WP Rocket | Set Dynamic and Mandatory Cookies
  * Description: Add Mandatory and Dynamic cookies to WP Rocket configuration
+ * Version:     1.0.1
  * Author:      WP Rocket Support Team
  * Author URI:  http://wp-rocket.me/
  * License:     GNU General Public License v2 or later

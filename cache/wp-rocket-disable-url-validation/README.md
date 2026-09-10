@@ -58,6 +58,6 @@ This plugin uses WP Rocket's official `rocket_disable_url_validation` filter, ma
 * WordPress 5.8+    
 * PHP 7.3+  
   
-**Last tested with:**    
-* WP Rocket 3.19.2+    
-* WordPress 6.3+
+Last tested with:
+* WP Rocket 3.23.x
+* WordPress 7.x

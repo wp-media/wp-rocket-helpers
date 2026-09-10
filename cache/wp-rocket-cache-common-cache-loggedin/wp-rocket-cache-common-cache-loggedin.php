@@ -3,6 +3,7 @@
  * Plugin Name: WP Rocket | Common Cache For Logged-in Users
  * Description: Use a common cache for all logged-in users instead of creating a user specific cache. Note: Logged out users will have a different cache. 
  * Plugin URI:  https://github.com/wp-media/wp-rocket-helpers/tree/master/cache/wp-rocket-cache-common-cache-loggedin
+ * Version:     1.1.0
  * Author:      WP Rocket Support Team
  * Author URI:  http://wp-rocket.me/
  * License:     GNU General Public License v2 or later

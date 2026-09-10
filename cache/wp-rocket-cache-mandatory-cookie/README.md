@@ -18,5 +18,5 @@ To be used with:
  - any setup where a specific cookie needs to be set before delivering the cached files
 
 Last tested with:
-* WP Rocket 3.11.x
-* WordPress 6.x
+* WP Rocket 3.23.x
+* WordPress 7.x

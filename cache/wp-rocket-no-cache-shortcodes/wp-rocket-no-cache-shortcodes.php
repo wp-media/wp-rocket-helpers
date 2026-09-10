@@ -2,6 +2,7 @@
 /**
  * Plugin Name: WP Rocket | Shortcode based cache exclusions
  * Description: Exclude posts from cache and optimizations based on shortcodes present at the post content.
+ * Version:     1.0.0
  * Author:      WP Rocket Support Team
  * Author URI:  http://wp-rocket.me/
  * License:     GNU General Public License v2 or later
@@ -40,4 +41,3 @@ function has_shortcode() {
 	 	return false;
      }
 }
-

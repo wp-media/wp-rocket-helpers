@@ -3,6 +3,7 @@
  * Plugin Name: WP Rocket | Cache Dynamic Cookie
  * Description: Adds a dedicated dynamic cache for a defined cookie ID.
  * Plugin URI:  https://github.com/wp-media/wp-rocket-helpers/tree/master/cache/wp-rocket-cache-dynamic-cookie/
+ * Version:     1.0.0
  * Author:      WP Rocket Support Team
  * Author URI:  http://wp-rocket.me/
  * License:     GNU General Public License v2 or later

@@ -3,6 +3,7 @@
  * Plugin Name: WP Rocket | Domain Ending Length
  * Description: Sets a custom length for TLD endings to pass WP Rocket’s domain validation.
  * Plugin URI:  https://github.com/wp-media/wp-rocket-helpers/tree/master/cache/wp-rocket-cache-domain-ending/
+ * Version:     1.0.0
  * Author:      WP Rocket Support Team
  * Author URI:  http://wp-rocket.me/
  * License:     GNU General Public License v2 or later

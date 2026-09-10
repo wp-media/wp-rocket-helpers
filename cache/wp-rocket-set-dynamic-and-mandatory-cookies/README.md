@@ -57,6 +57,6 @@ Comment this line if you don't need dynamic cookies.
 
 ---
 
-### Last tested with:
-- **WP Rocket:** 3.20.x  
-- **WordPress:** 6.x
+Last tested with:
+* WP Rocket 3.23.x
+* WordPress 7.x

@@ -3,6 +3,7 @@
  * Plugin Name: WP Rocket | Disable Page Caching for Attachment Pages
  * Description: Disables WP Rocket’s page cache file generation on WordPress Attachment pages while preserving other optimization features.
  * Plugin URI:  https://github.com/wp-media/wp-rocket-helpers/tree/master/cache/wp-rocket-no-cache-for-attachments/
+ * Version:     1.0.0
  * Author:      WP Rocket Support Team
  * Author URI:  https://wp-rocket.me/
  * License:     GNU General Public License v2 or later

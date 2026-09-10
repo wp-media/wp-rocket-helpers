@@ -3,6 +3,7 @@
  * Plugin Name: WP Rocket | Disable Page Caching with exception URLs
  * Description: Disables WP Rocket’s page cache while preserving other optimization features on all pages except for the selected URLs.
  * Plugin URI:  https://github.com/wp-media/wp-rocket-helpers/tree/master/cache/wp-rocket-no-cache-with-exception-urls/
+ * Version:     1.0.0
  * Author:      WP Rocket Support Team
  * Author URI:  http://wp-rocket.me/
  * License:     GNU General Public License v2 or later

@@ -35,6 +35,6 @@ To be used with:
 * Multilingual sites using query string language switching  
 * Any setup requiring specific query parameters to be cached  
   
-Last tested with:  
-* WP Rocket 3.16.3  
-* WordPress 6.8.1
+Last tested with:
+* WP Rocket 3.23.x
+* WordPress 7.x

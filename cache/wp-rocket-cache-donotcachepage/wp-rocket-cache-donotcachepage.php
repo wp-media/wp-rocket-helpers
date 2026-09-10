@@ -4,6 +4,7 @@ defined( 'ABSPATH' ) or die( 'No direct access here, kiddo.' );
  * Plugin Name: WP Rocket | Force Page Caching
  * Description: Ensures caching even when <code>DONOTCACHEPAGE</code> is set.
  * Plugin URI:  https://github.com/wp-media/wp-rocket-helpers/tree/master/cache/wp-rocket-cache-donotcachepage/
+ * Version:     1.0.0
  * Author:      WP Rocket Support Team
  * Author URI:  http://wp-rocket.me/
  * License:     GNU General Public License v2 or later

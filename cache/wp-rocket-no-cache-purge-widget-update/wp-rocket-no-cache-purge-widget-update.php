@@ -3,6 +3,7 @@
  * Plugin Name: WP Rocket | Disable Cache Clearing On Widget Update
  * Description: Disables WP Rocket cache clearing when a widget is updated. 
  * Plugin URI:  https://github.com/wp-media/wp-rocket-helpers/tree/master/cache/wp-rocket-no-cache-purge-widget-update
+ * Version:     1.0.0
  * Author:      WP Rocket Support Team
  * Author URI:  http://wp-rocket.me/
  * License:     GNU General Public License v2 or later

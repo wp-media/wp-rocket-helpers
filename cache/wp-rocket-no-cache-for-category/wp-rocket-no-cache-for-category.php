@@ -3,6 +3,7 @@
  * Plugin Name: WP Rocket | Disable Cache for Posts under a Category
  * Description: Disable caching and optimizations for posts under a specific post category.
  * Plugin URI:  https://wp-rocket.me
+ * Version:     1.0.0
  * Author:      WP Rocket Support Team
  * Author URI:  http://wp-rocket.me/
  * License:     GNU General Public License v2 or later

@@ -3,6 +3,7 @@
  * Plugin Name: WP Rocket | Disable Cache and Optimizations on specific pages 
  * Description: Use slugs to disable WP Rocket's caching and optimizations on specific pages or posts.
  * Plugin URI:  https://github.com/wp-media/wp-rocket-helpers/cache/wp-rocket-no-cache-slugs
+ * Version:     1.0.0
  * Author:      WP Rocket Support Team
  * Author URI:  http://wp-rocket.me/
  * License:     GNU General Public License v2 or later

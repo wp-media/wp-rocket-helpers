@@ -3,6 +3,7 @@
  * Plugin Name: WP Rocket | Remove Custom Post URLs from purge
  * Description: Removes a custom set of URLs from WP Rocket’s automatic cache purging when a post is updated.
  * Plugin URI:  https://github.com/wp-media/wp-rocket-helpers/tree/master/cache/wp-rocket-cache-no-purge-urls/
+ * Version:     1.0.1
  * Author:      WP Rocket Support Team
  * Author URI:  http://wp-rocket.me/
  * License:     GNU General Public License v2 or later

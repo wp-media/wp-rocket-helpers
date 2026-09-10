@@ -5,5 +5,5 @@ Hooks into rocket_after_automatic_cache_purge
 
 
 Last tested with:
-* WP Rocket {3.18.x}
-* WordPress {6.8.x}
+* WP Rocket 3.23.x
+* WordPress 7.x

@@ -3,6 +3,7 @@
  * Plugin Name: WP Rocket | Add Custom Cache Query Strings  
  * Description: Adds custom query strings to WP Rocket's cache list that would normally be ignored.   
  * Plugin URI:  https://github.com/wp-media/wp-rocket-helpers/  
+ * Version:     1.0.0
  * Author:      WP Rocket Support Team  
  * Author URI:  http://wp-rocket.me/  
  * License:     GNU General Public License v2 or later  

@@ -3,6 +3,7 @@
  * Plugin Name: WP Rocket | Disable Page Caching
  * Description: Disables WP Rocket’s page cache while preserving other optimization features.
  * Plugin URI:  https://github.com/wp-media/wp-rocket-helpers/tree/master/cache/wp-rocket-no-cache/
+ * Version:     1.0.1
  * Author:      WP Rocket Support Team
  * Author URI:  http://wp-rocket.me/
  * License:     GNU General Public License v2 or later

@@ -6,5 +6,5 @@ To be used with:
 * any setup
 
 Last tested with:
-* WP Rocket 3.0.x
-* WordPress 4.9.x
+* WP Rocket 3.23.x
+* WordPress 7.x

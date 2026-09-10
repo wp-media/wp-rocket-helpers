@@ -6,5 +6,5 @@ To be used with:
 * any setup where User Cache is enabled.
 
 Last tested with:
-* WP Rocket 3.4.x
-* WordPress 5.2.x
+* WP Rocket 3.23.x
+* WordPress 7.x

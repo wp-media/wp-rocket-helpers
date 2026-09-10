@@ -3,6 +3,7 @@
  * Plugin Name: WP Rocket | Toolbar Clear Cache Link
  * Description: Adds a “Clear cache” link to the toolbar for users who can publish posts.
  * Plugin URI:  https://github.com/wp-media/wp-rocket-helpers/tree/master/cache/wp-rocket-cache-purge-toolbar-link/
+ * Version:     1.0.0
  * Author:      WP Rocket Support Team
  * Author URI:  http://wp-rocket.me/
  * License:     GNU General Public License v2 or later

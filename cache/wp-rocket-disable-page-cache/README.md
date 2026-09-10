@@ -49,4 +49,6 @@ Leave all configurations you're not using commented out.
 
 
 
-Last tested with **WP Rocket 3.16.4** and **WordPress 6.6.x**
+Last tested with:
+* WP Rocket 3.23.x
+* WordPress 7.x

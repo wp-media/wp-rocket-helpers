@@ -3,6 +3,7 @@
  * Plugin Name: WP Rocket | No LazyLoad for iframes on LeadPages
  * Description: Disables LazyLoad for iframes/videos on LeadPages.
  * Plugin URI:  https://github.com/wp-media/wp-rocket-helpers/tree/master/compatibility/wp-rocket-compat-leadpages/
+ * Version:     1.0.0
  * Author:      WP Rocket Support Team
  * Author URI:  http://wp-rocket.me/
  * License:     GNU General Public License v2 or later

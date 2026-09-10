@@ -7,5 +7,5 @@ To be used with:
 
 Last tested with:
 * Essential Grid 2.0.x
-* WP Rocket 2.8.x
-* WordPress 4.6.x
+* WP Rocket 3.23.x
+* WordPress 7.x

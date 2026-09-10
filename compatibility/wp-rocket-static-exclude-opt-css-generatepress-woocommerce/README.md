@@ -11,5 +11,5 @@ To be used with:
 * Optimize CSS Delivery and Mobile Caching
 
 Last tested with:
-* WP Rocket 4.8.2
-* WordPress 5.6
+* WP Rocket 3.23.x
+* WordPress 7.x

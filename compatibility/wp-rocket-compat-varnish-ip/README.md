@@ -15,5 +15,5 @@ To be used with:
 * any setup where Varnish uses a custom IP
 
 Last tested with:
-* WP Rocket 3.18.x
-* WordPress 6.7.x
+* WP Rocket 3.23.x
+* WordPress 7.x

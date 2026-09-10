@@ -3,6 +3,7 @@
  * Plugin Name: WP Rocket | WooCommerce Recently Viewed Products Widget Integration
  * Description: Adds a dedicated cache based on each value of the <code>woocommerce_recently_viewed</code> cookie.
  * Plugin URI:  https://github.com/wp-media/wp-rocket-helpers/tree/master/compatibility/wp-rocket-compat-wc-recently-viewed-widget/
+ * Version:     1.1.0
  * Author:      WP Rocket Support Team
  * Author URI:  http://wp-rocket.me/
  * License:     GNU General Public License v2 or later

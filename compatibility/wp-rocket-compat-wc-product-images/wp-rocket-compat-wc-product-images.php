@@ -3,6 +3,7 @@
  * Plugin Name: WP Rocket | No LazyLoad for WooCommerce Product Images
  * Description: Disables LazyLoad on WooCommerce main shop page, product category pages, product tag pages, and single product pages.
  * Plugin URI:  https://github.com/wp-media/wp-rocket-helpers/tree/master/compatibility/wp-rocket-compat-wc-product-images/
+ * Version:     1.0.0
  * Author:      WP Rocket Support Team
  * Author URI:  http://wp-rocket.me/
  * License:     GNU General Public License v2 or later

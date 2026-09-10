@@ -100,8 +100,6 @@ This helper is useful if:
 - You want to **add debugging headers** or tweak the purge request behavior.
   
 
-## Tested with
-
--  **WP Rocket:** 3.20.x
--  **WordPress:** 6.8.x
-
+Last tested with:
+* WP Rocket 3.23.x
+* WordPress 7.x

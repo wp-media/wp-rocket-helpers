@@ -3,6 +3,7 @@
  * Plugin Name: WP Rocket | YITH WooCommerce Recently Viewed Products Integration
  * Description: Adds a dedicated cache based on each value of the <code>yith_wrvp_products_list</code> cookie.
  * Plugin URI:  https://github.com/wp-media/wp-rocket-helpers/tree/master/compatibility/wp-rocket-compat-yith-wc-recently-viewed/
+ * Version:     1.0.1
  * Author:      WP Rocket Support Team
  * Author URI:  http://wp-rocket.me/
  * License:     GNU General Public License v2 or later

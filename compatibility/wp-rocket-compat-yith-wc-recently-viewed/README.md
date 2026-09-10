@@ -10,5 +10,5 @@ To be used with:
 
 Last tested with:
 * YITH WooCommerce Recently Viewed Products 1.5.1
-* WP Rocket 3.3.0.1
-* WordPress 5.1.1
+* WP Rocket 3.23.x
+* WordPress 7.x

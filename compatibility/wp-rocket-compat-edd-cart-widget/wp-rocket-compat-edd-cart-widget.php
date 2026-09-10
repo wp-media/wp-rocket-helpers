@@ -3,6 +3,7 @@
  * Plugin Name: WP Rocket | EDD Cookie Cache
  * Description: Sets a custom cookie for WP Rocket to generate cache files from, in order to keep the EDD cart widget in sync.
  * Plugin URI:  https://github.com/wp-media/wp-rocket-helpers/tree/master/compatibility/wp-rocket-compat-edd-cart-widget/
+ * Version:     1.0.0
  * Author:      WP Rocket Support Team
  * Author URI:  http://wp-rocket.me/
  * License:     GNU General Public License v2 or later

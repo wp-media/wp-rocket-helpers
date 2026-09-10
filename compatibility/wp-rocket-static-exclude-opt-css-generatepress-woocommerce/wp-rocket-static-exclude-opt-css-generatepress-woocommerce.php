@@ -3,6 +3,7 @@
  * Plugin Name: WP Rocket | Exclude Files from Async CSS
  * Description: Exclude files from Optimize CSS Delivery option.
  * Plugin URI:  https://github.com/wp-media/wp-rocket-helpers/tree/master/static/wp-rocket-static-exclude-opt-css/
+ * Version:     1.0.0
  * Author:      WP Rocket Support Team
  * Author URI:  http://wp-rocket.me/
  * License:     GNU General Public License v2 or later

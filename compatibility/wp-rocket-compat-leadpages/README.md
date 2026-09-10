@@ -7,5 +7,5 @@ To be used with:
 
 Last tested with:
 * LeadPages Connector 1.2.x
-* WP Rocket 2.8.x
-* WordPress 4.7.x
+* WP Rocket 3.23.x
+* WordPress 7.x

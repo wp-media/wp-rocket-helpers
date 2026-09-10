@@ -3,6 +3,7 @@
  * Plugin Name: WP Rocket | No LazyLoad for Essential Grid
  * Description: Disables WP Rocket’s LazyLoad feature on pages with <a href="https://www.themepunch.com/portfolio/essential-grid-wordpress-plugin/">Essential Grid</a>.
  * Plugin URI:  https://github.com/wp-media/wp-rocket-helpers/tree/master/compatibility/wp-rocket-compat-essential-grid/
+ * Version:     1.0.0
  * Author:      WP Rocket Support Team
  * Author URI:  http://wp-rocket.me/
  * License:     GNU General Public License v2 or later

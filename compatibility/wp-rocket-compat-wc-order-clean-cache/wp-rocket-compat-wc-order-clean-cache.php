@@ -3,6 +3,7 @@
  * Plugin Name: WP Rocket | Clean Post Cache after WooCommerce Order
  * Description: Cleans the cache for each product ordered after a WooCommerce order has been completed.
  * Plugin URI:  https://github.com/wp-media/wp-rocket-helpers/tree/master/compatibility/wp-rocket-compat-wc-order-clean-cache/
+ * Version:     1.0.1
  * Author:      WP Rocket Support Team
  * Author URI:  http://wp-rocket.me/
  * License:     GNU General Public License v2 or later

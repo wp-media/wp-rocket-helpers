@@ -3,6 +3,7 @@
  * Plugin Name: WP Rocket | VG Wort Pixel
  * Description: Disables LazyLoad for VG Wort tracking pixels.
  * Plugin URI:  https://github.com/wp-media/wp-rocket-helpers/tree/master/compatibility/wp-rocket-compat-vg-wort-pixel/
+ * Version:     1.0.0
  * Author:      WP Rocket Support Team
  * Author URI:  http://wp-rocket.me/
  * License:     GNU General Public License v2 or later

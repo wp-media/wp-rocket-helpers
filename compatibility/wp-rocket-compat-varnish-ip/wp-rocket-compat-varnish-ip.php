@@ -3,6 +3,7 @@
  * Plugin Name: WP Rocket | Varnish IP
  * Description: Sets a custom Varnish IP to sync WP Rocket’s cache with.
  * Plugin URI:  https://github.com/wp-media/wp-rocket-helpers/tree/master/compatibility/wp-rocket-compat-varnish-ip/
+ * Version:     1.1.3
  * Author:      WP Rocket Support Team
  * Author URI:  http://wp-rocket.me/
  * License:     GNU General Public License v2 or later

@@ -3,6 +3,7 @@
  * Plugin Name: WP Rocket | Deactivate WooCommerce Refresh Cart Fragments Cache
  * Description: Deactivate the WP Rocket feature that caches WooCommerce Refresh Cart Fragments.
  * Plugin URI:  https://github.com/wp-media/wp-rocket-helpers/tree/master/compatibility/wp-rocket-compat-wc-cart-fragments
+ * Version:     1.0.0
  * Author:      WP Rocket Support Team
  * Author URI:  http://wp-rocket.me/
  * License:     GNU General Public License v2 or later

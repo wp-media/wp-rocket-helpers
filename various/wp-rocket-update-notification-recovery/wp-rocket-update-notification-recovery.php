@@ -1,9 +1,10 @@
 <?php
 /**
  * Plugin Name: WP Rocket - Update Notification Recovery
- * Description: Recovers WP Rocket update notifications and licensed downloads when WP Rocket is inactive, newly installed, or paused by Recovery Mode.
- * Version: 1.5.0
+ * Description: Recovers WP Rocket update notifications and licensed downloads on single-site and Multisite installations.
+ * Version: 1.6.0
  * Author: WP Rocket Support Team
+ * Network: true
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -16,6 +17,7 @@ if ( ! class_exists( 'WP_Rocket_Update_Notification_Recovery', false ) ) {
 		const API_HOST          = 'api.wp-rocket.me';
 		const UPDATE_ENDPOINT  = 'https://api.wp-rocket.me/check_update.php';
 		const CACHE_TRANSIENT   = 'wp_rocket_update_notification_recovery_data';
+		const CONTEXT_TRANSIENT = 'wp_rocket_update_notification_recovery_context';
 		const FORCE_QUERY_PARAM = 'rocket_force_update';
 
 		/**
@@ -24,6 +26,20 @@ if ( ! class_exists( 'WP_Rocket_Update_Notification_Recovery', false ) ) {
 		 * @var stdClass|WP_Error|null
 		 */
 		private static $request_cache;
+
+		/**
+		 * Site context used by the HTTP request currently in progress.
+		 *
+		 * @var array|null
+		 */
+		private static $http_context;
+
+		/**
+		 * Cached IDs for sites in the current network.
+		 *
+		 * @var int[]|null
+		 */
+		private static $network_site_ids;
 
 		/**
 		 * Register Update Notification Recovery independently from WP Rocket.
@@ -37,6 +53,7 @@ if ( ! class_exists( 'WP_Rocket_Update_Notification_Recovery', false ) ) {
 			add_action( 'admin_init', array( __CLASS__, 'maybe_force_update_check' ), 1 );
 			add_action( 'admin_init', array( __CLASS__, 'maybe_redirect_after_activation' ), 2 );
 			add_action( 'admin_notices', array( __CLASS__, 'display_folder_notice' ) );
+			add_action( 'network_admin_notices', array( __CLASS__, 'display_folder_notice' ) );
 			add_action( 'admin_post_wp_rocket_update_notification_recovery_restore_folder', array( __CLASS__, 'restore_folder_name' ) );
 		}
 
@@ -61,8 +78,22 @@ if ( ! class_exists( 'WP_Rocket_Update_Notification_Recovery', false ) ) {
 				return $request;
 			}
 
+			$context = self::$http_context;
+			if ( ! is_array( $context ) ) {
+				$context = self::get_saved_update_context();
+			}
+
+			if ( ! is_array( $context ) ) {
+				$contexts = self::get_update_contexts();
+				$context  = $contexts ? reset( $contexts ) : null;
+			}
+
+			if ( ! is_array( $context ) || empty( $context['consumer_key'] ) || empty( $context['consumer_email'] ) ) {
+				return $request;
+			}
+
 			$current_user_agent    = isset( $request['user-agent'] ) ? (string) $request['user-agent'] : '';
-			$request['user-agent'] = sprintf( '%s;%s', $current_user_agent, self::get_rocket_user_agent() );
+			$request['user-agent'] = sprintf( '%s;%s', $current_user_agent, self::get_rocket_user_agent( $context ) );
 
 			return $request;
 		}
@@ -74,7 +105,7 @@ if ( ! class_exists( 'WP_Rocket_Update_Notification_Recovery', false ) ) {
 			$user_id = get_current_user_id();
 
 			if ( $user_id ) {
-				set_transient( self::get_activation_transient_name( $user_id ), 1, MINUTE_IN_SECONDS );
+				self::set_activation_redirect( $user_id );
 			}
 		}
 
@@ -89,14 +120,14 @@ if ( ! class_exists( 'WP_Rocket_Update_Notification_Recovery', false ) ) {
 			$user_id        = get_current_user_id();
 			$transient_name = self::get_activation_transient_name( $user_id );
 
-			if ( ! $user_id || ! get_transient( $transient_name ) ) {
+			if ( ! $user_id || ! self::get_activation_redirect( $transient_name ) ) {
 				return;
 			}
 
-			delete_transient( $transient_name );
+			self::delete_activation_redirect( $transient_name );
 
 			wp_safe_redirect(
-				add_query_arg( self::FORCE_QUERY_PARAM, '1', self_admin_url( 'plugins.php' ) )
+				add_query_arg( self::FORCE_QUERY_PARAM, '1', self::get_plugins_page_url() )
 			);
 			exit;
 		}
@@ -115,7 +146,7 @@ if ( ! class_exists( 'WP_Rocket_Update_Notification_Recovery', false ) ) {
 
 			$plugin_meta['wp-rocket-update-notification-recovery-check'] = sprintf(
 				'<a href="%s"><strong><span class="dashicons dashicons-update" aria-hidden="true"></span> %s</strong></a>',
-				esc_url( add_query_arg( self::FORCE_QUERY_PARAM, '1', self_admin_url( 'plugins.php' ) ) ),
+				esc_url( add_query_arg( self::FORCE_QUERY_PARAM, '1', self::get_plugins_page_url() ) ),
 				esc_html__( 'Check Available Updates Now', 'wp-rocket-update-notification-recovery' )
 			);
 
@@ -163,14 +194,10 @@ if ( ! class_exists( 'WP_Rocket_Update_Notification_Recovery', false ) ) {
 				return;
 			}
 
-			if ( ! function_exists( 'is_plugin_active' ) ) {
-				require_once ABSPATH . 'wp-admin/includes/plugin.php';
-			}
-
-			$plugin_active = is_plugin_active( $plugin_file ) || ( is_multisite() && is_plugin_active_for_network( $plugin_file ) );
+			$plugin_active = self::is_wp_rocket_active_anywhere( $plugin_file );
 
 			$restore_url = wp_nonce_url(
-				self_admin_url( 'admin-post.php?action=wp_rocket_update_notification_recovery_restore_folder' ),
+				admin_url( 'admin-post.php?action=wp_rocket_update_notification_recovery_restore_folder' ),
 				'wp_rocket_update_notification_recovery_restore_folder'
 			);
 
@@ -223,11 +250,7 @@ if ( ! class_exists( 'WP_Rocket_Update_Notification_Recovery', false ) ) {
 				self::redirect_folder_result( 'destination_exists' );
 			}
 
-			if ( ! function_exists( 'is_plugin_active' ) ) {
-				require_once ABSPATH . 'wp-admin/includes/plugin.php';
-			}
-
-			if ( is_plugin_active( $plugin_file ) || ( is_multisite() && is_plugin_active_for_network( $plugin_file ) ) ) {
+			if ( self::is_wp_rocket_active_anywhere( $plugin_file ) ) {
 				self::redirect_folder_result( 'plugin_active' );
 			}
 
@@ -236,6 +259,7 @@ if ( ! class_exists( 'WP_Rocket_Update_Notification_Recovery', false ) ) {
 			}
 
 			delete_site_transient( self::CACHE_TRANSIENT );
+			delete_site_transient( self::CONTEXT_TRANSIENT );
 			delete_site_transient( 'update_plugins' );
 			self::redirect_folder_result( 'restored', true );
 		}
@@ -298,6 +322,7 @@ if ( ! class_exists( 'WP_Rocket_Update_Notification_Recovery', false ) ) {
 		public static function maybe_clear_cache( $transient ) {
 			if ( 'update_plugins' === $transient ) {
 				delete_site_transient( self::CACHE_TRANSIENT );
+				delete_site_transient( self::CONTEXT_TRANSIENT );
 				self::$request_cache = null;
 			}
 		}
@@ -315,6 +340,7 @@ if ( ! class_exists( 'WP_Rocket_Update_Notification_Recovery', false ) ) {
 			}
 
 			delete_site_transient( self::CACHE_TRANSIENT );
+			delete_site_transient( self::CONTEXT_TRANSIENT );
 			delete_site_transient( 'update_plugins' );
 			self::$request_cache = null;
 		}
@@ -364,12 +390,43 @@ if ( ! class_exists( 'WP_Rocket_Update_Notification_Recovery', false ) ) {
 		 * @return stdClass|WP_Error
 		 */
 		private static function request_remote_data() {
+			$contexts = self::get_update_contexts();
+			if ( ! $contexts ) {
+				return new WP_Error(
+					'wp_rocket_update_notification_recovery_missing_credentials',
+					'WP Rocket license credentials could not be found.'
+				);
+			}
+
+			$last_error = null;
+			foreach ( $contexts as $context ) {
+				$result = self::request_remote_data_for_context( $context );
+				if ( ! is_wp_error( $result ) ) {
+					self::save_update_context( $context );
+					return $result;
+				}
+
+				$last_error = $result;
+			}
+
+			return $last_error;
+		}
+
+		/**
+		 * Contact WP Rocket's licensing/update endpoint for one site context.
+		 *
+		 * @param array $context Site URL and license context.
+		 * @return stdClass|WP_Error
+		 */
+		private static function request_remote_data_for_context( $context ) {
+			self::$http_context = $context;
 			$response = wp_remote_get(
 				self::UPDATE_ENDPOINT,
 				array(
 					'timeout' => 30,
 				)
 			);
+			self::$http_context = null;
 
 			if ( is_wp_error( $response ) ) {
 				return new WP_Error(
@@ -408,18 +465,18 @@ if ( ! class_exists( 'WP_Rocket_Update_Notification_Recovery', false ) ) {
 		/**
 		 * Build the license-bearing User-Agent fragment expected by WP Rocket's API.
 		 *
+		 * @param array $context Site URL and license context.
 		 * @return string
 		 */
-		private static function get_rocket_user_agent() {
-			$credentials  = self::get_license_credentials();
+		private static function get_rocket_user_agent( $context ) {
 			$php_version = preg_replace( '@^(\d+\.\d+).*@', '$1', PHP_VERSION );
 
 			$user_agent = sprintf(
 				'WP-Rocket|%s|%s|%s|%s|%s;',
 				self::get_installed_version(),
-				$credentials['consumer_key'],
-				$credentials['consumer_email'],
-				home_url(),
+				$context['consumer_key'],
+				$context['consumer_email'],
+				$context['site_url'],
 				$php_version
 			);
 
@@ -430,27 +487,44 @@ if ( ! class_exists( 'WP_Rocket_Update_Notification_Recovery', false ) ) {
 		/**
 		 * Get license credentials without loading any WP Rocket PHP file.
 		 *
-		 * Constants and saved settings take precedence. A newly downloaded copy of
-		 * WP Rocket can instead provide the values in its generated licence-data.php.
+		 * On single-site, constants and saved settings take precedence. On Multisite,
+		 * the shared licence-data.php is preferred and per-site settings are fallback.
 		 *
+		 * @param int $blog_id Blog ID, or zero on a single-site installation.
 		 * @return array
 		 */
-		private static function get_license_credentials() {
-			$options = get_option( self::SETTINGS_OPTION, array() );
-			$options = is_array( $options ) ? $options : array();
+		private static function get_license_credentials( $blog_id = 0 ) {
+			if ( is_multisite() && $blog_id ) {
+				$options = get_blog_option( $blog_id, self::SETTINGS_OPTION, array() );
+			} else {
+				$options = get_option( self::SETTINGS_OPTION, array() );
+			}
+			$options          = is_array( $options ) ? $options : array();
+			$file_credentials = self::get_license_file_credentials();
 
-			$credentials = array(
-				'consumer_key'   => defined( 'WP_ROCKET_KEY' ) ? (string) WP_ROCKET_KEY : ( isset( $options['consumer_key'] ) ? (string) $options['consumer_key'] : '' ),
-				'consumer_email' => defined( 'WP_ROCKET_EMAIL' ) ? (string) WP_ROCKET_EMAIL : ( isset( $options['consumer_email'] ) ? (string) $options['consumer_email'] : '' ),
-			);
+			if ( is_multisite() ) {
+				// licence-data.php belongs to the shared codebase, so it is the
+				// authoritative network license. Per-site options are a fallback.
+				$credentials = array(
+					'consumer_key'   => defined( 'WP_ROCKET_KEY' ) ? (string) WP_ROCKET_KEY : ( isset( $file_credentials['consumer_key'] ) ? (string) $file_credentials['consumer_key'] : '' ),
+					'consumer_email' => defined( 'WP_ROCKET_EMAIL' ) ? (string) WP_ROCKET_EMAIL : ( isset( $file_credentials['consumer_email'] ) ? (string) $file_credentials['consumer_email'] : '' ),
+				);
+			} else {
+				$credentials = array(
+					'consumer_key'   => defined( 'WP_ROCKET_KEY' ) ? (string) WP_ROCKET_KEY : ( isset( $options['consumer_key'] ) ? (string) $options['consumer_key'] : '' ),
+					'consumer_email' => defined( 'WP_ROCKET_EMAIL' ) ? (string) WP_ROCKET_EMAIL : ( isset( $options['consumer_email'] ) ? (string) $options['consumer_email'] : '' ),
+				);
+			}
 
-			if ( '' === $credentials['consumer_key'] || '' === $credentials['consumer_email'] ) {
-				$file_credentials = self::get_license_file_credentials();
+			foreach ( $credentials as $name => $value ) {
+				if ( '' !== $value ) {
+					continue;
+				}
 
-				foreach ( $credentials as $name => $value ) {
-					if ( '' === $value && isset( $file_credentials[ $name ] ) ) {
-						$credentials[ $name ] = $file_credentials[ $name ];
-					}
+				if ( isset( $options[ $name ] ) ) {
+					$credentials[ $name ] = (string) $options[ $name ];
+				} elseif ( isset( $file_credentials[ $name ] ) ) {
+					$credentials[ $name ] = (string) $file_credentials[ $name ];
 				}
 			}
 
@@ -500,6 +574,169 @@ if ( ! class_exists( 'WP_Rocket_Update_Notification_Recovery', false ) ) {
 		}
 
 		/**
+		 * Get the site contexts that may authenticate the shared WP Rocket copy.
+		 *
+		 * Single-site installations have one context. On Multisite, the main site
+		 * and the first configured child site are enough because the plugin files
+		 * and licence-data.php are shared across the network.
+		 *
+		 * @return array[]
+		 */
+		private static function get_update_contexts() {
+			if ( ! is_multisite() ) {
+				$context = self::build_site_context( 0 );
+
+				return $context ? array( $context ) : array();
+			}
+
+			$main_site_id  = (int) get_main_site_id();
+			$site_ids      = self::get_network_site_ids();
+			$candidate_ids = array();
+
+			if ( self::site_has_wp_rocket_context( $main_site_id ) ) {
+				$candidate_ids[] = $main_site_id;
+			}
+
+			foreach ( $site_ids as $site_id ) {
+				if ( $main_site_id === $site_id || ! self::site_has_wp_rocket_context( $site_id ) ) {
+					continue;
+				}
+
+				$candidate_ids[] = $site_id;
+				break;
+			}
+
+			// The main URL is a final fallback for a new network whose only license
+			// source is the shared licence-data.php file.
+			if ( ! in_array( $main_site_id, $candidate_ids, true ) ) {
+				$candidate_ids[] = $main_site_id;
+			}
+
+			$contexts = array();
+			$site_urls = array();
+			foreach ( $candidate_ids as $site_id ) {
+				$context = self::build_site_context( $site_id );
+				if ( ! $context || in_array( $context['site_url'], $site_urls, true ) ) {
+					continue;
+				}
+
+				$contexts[] = $context;
+				$site_urls[] = $context['site_url'];
+			}
+
+			return $contexts;
+		}
+
+		/**
+		 * Build the API authentication context for one site.
+		 *
+		 * @param int $blog_id Blog ID, or zero on a single-site installation.
+		 * @return array|false
+		 */
+		private static function build_site_context( $blog_id ) {
+			if ( is_multisite() && ( ! $blog_id || ! get_site( $blog_id ) ) ) {
+				return false;
+			}
+
+			$credentials = self::get_license_credentials( $blog_id );
+			$site_url    = is_multisite() ? get_home_url( $blog_id ) : home_url();
+			$site_url    = esc_url_raw( $site_url );
+
+			if ( empty( $credentials['consumer_key'] ) || empty( $credentials['consumer_email'] ) || ! $site_url ) {
+				return false;
+			}
+
+			return array(
+				'blog_id'        => (int) $blog_id,
+				'site_url'       => $site_url,
+				'consumer_key'   => (string) $credentials['consumer_key'],
+				'consumer_email' => (string) $credentials['consumer_email'],
+			);
+		}
+
+		/**
+		 * Restore the context that produced the current update offer.
+		 *
+		 * @return array|null
+		 */
+		private static function get_saved_update_context() {
+			$saved = get_site_transient( self::CONTEXT_TRANSIENT );
+			if ( ! is_array( $saved ) || ! isset( $saved['blog_id'] ) ) {
+				return null;
+			}
+
+			$context = self::build_site_context( (int) $saved['blog_id'] );
+
+			return $context ? $context : null;
+		}
+
+		/**
+		 * Remember which site URL authenticated the update and package download.
+		 *
+		 * @param array $context Successful request context.
+		 */
+		private static function save_update_context( $context ) {
+			set_site_transient(
+				self::CONTEXT_TRANSIENT,
+				array( 'blog_id' => (int) $context['blog_id'] ),
+				12 * HOUR_IN_SECONDS
+			);
+		}
+
+		/**
+		 * Determine whether a site is a useful WP Rocket update context.
+		 *
+		 * @param int $blog_id Blog ID.
+		 * @return bool
+		 */
+		private static function site_has_wp_rocket_context( $blog_id ) {
+			$plugin_file = self::get_wp_rocket_plugin_file();
+			$active      = get_blog_option( $blog_id, 'active_plugins', array() );
+			$settings    = get_blog_option( $blog_id, self::SETTINGS_OPTION, array() );
+
+			if ( is_array( $active ) && in_array( $plugin_file, $active, true ) ) {
+				return true;
+			}
+
+			return is_array( $settings )
+				&& ( ! empty( $settings['consumer_key'] ) || ! empty( $settings['consumer_email'] ) );
+		}
+
+		/**
+		 * Return every non-deleted site ID without get_sites()' default limit.
+		 *
+		 * @return int[]
+		 */
+		private static function get_network_site_ids() {
+			if ( null !== self::$network_site_ids ) {
+				return self::$network_site_ids;
+			}
+
+			self::$network_site_ids = array();
+			$offset                 = 0;
+			$batch_size             = 100;
+
+			do {
+				$site_ids = get_sites(
+					array(
+						'fields'   => 'ids',
+						'number'   => $batch_size,
+						'offset'   => $offset,
+						'spam'     => 0,
+						'deleted'  => 0,
+						'archived' => 0,
+					)
+				);
+
+				$site_ids = array_map( 'intval', $site_ids );
+				self::$network_site_ids = array_merge( self::$network_site_ids, $site_ids );
+				$offset += $batch_size;
+			} while ( count( $site_ids ) === $batch_size );
+
+			return self::$network_site_ids;
+		}
+
+		/**
 		 * Return to the Plugins screen after attempting a folder restoration.
 		 *
 		 * @param string $result       Result code displayed as an admin notice.
@@ -514,8 +751,17 @@ if ( ! class_exists( 'WP_Rocket_Update_Notification_Recovery', false ) ) {
 				$query_args[ self::FORCE_QUERY_PARAM ] = '1';
 			}
 
-			wp_safe_redirect( add_query_arg( $query_args, self_admin_url( 'plugins.php' ) ) );
+			wp_safe_redirect( add_query_arg( $query_args, self::get_plugins_page_url() ) );
 			exit;
+		}
+
+		/**
+		 * Return the Plugins screen that owns updates for this installation.
+		 *
+		 * @return string
+		 */
+		private static function get_plugins_page_url() {
+			return is_multisite() ? network_admin_url( 'plugins.php' ) : self_admin_url( 'plugins.php' );
 		}
 
 		/**
@@ -526,6 +772,46 @@ if ( ! class_exists( 'WP_Rocket_Update_Notification_Recovery', false ) ) {
 		 */
 		private static function get_activation_transient_name( $user_id ) {
 			return 'wp_rocket_update_notification_recovery_activation_redirect_' . absint( $user_id );
+		}
+
+		/**
+		 * Store an activation redirect in the appropriate scope.
+		 *
+		 * @param int $user_id WordPress user ID.
+		 */
+		private static function set_activation_redirect( $user_id ) {
+			$name = self::get_activation_transient_name( $user_id );
+
+			if ( is_multisite() ) {
+				set_site_transient( $name, 1, MINUTE_IN_SECONDS );
+				return;
+			}
+
+			set_transient( $name, 1, MINUTE_IN_SECONDS );
+		}
+
+		/**
+		 * Read an activation redirect flag.
+		 *
+		 * @param string $name Transient name.
+		 * @return mixed
+		 */
+		private static function get_activation_redirect( $name ) {
+			return is_multisite() ? get_site_transient( $name ) : get_transient( $name );
+		}
+
+		/**
+		 * Delete an activation redirect flag.
+		 *
+		 * @param string $name Transient name.
+		 */
+		private static function delete_activation_redirect( $name ) {
+			if ( is_multisite() ) {
+				delete_site_transient( $name );
+				return;
+			}
+
+			delete_transient( $name );
 		}
 
 		/**
@@ -559,6 +845,38 @@ if ( ! class_exists( 'WP_Rocket_Update_Notification_Recovery', false ) ) {
 		 */
 		private static function wp_rocket_is_loaded() {
 			return defined( 'WP_ROCKET_VERSION' );
+		}
+
+		/**
+		 * Determine whether WP Rocket is active in any network context.
+		 *
+		 * Folder restoration is a filesystem-wide operation, so it must be
+		 * refused if any subsite is actively using the detected plugin basename.
+		 *
+		 * @param string $plugin_file Detected WP Rocket plugin basename.
+		 * @return bool
+		 */
+		private static function is_wp_rocket_active_anywhere( $plugin_file ) {
+			if ( ! function_exists( 'is_plugin_active' ) ) {
+				require_once ABSPATH . 'wp-admin/includes/plugin.php';
+			}
+
+			if ( ! is_multisite() ) {
+				return is_plugin_active( $plugin_file );
+			}
+
+			if ( is_plugin_active_for_network( $plugin_file ) ) {
+				return true;
+			}
+
+			foreach ( self::get_network_site_ids() as $blog_id ) {
+				$active = get_blog_option( $blog_id, 'active_plugins', array() );
+				if ( is_array( $active ) && in_array( $plugin_file, $active, true ) ) {
+					return true;
+				}
+			}
+
+			return false;
 		}
 
 		/**

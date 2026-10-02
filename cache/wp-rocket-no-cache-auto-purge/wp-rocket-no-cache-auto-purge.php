@@ -3,7 +3,7 @@
  * Plugin Name: WP Rocket | Disable Cache Clearing
  * Description: Disables all of WP Rocket’s automatic cache clearing.
  * Plugin URI:  https://github.com/wp-media/wp-rocket-helpers/tree/master/cache/wp-rocket-no-cache-auto-purge/
- * Version:     1.8.0
+ * Version:     1.8.1
  * Author:      WP Rocket Support Team
  * Author URI:  http://wp-rocket.me/
  * License:     GNU General Public License v2 or later
@@ -102,6 +102,28 @@ function remove_purge_hooks() {
 add_action( 'wp_rocket_loaded', __NAMESPACE__ . '\remove_purge_hooks' );
 
 /**
+ * Get a service from WP Rocket's container, or null when it is not registered.
+ *
+ * Since WP Rocket 3.23.5, third-party compatibility services (e.g. elementor_subscriber)
+ * are only registered when their plugin is active, and Container::get() throws on unknown ids.
+ *
+ * @param string $id Service id.
+ *
+ * @return object|null
+ */
+function get_rocket_service( $id ) {
+	$container = apply_filters( 'rocket_container', null );
+
+	if ( ! is_object( $container ) || ! method_exists( $container, 'has' ) || ! $container->has( $id ) ) {
+		return null;
+	}
+
+	$service = $container->get( $id );
+
+	return is_object( $service ) ? $service : null;
+}
+
+/**
  * Disable cache clearing when term is created/updated/deleted for WP Rocket 3.5.5 or later.
  * Disable user cache purging for WP Rocket 3.5 or later.
  *
@@ -110,17 +132,23 @@ add_action( 'wp_rocket_loaded', __NAMESPACE__ . '\remove_purge_hooks' );
  */
 function wp_rocket_disable_user_cache_purging(){
 	
-	$container = apply_filters( 'rocket_container', '');
+	$event_manager = get_rocket_service( 'event_manager' );
+	$subscriber    = get_rocket_service( 'purge_actions_subscriber' );
+
+	if ( ! $event_manager || ! $subscriber ) {
+		return;
+	}
+
 	// After profile is updated (User cache only).
-	$container->get('event_manager')->remove_callback( 'profile_update', [ $container->get('purge_actions_subscriber'), 'purge_user_cache'] );
+	$event_manager->remove_callback( 'profile_update', [ $subscriber, 'purge_user_cache'] );
 	// After user is deleted (User cache only).
-	$container->get('event_manager')->remove_callback( 'delete_user', [ $container->get('purge_actions_subscriber'), 'purge_user_cache'] );
+	$event_manager->remove_callback( 'delete_user', [ $subscriber, 'purge_user_cache'] );
 	// After term is created.
-	$container->get('event_manager')->remove_callback( 'create_term' , [ $container->get('purge_actions_subscriber'), 'maybe_purge_cache_on_term_change'] );
+	$event_manager->remove_callback( 'create_term' , [ $subscriber, 'maybe_purge_cache_on_term_change'] );
 	// After term is edited.
-	$container->get('event_manager')->remove_callback( 'edit_term' , [ $container->get('purge_actions_subscriber'), 'maybe_purge_cache_on_term_change'] );
+	$event_manager->remove_callback( 'edit_term' , [ $subscriber, 'maybe_purge_cache_on_term_change'] );
 	// After term is removed.
-	$container->get('event_manager')->remove_callback( 'delete_term' , [ $container->get('purge_actions_subscriber'), 'maybe_purge_cache_on_term_change'] );
+	$event_manager->remove_callback( 'delete_term' , [ $subscriber, 'maybe_purge_cache_on_term_change'] );
 
 }
 
@@ -130,12 +158,19 @@ add_action( 'wp_rocket_loaded', __NAMESPACE__ . '\wp_rocket_disable_user_cache_p
 function wp_rocket_disable_elementor_cache_clearing(){
 
 		add_action( 'wp_loaded', function() {
-		$container = apply_filters( 'rocket_container', '');
-		$container->get('event_manager')->remove_callback( 'added_post_meta', [ $container->get('elementor_subscriber'), 'maybe_clear_cache'], 10, 3 );
-		$container->get('event_manager')->remove_callback( 'deleted_post_meta', [ $container->get('elementor_subscriber'), 'maybe_clear_cache'], 10, 3 );
-		$container->get('event_manager')->remove_callback( 'elementor/core/files/clear_cache', [ $container->get('elementor_subscriber'), 'clear_cache'] );
-		$container->get('event_manager')->remove_callback( 'update_option__elementor_global_css', [ $container->get('elementor_subscriber'), 'clear_cache'] );
-		$container->get('event_manager')->remove_callback( 'delete_option__elementor_global_css', [ $container->get('elementor_subscriber'), 'clear_cache'] );
+		$event_manager = get_rocket_service( 'event_manager' );
+		$subscriber    = get_rocket_service( 'elementor_subscriber' );
+
+		// Elementor subscriber is not registered when Elementor is inactive (WP Rocket 3.23.5+).
+		if ( ! $event_manager || ! $subscriber ) {
+			return;
+		}
+
+		$event_manager->remove_callback( 'added_post_meta', [ $subscriber, 'maybe_clear_cache'], 10, 3 );
+		$event_manager->remove_callback( 'deleted_post_meta', [ $subscriber, 'maybe_clear_cache'], 10, 3 );
+		$event_manager->remove_callback( 'elementor/core/files/clear_cache', [ $subscriber, 'clear_cache'] );
+		$event_manager->remove_callback( 'update_option__elementor_global_css', [ $subscriber, 'clear_cache'] );
+		$event_manager->remove_callback( 'delete_option__elementor_global_css', [ $subscriber, 'clear_cache'] );
 		} );
 }
 
@@ -153,8 +188,14 @@ add_action( 'wp', function(){
  *	@author Vasilis Manthos
  */
 function wp_rocket_disable_woocommerce_variation_cache_clear(){
-	$container = apply_filters( 'rocket_container', '');
-	$container->get('event_manager')->remove_callback( 'woocommerce_save_product_variation', [ $container->get('woocommerce_subscriber'), 'clean_cache_after_woocommerce_save_product_variation'] );
+	$event_manager = get_rocket_service( 'event_manager' );
+	$subscriber    = get_rocket_service( 'woocommerce_subscriber' );
+
+	if ( ! $event_manager || ! $subscriber ) {
+		return;
+	}
+
+	$event_manager->remove_callback( 'woocommerce_save_product_variation', [ $subscriber, 'clean_cache_after_woocommerce_save_product_variation'] );
 }
 
 add_action( 'wp_rocket_loaded', __NAMESPACE__ . '\wp_rocket_disable_woocommerce_variation_cache_clear' );
@@ -167,10 +208,10 @@ add_action( 'wp_rocket_loaded', __NAMESPACE__ . '\wp_rocket_disable_woocommerce_
  */
  function wp_rocket_disable_rocket_after_save_dynamic_lists(){
 	 
-	$container = apply_filters( 'rocket_container', [] );
-	if ( ! empty( $container ) ) {
-		remove_action( 'rocket_after_save_dynamic_lists', [ $container->get( 'purge_actions_subscriber' ), 'purge_cache' ] );
-		remove_action( 'rocket_after_save_dynamic_lists', [ $container->get( 'purge_actions_subscriber' ), 'purge_cache_after_saving_dynamic_lists' ] );
+	$subscriber = get_rocket_service( 'purge_actions_subscriber' );
+	if ( $subscriber ) {
+		remove_action( 'rocket_after_save_dynamic_lists', [ $subscriber, 'purge_cache' ] );
+		remove_action( 'rocket_after_save_dynamic_lists', [ $subscriber, 'purge_cache_after_saving_dynamic_lists' ] );
 	}
 
  }

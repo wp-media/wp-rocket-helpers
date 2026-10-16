@@ -3,6 +3,7 @@
  * Plugin Name: WP Rocket - RUCSS Debugger
  * Plugin URI:  https://wp-media.me/
  * Description: A debugging tool for Remove Unused CSS.
+ * Version:     1.1.0
  * Author:      WP Rocket Support Team
  * Author URI:  https://wp-rocket.me/
  * License:     GNU General Public License v2 or later
@@ -35,6 +36,7 @@ function wprocketrucssdebuger_admin_page() {
     .completed{background:#090;color:#FFF}
     .pending{color:#F80}
     .in-progress{color:#009}
+    .to-submit{color:#606}
     .failed{color:#900}
     .progress{color:#900;}
     .progress.completed{color:#090}
@@ -42,6 +44,7 @@ function wprocketrucssdebuger_admin_page() {
     tr {background-color:#FFF;}
     .pagination a {display: inline-block; padding: 6px; background-color: #DDD; color: #333; text-decoration: none }
     .pagination a.current {background-color: #999; color: #FFF; }
+    .delete-all-rows-link {color:#b32d2e;font-weight:600}
     
     </style>
     <div id="wpbody" role="main">
@@ -88,6 +91,67 @@ function wprocketrucssdebuger_admin_page() {
     
         }
         
+    // RESET ALL PENDING JOBS TO TO-SUBMIT.
+    elseif( isset($_GET['reset_pending_jobs'] ) ) {
+
+        if ( ! current_user_can( 'install_plugins' ) ) {
+            wp_die( esc_html__( 'You are not allowed to perform this action.' ) );
+        }
+
+        check_admin_referer( 'wpr_rucss_reset_pending_jobs' );
+
+        global $wpdb;
+        $table_name = $wpdb->prefix . 'wpr_rucss_used_css';
+        $updated    = $wpdb->query(
+            $wpdb->prepare(
+                "UPDATE `{$table_name}` SET `status` = %s, `modified` = %s WHERE `status` = %s",
+                'to-submit',
+                current_time( 'mysql', true ),
+                'pending'
+            )
+        );
+
+        echo "<h1 class='wp-heading-inline'>[<a href='tools.php?page=wprocketrucssdebuger'>&lsaquo; back</a>] RUCSS Debugger - Pending jobs reset</h1>";
+        echo '<hr>';
+
+        if ( false === $updated ) {
+            echo '<div class="notice notice-error inline"><p>The pending jobs could not be reset.</p></div>';
+        } else {
+            echo '<div class="notice notice-success inline"><p>' . esc_html( $updated ) . ' pending job(s) changed to To Submit.</p></div>';
+        }
+
+        echo "<p><a href='tools.php?page=wprocketrucssdebuger'>go back</a></p>";
+        echo '<hr>';
+    }
+
+
+    // DELETE ALL RUCSS ROWS.
+    elseif( isset($_GET['delete_all_rows'] ) ) {
+
+        if ( ! current_user_can( 'install_plugins' ) ) {
+            wp_die( esc_html__( 'You are not allowed to perform this action.' ) );
+        }
+
+        check_admin_referer( 'wpr_rucss_delete_all_rows' );
+
+        global $wpdb;
+        $table_name = $wpdb->prefix . 'wpr_rucss_used_css';
+        $deleted    = $wpdb->query( "TRUNCATE TABLE `{$table_name}`" );
+
+        echo "<h1 class='wp-heading-inline'>[<a href='tools.php?page=wprocketrucssdebuger'>&lsaquo; back</a>] RUCSS Debugger - All rows deleted</h1>";
+        echo '<hr>';
+
+        if ( false === $deleted ) {
+            echo '<div class="notice notice-error inline"><p>The RUCSS table could not be truncated.</p></div>';
+        } else {
+            echo '<div class="notice notice-success inline"><p>All rows in <strong>' . esc_html( $table_name ) . '</strong> were deleted.</p></div>';
+        }
+
+        echo "<p><a href='tools.php?page=wprocketrucssdebuger'>go back</a></p>";
+        echo '<hr>';
+    }
+
+
     //TRUNCATE USED CSS
     elseif( isset($_GET['truncate_usedcss'] )) {
                     
@@ -213,6 +277,7 @@ function wprocketrucssdebuger_admin_page() {
     $totalrows = $wpdb->get_var("SELECT COUNT(*) FROM $wpdb->wpr_rucss_used_css");
     $completedcount = $wpdb->get_var("SELECT COUNT(*) FROM $wpdb->wpr_rucss_used_css WHERE status = 'completed'");
     $inprogresscount = $wpdb->get_var("SELECT COUNT(*) FROM $wpdb->wpr_rucss_used_css WHERE status = 'in-progress'");
+    $tosubmitcount = $wpdb->get_var("SELECT COUNT(*) FROM $wpdb->wpr_rucss_used_css WHERE status = 'to-submit'");
     $failedcount = $wpdb->get_var("SELECT COUNT(*) FROM $wpdb->wpr_rucss_used_css WHERE status = 'failed'");
     $pendingcount = $wpdb->get_var("SELECT COUNT(*) FROM $wpdb->wpr_rucss_used_css WHERE status = 'pending'");
     $rows = $wpdb->get_results( "SELECT * FROM ".$wpdb->prefix."wpr_rucss_used_css $search  ORDER BY job_id LIMIT $rows_per_page offset $pg " );
@@ -225,7 +290,18 @@ function wprocketrucssdebuger_admin_page() {
     
     echo "<h1 class='wp-heading-inline'><a href='tools.php?page=wprocketrucssdebuger'>RUCSS Debugger</a> -  contents of $wpdb->prefix wpr_rucss_used_css</h1>";
     echo '<hr>';
-    echo '<a href="'.get_site_url().'/wp-cron.php?doing_wp_cron" id="doing-cron-button">Run WP-Cron</a><span id="doing-cron-status"></span><br><br>';
+    $reset_pending_url = wp_nonce_url(
+        admin_url( 'tools.php?page=wprocketrucssdebuger&reset_pending_jobs=1' ),
+        'wpr_rucss_reset_pending_jobs'
+    );
+    $delete_all_rows_url = wp_nonce_url(
+        admin_url( 'tools.php?page=wprocketrucssdebuger&delete_all_rows=1' ),
+        'wpr_rucss_delete_all_rows'
+    );
+
+    echo '<a href="'.esc_url( get_site_url().'/wp-cron.php?doing_wp_cron' ).'" id="doing-cron-button">Run WP-Cron</a><span id="doing-cron-status"></span> - ';
+    echo '<a href="'.esc_url( $reset_pending_url ).'" onclick="return confirm(\'Change every Pending RUCSS job to To Submit?\');">Reset all Pending jobs</a> - ';
+    echo '<a class="delete-all-rows-link" href="'.esc_url( $delete_all_rows_url ).'" onclick="return confirm(\'Delete every row from the RUCSS table? This cannot be undone.\');">Delete all rows</a><br><br>';
     echo '<script src="'. esc_url( plugins_url( 'main.js', __FILE__ ) ) .'"></script>';
 
     
@@ -234,9 +310,10 @@ function wprocketrucssdebuger_admin_page() {
     echo '<p>'.$percentaje.'% completed - ' . $completedcount . ' of '.  $totalrows. ' urls<br>';
     
     echo '<p><span class="complete">'.$completedcount.' Completed</span> - ';
-    echo '<span class="pending">'.$pendingcount.' Pending - ';
-    echo '<span class="in-progress">'.$inprogresscount.' In-Progress - ';
-    echo '<span class="failed">'.$failedcount.' Failed </p>';
+    echo '<span class="pending">'.$pendingcount.' Pending</span> - ';
+    echo '<span class="in-progress">'.$inprogresscount.' In-Progress</span> - ';
+    echo '<span class="to-submit">'.$tosubmitcount.' To Submit</span> - ';
+    echo '<span class="failed">'.$failedcount.' Failed</span></p>';
     
     
     // SEARCH form
@@ -322,4 +399,3 @@ function wprocketrucssdebuger_admin_page() {
     
     echo '</div></div>';
 }
-

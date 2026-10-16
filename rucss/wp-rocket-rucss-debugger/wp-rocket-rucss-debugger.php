@@ -301,7 +301,7 @@ function wprocketrucssdebuger_admin_page() {
 
     echo '<a href="'.esc_url( get_site_url().'/wp-cron.php?doing_wp_cron' ).'" id="doing-cron-button">Run WP-Cron</a><span id="doing-cron-status"></span> - ';
     echo '<a href="'.esc_url( $reset_pending_url ).'" onclick="return confirm(\'Change every Pending RUCSS job to To Submit?\');">Reset all Pending jobs</a> - ';
-    echo '<a class="delete-all-rows-link" href="'.esc_url( $delete_all_rows_url ).'" onclick="return confirm(\'Delete every row from the RUCSS table? This cannot be undone.\');">Delete all rows</a><br><br>';
+    echo '<a class="delete-all-rows-link" href="'.esc_url( $delete_all_rows_url ).'" onclick="return confirm(\'Delete every row from the RUCSS table? This cannot be undone.\');">Delete All Jobs</a><br><br>';
     echo '<script src="'. esc_url( plugins_url( 'main.js', __FILE__ ) ) .'"></script>';
 
     

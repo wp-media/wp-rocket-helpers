@@ -3,7 +3,7 @@
  * Plugin Name: WP Rocket - RUCSS Debugger
  * Plugin URI:  https://wp-media.me/
  * Description: A debugging tool for Remove Unused CSS.
- * Version:     1.2.2
+ * Version:     1.3.0
  * Author:      WP Rocket Support Team
  * Author URI:  https://wp-rocket.me/
  * License:     GNU General Public License v2 or later
@@ -118,6 +118,51 @@ function wprocketrucssdebuger_admin_page() {
             echo '<div class="notice notice-error inline"><p>The pending jobs could not be queued for retry.</p></div>';
         } else {
             echo '<div class="notice notice-success inline"><p>' . esc_html( $updated ) . ' pending job(s) queued for retry.</p></div>';
+        }
+
+        echo "<p><a href='tools.php?page=wprocketrucssdebuger'>go back</a></p>";
+        echo '<hr>';
+    }
+
+
+    // RETRY IN-PROGRESS JOBS THAT HAVE NOT CHANGED FOR AT LEAST TWO HOURS.
+    elseif( isset($_GET['retry_stalled_in_progress_jobs'] ) ) {
+
+        if ( ! current_user_can( 'install_plugins' ) ) {
+            wp_die( esc_html__( 'You are not allowed to perform this action.' ) );
+        }
+
+        check_admin_referer( 'wpr_rucss_retry_stalled_in_progress_jobs' );
+
+        global $wpdb;
+        $table_name = $wpdb->prefix . 'wpr_rucss_used_css';
+        $updated    = $wpdb->query(
+            $wpdb->prepare(
+                "UPDATE `{$table_name}`
+                SET `status` = %s,
+                    `job_id` = '',
+                    `queue_name` = '',
+                    `retries` = 0,
+                    `error_code` = '',
+                    `error_message` = '',
+                    `submitted_at` = NULL,
+                    `next_retry_time` = '0000-00-00 00:00:00',
+                    `modified` = %s
+                WHERE `status` = %s
+                    AND `modified` <= DATE_SUB(UTC_TIMESTAMP(), INTERVAL 2 HOUR)",
+                'to-submit',
+                current_time( 'mysql', true ),
+                'in-progress'
+            )
+        );
+
+        echo "<h1 class='wp-heading-inline'>[<a href='tools.php?page=wprocketrucssdebuger'>&lsaquo; back</a>] RUCSS Debugger - Stalled In-Progress jobs queued for retry</h1>";
+        echo '<hr>';
+
+        if ( false === $updated ) {
+            echo '<div class="notice notice-error inline"><p>The stalled In-Progress jobs could not be queued for retry.</p></div>';
+        } else {
+            echo '<div class="notice notice-success inline"><p>' . esc_html( $updated ) . ' In-Progress job(s) older than two hours queued for retry.</p></div>';
         }
 
         echo "<p><a href='tools.php?page=wprocketrucssdebuger'>go back</a></p>";
@@ -321,6 +366,7 @@ function wprocketrucssdebuger_admin_page() {
     $totalrows = $wpdb->get_var("SELECT COUNT(*) FROM $wpdb->wpr_rucss_used_css");
     $completedcount = $wpdb->get_var("SELECT COUNT(*) FROM $wpdb->wpr_rucss_used_css WHERE status = 'completed'");
     $inprogresscount = $wpdb->get_var("SELECT COUNT(*) FROM $wpdb->wpr_rucss_used_css WHERE status = 'in-progress'");
+    $stalledinprogresscount = $wpdb->get_var("SELECT COUNT(*) FROM $wpdb->wpr_rucss_used_css WHERE status = 'in-progress' AND modified <= DATE_SUB(UTC_TIMESTAMP(), INTERVAL 2 HOUR)");
     $tosubmitcount = $wpdb->get_var("SELECT COUNT(*) FROM $wpdb->wpr_rucss_used_css WHERE status = 'to-submit'");
     $failedcount = $wpdb->get_var("SELECT COUNT(*) FROM $wpdb->wpr_rucss_used_css WHERE status = 'failed'");
     $pendingcount = $wpdb->get_var("SELECT COUNT(*) FROM $wpdb->wpr_rucss_used_css WHERE status = 'pending'");
@@ -338,6 +384,10 @@ function wprocketrucssdebuger_admin_page() {
         admin_url( 'tools.php?page=wprocketrucssdebuger&retry_pending_jobs=1' ),
         'wpr_rucss_retry_pending_jobs'
     );
+    $retry_stalled_in_progress_url = wp_nonce_url(
+        admin_url( 'tools.php?page=wprocketrucssdebuger&retry_stalled_in_progress_jobs=1' ),
+        'wpr_rucss_retry_stalled_in_progress_jobs'
+    );
     $retry_failed_url = wp_nonce_url(
         admin_url( 'tools.php?page=wprocketrucssdebuger&retry_failed_jobs=1' ),
         'wpr_rucss_retry_failed_jobs'
@@ -350,6 +400,9 @@ function wprocketrucssdebuger_admin_page() {
     echo '<a href="'.esc_url( get_site_url().'/wp-cron.php?doing_wp_cron' ).'" id="doing-cron-button">Run WP-Cron</a><span id="doing-cron-status"></span> - ';
     if ( 0 < (int) $pendingcount ) {
         echo '<a href="'.esc_url( $retry_pending_url ).'" onclick="return confirm(\'Queue every Pending RUCSS job for retry?\');">Retry Pending jobs</a> - ';
+    }
+    if ( 0 < (int) $stalledinprogresscount ) {
+        echo '<a href="'.esc_url( $retry_stalled_in_progress_url ).'" onclick="return confirm(\'Retry every In-Progress RUCSS job that has been unchanged for at least two hours? Newer active jobs will not be changed.\');">Retry stalled In-Progress jobs</a> - ';
     }
     if ( 0 < (int) $failedcount ) {
         echo '<a href="'.esc_url( $retry_failed_url ).'" onclick="return confirm(\'Reset and retry every Failed RUCSS job?\');">Retry Failed jobs</a> - ';

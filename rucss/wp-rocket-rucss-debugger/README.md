@@ -12,6 +12,7 @@ The plugin adds a page at **WordPress Admin Dashboard → Tools → RUCSS Debugg
 - Regenerate Used CSS for an individual URL.
 - Run WP-Cron manually.
 - **Retry Pending jobs:** shown only when Pending jobs exist; changes all `pending` jobs to `to-submit` so WP Rocket can submit them again.
+- **Retry stalled In-Progress jobs:** shown only when `in-progress` jobs have remained unchanged for at least two hours; clears their stale processing data and changes them to `to-submit`. Newer In-Progress jobs are not changed.
 - **Retry Failed jobs:** shown only when Failed jobs exist; clears stale job IDs, queue names, retry counts, error information, and retry timestamps, then changes all `failed` jobs to `to-submit`.
 - **Reset all Used CSS jobs:** clears the entire `{prefix}_wpr_rucss_used_css` table. Job records will be recreated when preload runs or pages are visited.
 
@@ -34,5 +35,5 @@ The bulk maintenance actions require an administrator with the `install_plugins`
 
 ## Compatibility
 
-- Helper version: 1.2.2
+- Helper version: 1.3.0
 - Designed for WP Rocket 3.23.x

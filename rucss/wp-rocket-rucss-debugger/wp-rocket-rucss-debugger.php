@@ -3,7 +3,7 @@
  * Plugin Name: WP Rocket - RUCSS Debugger
  * Plugin URI:  https://wp-media.me/
  * Description: A debugging tool for Remove Unused CSS.
- * Version:     1.1.0
+ * Version:     1.2.2
  * Author:      WP Rocket Support Team
  * Author URI:  https://wp-rocket.me/
  * License:     GNU General Public License v2 or later
@@ -44,7 +44,7 @@ function wprocketrucssdebuger_admin_page() {
     tr {background-color:#FFF;}
     .pagination a {display: inline-block; padding: 6px; background-color: #DDD; color: #333; text-decoration: none }
     .pagination a.current {background-color: #999; color: #FFF; }
-    .delete-all-rows-link {color:#b32d2e;font-weight:600}
+    .reset-all-jobs-link {color:#b32d2e;font-weight:600}
     
     </style>
     <div id="wpbody" role="main">
@@ -91,14 +91,14 @@ function wprocketrucssdebuger_admin_page() {
     
         }
         
-    // RESET ALL PENDING JOBS TO TO-SUBMIT.
-    elseif( isset($_GET['reset_pending_jobs'] ) ) {
+    // RETRY ALL PENDING JOBS.
+    elseif( isset($_GET['retry_pending_jobs'] ) ) {
 
         if ( ! current_user_can( 'install_plugins' ) ) {
             wp_die( esc_html__( 'You are not allowed to perform this action.' ) );
         }
 
-        check_admin_referer( 'wpr_rucss_reset_pending_jobs' );
+        check_admin_referer( 'wpr_rucss_retry_pending_jobs' );
 
         global $wpdb;
         $table_name = $wpdb->prefix . 'wpr_rucss_used_css';
@@ -111,13 +111,13 @@ function wprocketrucssdebuger_admin_page() {
             )
         );
 
-        echo "<h1 class='wp-heading-inline'>[<a href='tools.php?page=wprocketrucssdebuger'>&lsaquo; back</a>] RUCSS Debugger - Pending jobs reset</h1>";
+        echo "<h1 class='wp-heading-inline'>[<a href='tools.php?page=wprocketrucssdebuger'>&lsaquo; back</a>] RUCSS Debugger - Pending jobs queued for retry</h1>";
         echo '<hr>';
 
         if ( false === $updated ) {
-            echo '<div class="notice notice-error inline"><p>The pending jobs could not be reset.</p></div>';
+            echo '<div class="notice notice-error inline"><p>The pending jobs could not be queued for retry.</p></div>';
         } else {
-            echo '<div class="notice notice-success inline"><p>' . esc_html( $updated ) . ' pending job(s) changed to To Submit.</p></div>';
+            echo '<div class="notice notice-success inline"><p>' . esc_html( $updated ) . ' pending job(s) queued for retry.</p></div>';
         }
 
         echo "<p><a href='tools.php?page=wprocketrucssdebuger'>go back</a></p>";
@@ -125,26 +125,70 @@ function wprocketrucssdebuger_admin_page() {
     }
 
 
-    // DELETE ALL RUCSS ROWS.
-    elseif( isset($_GET['delete_all_rows'] ) ) {
+    // RETRY ALL FAILED JOBS.
+    elseif( isset($_GET['retry_failed_jobs'] ) ) {
 
         if ( ! current_user_can( 'install_plugins' ) ) {
             wp_die( esc_html__( 'You are not allowed to perform this action.' ) );
         }
 
-        check_admin_referer( 'wpr_rucss_delete_all_rows' );
+        check_admin_referer( 'wpr_rucss_retry_failed_jobs' );
+
+        global $wpdb;
+        $table_name = $wpdb->prefix . 'wpr_rucss_used_css';
+        $updated    = $wpdb->query(
+            $wpdb->prepare(
+                "UPDATE `{$table_name}`
+                SET `status` = %s,
+                    `job_id` = '',
+                    `queue_name` = '',
+                    `retries` = 0,
+                    `error_code` = '',
+                    `error_message` = '',
+                    `submitted_at` = NULL,
+                    `next_retry_time` = '0000-00-00 00:00:00',
+                    `modified` = %s
+                WHERE `status` = %s",
+                'to-submit',
+                current_time( 'mysql', true ),
+                'failed'
+            )
+        );
+
+        echo "<h1 class='wp-heading-inline'>[<a href='tools.php?page=wprocketrucssdebuger'>&lsaquo; back</a>] RUCSS Debugger - Failed jobs queued for retry</h1>";
+        echo '<hr>';
+
+        if ( false === $updated ) {
+            echo '<div class="notice notice-error inline"><p>The failed jobs could not be queued for retry.</p></div>';
+        } else {
+            echo '<div class="notice notice-success inline"><p>' . esc_html( $updated ) . ' failed job(s) queued for retry.</p></div>';
+        }
+
+        echo "<p><a href='tools.php?page=wprocketrucssdebuger'>go back</a></p>";
+        echo '<hr>';
+    }
+
+
+    // RESET ALL USED CSS JOBS.
+    elseif( isset($_GET['reset_all_jobs'] ) ) {
+
+        if ( ! current_user_can( 'install_plugins' ) ) {
+            wp_die( esc_html__( 'You are not allowed to perform this action.' ) );
+        }
+
+        check_admin_referer( 'wpr_rucss_reset_all_jobs' );
 
         global $wpdb;
         $table_name = $wpdb->prefix . 'wpr_rucss_used_css';
         $deleted    = $wpdb->query( "TRUNCATE TABLE `{$table_name}`" );
 
-        echo "<h1 class='wp-heading-inline'>[<a href='tools.php?page=wprocketrucssdebuger'>&lsaquo; back</a>] RUCSS Debugger - All rows deleted</h1>";
+        echo "<h1 class='wp-heading-inline'>[<a href='tools.php?page=wprocketrucssdebuger'>&lsaquo; back</a>] RUCSS Debugger - All Used CSS jobs reset</h1>";
         echo '<hr>';
 
         if ( false === $deleted ) {
-            echo '<div class="notice notice-error inline"><p>The RUCSS table could not be truncated.</p></div>';
+            echo '<div class="notice notice-error inline"><p>The Used CSS jobs could not be reset.</p></div>';
         } else {
-            echo '<div class="notice notice-success inline"><p>All rows in <strong>' . esc_html( $table_name ) . '</strong> were deleted.</p></div>';
+            echo '<div class="notice notice-success inline"><p>All Used CSS job records in <strong>' . esc_html( $table_name ) . '</strong> were cleared. They will be recreated when preload runs or pages are visited.</p></div>';
         }
 
         echo "<p><a href='tools.php?page=wprocketrucssdebuger'>go back</a></p>";
@@ -290,18 +334,27 @@ function wprocketrucssdebuger_admin_page() {
     
     echo "<h1 class='wp-heading-inline'><a href='tools.php?page=wprocketrucssdebuger'>RUCSS Debugger</a> -  contents of $wpdb->prefix wpr_rucss_used_css</h1>";
     echo '<hr>';
-    $reset_pending_url = wp_nonce_url(
-        admin_url( 'tools.php?page=wprocketrucssdebuger&reset_pending_jobs=1' ),
-        'wpr_rucss_reset_pending_jobs'
+    $retry_pending_url = wp_nonce_url(
+        admin_url( 'tools.php?page=wprocketrucssdebuger&retry_pending_jobs=1' ),
+        'wpr_rucss_retry_pending_jobs'
     );
-    $delete_all_rows_url = wp_nonce_url(
-        admin_url( 'tools.php?page=wprocketrucssdebuger&delete_all_rows=1' ),
-        'wpr_rucss_delete_all_rows'
+    $retry_failed_url = wp_nonce_url(
+        admin_url( 'tools.php?page=wprocketrucssdebuger&retry_failed_jobs=1' ),
+        'wpr_rucss_retry_failed_jobs'
+    );
+    $reset_all_jobs_url = wp_nonce_url(
+        admin_url( 'tools.php?page=wprocketrucssdebuger&reset_all_jobs=1' ),
+        'wpr_rucss_reset_all_jobs'
     );
 
     echo '<a href="'.esc_url( get_site_url().'/wp-cron.php?doing_wp_cron' ).'" id="doing-cron-button">Run WP-Cron</a><span id="doing-cron-status"></span> - ';
-    echo '<a href="'.esc_url( $reset_pending_url ).'" onclick="return confirm(\'Change every Pending RUCSS job to To Submit?\');">Reset all Pending jobs</a> - ';
-    echo '<a class="delete-all-rows-link" href="'.esc_url( $delete_all_rows_url ).'" onclick="return confirm(\'Delete every row from the RUCSS table? This cannot be undone.\');">Delete All Jobs</a><br><br>';
+    if ( 0 < (int) $pendingcount ) {
+        echo '<a href="'.esc_url( $retry_pending_url ).'" onclick="return confirm(\'Queue every Pending RUCSS job for retry?\');">Retry Pending jobs</a> - ';
+    }
+    if ( 0 < (int) $failedcount ) {
+        echo '<a href="'.esc_url( $retry_failed_url ).'" onclick="return confirm(\'Reset and retry every Failed RUCSS job?\');">Retry Failed jobs</a> - ';
+    }
+    echo '<a class="reset-all-jobs-link" href="'.esc_url( $reset_all_jobs_url ).'" onclick="return confirm(\'Reset all Used CSS jobs? Existing job records will be cleared and recreated when preload runs or pages are visited.\');">Reset all Used CSS jobs</a><br><br>';
     echo '<script src="'. esc_url( plugins_url( 'main.js', __FILE__ ) ) .'"></script>';
 
     

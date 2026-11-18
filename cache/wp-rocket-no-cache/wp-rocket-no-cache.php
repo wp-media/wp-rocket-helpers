@@ -5,9 +5,9 @@
  * Plugin URI:  https://github.com/wp-media/wp-rocket-helpers/tree/master/cache/wp-rocket-no-cache/
  * Version:     1.0.1
  * Author:      WP Rocket Support Team
- * Author URI:  http://wp-rocket.me/
+ * Author URI:  https://wp-rocket.me/
  * License:     GNU General Public License v2 or later
- * License URI: http://www.gnu.org/licenses/gpl-2.0.html
+ * License URI: https://www.gnu.org/licenses/gpl-2.0.html
  *
  * Copyright SAS WP MEDIA 2018
  */
@@ -20,7 +20,7 @@ defined( 'ABSPATH' ) or die();
 /**
  * Disable page caching in WP Rocket.
  *
- * @link http://docs.wp-rocket.me/article/61-disable-page-caching
+ * @link https://docs.wp-rocket.me/article/61-disable-page-caching
  */
 add_filter( 'do_rocket_generate_caching_files', '__return_false' );
 
